@@ -2,21 +2,14 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import Image from 'next/image';
+import { supabase } from './lib/supabase';
 
 // Types
-interface CarrierField {
-  name: string;
-  label: string;
-  type: string;
-  options?: string[];
-  placeholder?: string;
-  required: boolean;
-}
-
 interface Carrier {
   name: string;
   description: string;
-  fields?: CarrierField[];
+  serviceOptions?: string[];
+  commonFields?: string[];
 }
 
 interface Carriers {
@@ -147,97 +140,89 @@ const LOCATIONS = {
   }
 };
 
-// Carrier database with specific field requirements
+// Carrier database with service options and requirements
 const CARRIERS: { ocean: Carriers; air: Carriers } = {
   ocean: {
     youngBrothers: {
       name: 'Young Brothers',
       description: 'Inter-island freight specialist',
-      fields: [
-        { name: 'commodity_code', label: 'Commodity Code', type: 'text', placeholder: 'e.g., 4821', required: true },
-        { name: 'packing_type', label: 'Packing Type', type: 'select', options: ['Palletized', 'Crated', 'Loose', 'Containerized'], required: true }
-      ]
+      serviceOptions: ['Standard Service', 'Express Service', 'Refrigerated'],
+      commonFields: ['commodity_code', 'packing_type', 'declared_value']
     },
     matson: {
       name: 'Matson Navigation',
       description: 'West Coast ⇄ Hawaii',
-      fields: [
-        { name: 'container_type', label: 'Container Type', type: 'select', options: ['20ft Standard', '40ft Standard', '40ft High Cube', 'LCL (Less than Container Load)'], required: true },
-        { name: 'commodity_description', label: 'Detailed Commodity Description', type: 'text', placeholder: 'Full description of goods', required: true }
-      ]
+      serviceOptions: ['Standard Ocean Freight', 'Expedited Service', 'Temperature Controlled'],
+      commonFields: ['container_type', 'commodity_description', 'declared_value']
     },
     pasha: {
       name: 'Pasha Hawaii',
       description: 'West Coast ⇄ Hawaii freight',
-      fields: [
-        { name: 'pickup_location_type', label: 'Pickup Location Type', type: 'select', options: ['Pier/Port', 'Business Address', 'Residential'], required: true },
-        { name: 'delivery_location_type', label: 'Delivery Location Type', type: 'select', options: ['Pier/Port', 'Business Address', 'Residential'], required: true }
-      ]
+      serviceOptions: ['Standard Service', 'Express Service', 'Roll-On/Roll-Off'],
+      commonFields: ['pickup_location_type', 'delivery_location_type', 'commodity_description']
     }
   },
   air: {
     fedex: {
       name: 'FedEx Cargo',
       description: 'Global express shipping',
-      fields: [
-        { name: 'service_type', label: 'Service Type', type: 'select', options: ['FedEx Priority Overnight', 'FedEx 2Day', 'FedEx Express Saver', 'FedEx Ground'], required: true },
-        { name: 'dangerous_goods', label: 'Contains Dangerous Goods?', type: 'select', options: ['No', 'Yes - Lithium Batteries', 'Yes - Dry Ice', 'Yes - Other (specify in notes)'], required: true }
-      ]
+      serviceOptions: ['Priority Overnight', 'FedEx 2Day', 'Express Saver', 'Ground'],
+      commonFields: ['dangerous_goods', 'declared_value', 'packaging_type']
     },
     ups: {
       name: 'UPS Cargo',
       description: 'Reliable worldwide delivery',
-      fields: [
-        { name: 'service_type', label: 'Service Type', type: 'select', options: ['UPS Next Day Air', 'UPS 2nd Day Air', 'UPS 3 Day Select', 'UPS Ground'], required: true },
-        { name: 'declared_value', label: 'Declared Value (USD)', type: 'text', placeholder: 'e.g., 5000', required: false }
-      ]
+      serviceOptions: ['Next Day Air', '2nd Day Air', '3 Day Select', 'Ground'],
+      commonFields: ['declared_value', 'packaging_type', 'special_handling']
     },
     alohaAir: {
       name: 'Aloha Air Cargo',
       description: 'Fast inter-island & mainland',
-      fields: [
-        { name: 'packaging_condition', label: 'Packaging Condition', type: 'select', options: ['Factory Sealed', 'Boxed - Good Condition', 'Crated', 'Loose/Open'], required: true },
-        { name: 'declared_value', label: 'Declared Value (USD)', type: 'text', placeholder: 'e.g., 5000', required: false }
-      ]
+      serviceOptions: ['Same Day', 'Next Flight Out', 'Standard Service'],
+      commonFields: ['packaging_condition', 'declared_value', 'temperature_sensitive']
     },
     hawaiianAir: {
       name: 'Hawaiian Air Cargo',
       description: 'Priority air freight',
-      fields: [
-        { name: 'dangerous_goods', label: 'Contains Dangerous Goods?', type: 'select', options: ['No', 'Yes - Lithium Batteries', 'Yes - Other (specify in notes)'], required: true },
-        { name: 'time_sensitivity', label: 'Time Sensitivity', type: 'select', options: ['Standard (3-5 days)', 'Priority (1-2 days)', 'Next Flight Out'], required: true }
-      ]
+      serviceOptions: ['Next Flight Out', 'Priority (1-2 days)', 'Standard (3-5 days)'],
+      commonFields: ['dangerous_goods', 'time_sensitivity', 'special_handling']
     },
     hawaiiAir: {
       name: 'Hawaii Air Cargo',
       description: 'Local Hawaii air freight specialist',
-      fields: [
-        { name: 'delivery_type', label: 'Delivery Type', type: 'select', options: ['Airport Pickup', 'Door Delivery', 'Business Delivery'], required: true },
-        { name: 'time_sensitivity', label: 'Time Sensitivity', type: 'select', options: ['Standard', 'Same Day', 'Next Day'], required: true }
-      ]
+      serviceOptions: ['Same Day', 'Next Day', 'Standard Service'],
+      commonFields: ['delivery_type', 'packaging_type', 'time_sensitivity']
     },
     pacificAir: {
       name: 'Pacific Air Cargo',
       description: 'Trans-Pacific cargo specialist',
-      fields: [
-        { name: 'cargo_type_specific', label: 'Cargo Category', type: 'select', options: ['General Cargo', 'Perishables', 'High Value', 'Oversized'], required: true },
-        { name: 'packaging_type', label: 'Packaging Type', type: 'select', options: ['Palletized', 'Crated', 'Boxed', 'Loose'], required: true }
-      ]
+      serviceOptions: ['Express', 'Priority', 'Standard', 'Economy'],
+      commonFields: ['cargo_category', 'packaging_type', 'perishable']
     },
     dhx: {
       name: 'DHX (Dependable Hawaiian Express)',
       description: 'Hawaii inter-island express',
-      fields: [
-        { name: 'service_level', label: 'Service Level', type: 'select', options: ['Standard Delivery', 'Same Day', 'Next Day'], required: true },
-        { name: 'pickup_type', label: 'Pickup Type', type: 'select', options: ['Drop-off at Terminal', 'Scheduled Pickup', 'Will Call'], required: true }
-      ]
+      serviceOptions: ['Same Day', 'Next Day', 'Standard Delivery'],
+      commonFields: ['pickup_type', 'delivery_type', 'time_window']
     }
   }
 };
 
+// Common detail fields required by all carriers
+const COMMON_DETAIL_FIELDS = [
+  { name: 'commodity_description', label: 'Detailed Commodity Description', type: 'text', placeholder: 'Full description of goods', required: true },
+  { name: 'commodity_code', label: 'Commodity/HS Code (if known)', type: 'text', placeholder: 'e.g., 4821', required: false },
+  { name: 'declared_value', label: 'Declared Value (USD)', type: 'text', placeholder: 'e.g., 5000', required: true },
+  { name: 'packaging_type', label: 'Packaging Type', type: 'select', options: ['Palletized', 'Crated', 'Boxed', 'Loose', 'Containerized', 'Cooler'], required: true },
+  { name: 'dangerous_goods', label: 'Contains Dangerous/Hazardous Goods?', type: 'select', options: ['No', 'Yes - Lithium Batteries', 'Yes - Dry Ice', 'Yes - Flammable', 'Yes - Other (specify in notes)'], required: true },
+  { name: 'temperature_sensitive', label: 'Temperature Sensitive?', type: 'select', options: ['No', 'Yes - Refrigerated', 'Yes - Frozen', 'Yes - Climate Controlled'], required: false },
+  { name: 'pickup_location_type', label: 'Pickup Location Type', type: 'select', options: ['Pier/Port', 'Airport', 'Business Address', 'Residential'], required: true },
+  { name: 'delivery_location_type', label: 'Delivery Location Type', type: 'select', options: ['Pier/Port', 'Airport', 'Business Address', 'Residential'], required: true }
+];
+
 const slides = [
   // Hawaii Ports
-  { image: '/Harbor Hilo.jpg', alt: 'Hilo Harbor', label: 'Hilo' },
+  { image: '/Harbor-Hilo-New.jpg', alt: 'Hilo Harbor', label: 'Hilo' },
   { image: '/Harbor Honolulu.webp', alt: 'Honolulu Harbor', label: 'Honolulu' },
   { image: '/Harbor Kahului.jpg', alt: 'Kahului Harbor', label: 'Kahului' },
   { image: '/Harbor Nawiliwili.jpg', alt: 'Nawiliwili Harbor', label: 'Nawiliwili' },
@@ -252,12 +237,53 @@ export default function Home() {
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [selectedCarriers, setSelectedCarriers] = useState<string[]>([]);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [carrierFields, setCarrierFields] = useState<Map<string, any>>(new Map());
+  const [quoteComplete, setQuoteComplete] = useState(false);
   const [cargoType, setCargoType] = useState('');
   const [weight, setWeight] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [name, setName] = useState('');
+  const [completedFields, setCompletedFields] = useState<Set<string>>(new Set());
+  const [notificationPref, setNotificationPref] = useState('both');
+  const [selectedServices, setSelectedServices] = useState<Map<string, string[]>>(new Map());
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Helper function to mark field as completed
+  const markFieldCompleted = (fieldName: string, value: string) => {
+    if (value && value.trim() !== '') {
+      setCompletedFields(prev => new Set(prev).add(fieldName));
+    } else {
+      setCompletedFields(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(fieldName);
+        return newSet;
+      });
+    }
+  };
+
+  // Toggle service selection for a carrier
+  const toggleServiceSelection = (carrierKey: string, service: string) => {
+    setSelectedServices(prev => {
+      const newMap = new Map(prev);
+      const carrierServices = newMap.get(carrierKey) || [];
+      
+      if (carrierServices.includes(service)) {
+        // Remove service
+        const updated = carrierServices.filter(s => s !== service);
+        if (updated.length === 0) {
+          newMap.delete(carrierKey);
+        } else {
+          newMap.set(carrierKey, updated);
+        }
+      } else {
+        // Add service
+        newMap.set(carrierKey, [...carrierServices, service]);
+      }
+      
+      return newMap;
+    });
+  };
 
   // Slideshow effect
   useEffect(() => {
@@ -267,35 +293,6 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  // Update carrier fields when selected carriers change
-  useEffect(() => {
-    if (selectedCarriers.length === 0 || !shippingType) {
-      setCarrierFields(new Map());
-      return;
-    }
-
-    const allFields = new Map();
-    const carriers = CARRIERS[shippingType as keyof typeof CARRIERS];
-
-    selectedCarriers.forEach(carrierKey => {
-      const carrier = carriers[carrierKey];
-      if (carrier.fields) {
-        carrier.fields.forEach(field => {
-          const fieldKey = field.name;
-          if (!allFields.has(fieldKey)) {
-            allFields.set(fieldKey, {
-              ...field,
-              carriers: [carrier.name]
-            });
-          } else {
-            allFields.get(fieldKey).carriers.push(carrier.name);
-          }
-        });
-      }
-    });
-
-    setCarrierFields(allFields);
-  }, [selectedCarriers, shippingType]);
 
   const handleShippingTypeChange = (value: string) => {
     setShippingType(value);
@@ -303,7 +300,6 @@ export default function Home() {
     setOrigin('');
     setDestination('');
     setSelectedCarriers([]);
-    setCarrierFields(new Map());
   };
 
   const handleRouteTypeChange = (value: string) => {
@@ -314,11 +310,18 @@ export default function Home() {
 
   const handleCarrierToggle = (carrierKey: string) => {
     setSelectedCarriers(prev => {
-      if (prev.includes(carrierKey)) {
-        return prev.filter(c => c !== carrierKey);
+      const updated = prev.includes(carrierKey) 
+        ? prev.filter(c => c !== carrierKey)
+        : [...prev, carrierKey];
+      
+      // Mark carriers field as completed if at least one is selected
+      if (updated.length > 0) {
+        markFieldCompleted('carriers', 'selected');
       } else {
-        return [...prev, carrierKey];
+        markFieldCompleted('carriers', '');
       }
+      
+      return updated;
     });
   };
 
@@ -330,83 +333,125 @@ export default function Home() {
     
     if (selectedCarriers.length === allCarrierKeys.length) {
       setSelectedCarriers([]);
+      markFieldCompleted('carriers', '');
     } else {
       setSelectedCarriers(allCarrierKeys);
+      markFieldCompleted('carriers', 'selected');
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (isSubmitting) {
+      console.log('Already submitting, ignoring...');
+      return;
+    }
     
     if (selectedCarriers.length === 0) {
       alert('Please select at least one carrier to get quotes from.');
       return;
     }
-
-    const formData = new FormData(e.currentTarget);
+  
+    setIsSubmitting(true);
+    
+    // Store form reference before async operations
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-
-    // Collect carrier-specific fields
-    const carrierSpecificFields: { [key: string]: any } = {};
+  
+    // Collect carrier-specific service selections
+    const carrierServiceSelections: { [key: string]: any } = {};
     selectedCarriers.forEach(carrierKey => {
-      const carrier = CARRIERS[shippingType as keyof typeof CARRIERS][carrierKey];
-      carrierSpecificFields[carrierKey] = {};
-      if (carrier.fields) {
-        carrier.fields.forEach(field => {
-          const value = data[field.name];
-          if (value) {
-            carrierSpecificFields[carrierKey][field.name] = value;
-          }
-        });
-      }
+      const services = selectedServices.get(carrierKey) || [];
+      carrierServiceSelections[carrierKey] = {
+        selectedServices: services
+      };
     });
-
+  
     const quoteRequest = {
-      shippingType: data.shippingType,
-      routeType: data.routeType,
-      origin: data.origin,
-      destination: data.destination,
-      selectedCarriers: selectedCarriers,
-      carrierSpecificFields: carrierSpecificFields,
-      cargoType: data.cargoType,
-      weight: data.weight,
-      dimensions: {
-        length: data.length || null,
-        width: data.width || null,
-        height: data.height || null
-      },
-      quantity: data.quantity || '1',
-      specialInstructions: data.specialInstructions || '',
-      contact: {
-        phone: data.phone,
-        email: data.email,
+      user_email: data.email as string,
+      user_name: data.name as string,
+      user_phone: data.phone as string,
+      company_name: data.companyName as string || null,
+      pickup_island: data.origin as string,
+      delivery_island: data.destination as string,
+      cargo_type: data.cargoType as string,
+      length_inches: data.length ? parseFloat(data.length as string) : null,
+      width_inches: data.width ? parseFloat(data.width as string) : null,
+      height_inches: data.height ? parseFloat(data.height as string) : null,
+      weight_lbs: parseFloat(data.weight as string),
+      selected_carriers: selectedCarriers,
+      status: 'pending',
+      special_instructions: data.specialInstructions as string || null,
+      // Store additional data as JSON in metadata field
+      metadata: {
+        shippingType: data.shippingType,
+        routeType: data.routeType,
+        carrierServiceSelections: carrierServiceSelections,
+        commonDetails: Object.fromEntries(
+          COMMON_DETAIL_FIELDS.map(f => [f.name, data[f.name]])
+        ),
+        quantity: data.quantity,
         notificationPref: data.notificationPref
-      },
-      timestamp: new Date().toISOString()
+      }
     };
-
-    console.log('Quote Request Submitted:', quoteRequest);
-
-    // Show success message
-    setShowSuccess(true);
-    
-    // Reset form
-    e.currentTarget.reset();
-    setSelectedCarriers([]);
-    setShippingType('');
-    setRouteType('');
-    setOrigin('');
-    setDestination('');
-    setCargoType('');
-    setWeight('');
-    setPhone('');
-    setEmail('');
-    
-    // Hide success message after 5 seconds
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 5000);
-  };
+  
+    try {
+      console.log('Starting Supabase submission...');
+      
+      // Create a timeout promise
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => {
+          console.log('⏰ Timeout triggered after 10 seconds');
+          reject(new Error('Request timeout'));
+        }, 10000)
+      );
+      
+      // Race between Supabase call and timeout
+      const supabasePromise = supabase
+        .from('quote_requests')
+        .insert([quoteRequest])
+        .select();
+      
+      console.log('Waiting for Supabase response...');
+      const { data: insertedData, error } = await Promise.race([
+        supabasePromise,
+        timeoutPromise
+      ]) as any;
+      
+      console.log('Supabase response received:', { insertedData, error });
+      
+      if (error) {
+        console.error('Supabase error:', error);
+        alert(`Error submitting quote: ${error.message}. Please try again or contact support.`);
+        setIsSubmitting(false);
+        return;
+      }
+      
+      console.log('Quote submitted successfully:', insertedData);
+      
+      // Mark as complete - button will turn green
+      setQuoteComplete(true);
+      setIsSubmitting(false);
+      
+      // TODO: Send confirmation email
+      // You can set up email notifications using:
+      // 1. Supabase Edge Functions with a service like Resend
+      // 2. A separate API endpoint that sends emails
+      // 3. Supabase Database Webhooks
+      // For now, data is saved in Supabase and you can manually follow up
+  
+    } catch (error: any) {
+      console.error('Unexpected error:', error);
+      if (error.message === 'Request timeout') {
+        alert('Request timed out. Please check your connection and try again.');
+      } else {
+        alert('There was an unexpected error. Please try again or contact support.');
+      }
+      setIsSubmitting(false);
+    }
+  };  
 
   const getLocations = () => {
     if (!shippingType || !routeType) return { origins: [], destinations: [] };
@@ -438,7 +483,6 @@ export default function Home() {
                   style={{ objectFit: 'cover' }}
                   priority={index === 0}
                 />
-                <div className="port-label">{slide.label}</div>
               </div>
             ))}
           </div>
@@ -449,15 +493,15 @@ export default function Home() {
           <div className="info-container">
             <div className="logo-main">
               <Image 
-                src="/808-freight-logo_2.png" 
+                src="/808-freight-logo-white.png" 
                 alt="808 Freight Logo" 
-                width={240} 
+                width={900} 
                 height={240} 
-                style={{ objectFit: 'contain' }} 
+                style={{ width: '100%', height: 'auto', maxHeight: '240px', objectFit: 'contain' }} 
                 priority 
               />
             </div>
-            <p className="tagline">Hawaii&apos;s ONLY free quote comparison tool for shipping freight inter-island and west coast. Save TIME AND MONEY right here at 808 FREIGHT!</p>
+            <p className="tagline">Hawaii&apos;s <span style={{ color: '#1E9FD8' }}>ONLY</span> quote app for inter-island and West Coast shipping.<br/>Compare side-by-side quotes...<br/>FOR FREE! Only here at<br/><span style={{ color: '#ffffff', fontWeight: 900, fontSize: '2.8rem' }}>808 FREIGHT</span></p>
 
             <div className="steps-container">
               <div className="step">
@@ -490,18 +534,13 @@ export default function Home() {
                 }
               }}
             >
-              <div className="cta-arrow">↓</div>
-              <h2 className="cta-text">LETS GET SHIP DONE</h2>
-              <div className="cta-arrow">↓</div>
+              <div className="cta-arrow" style={{ color: '#ffffff' }}>↓</div>
+              <h2 className="cta-text" style={{ color: '#ffffff', fontSize: '1.8rem' }}>WE MAKE SHIP HAPPEN</h2>
+              <div className="cta-arrow" style={{ color: '#ffffff' }}>↓</div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* QUOTE FORM SECTION */}
-      <section id="quote-section">
-        {/* Featured Carriers */}
-        <div className="featured-carriers-section">
+            {/* Featured Carriers */}
+            <div className="featured-carriers-section">
           <h3 className="featured-carriers-title">Featured Carriers</h3>
           
           {/* Ocean Freight Row */}
@@ -571,21 +610,26 @@ export default function Home() {
               <div className="carrier-name-label">DHX</div>
             </div>
           </div>
+          </div>
         </div>
+        </div>
+      </section>
 
+      {/* QUOTE FORM SECTION */}
+      <section id="quote-section">
         <div className="form-container">
           <form id="quoteForm" className="quote-form" onSubmit={handleSubmit}>
-            <h2 className="form-title">Get Your Free Quote</h2>
+            <h2 className="form-title" style={{ color: '#1e3a8a' }}>Free <span style={{ textDecoration: 'underline' }}>808 FREIGHT</span> Quote</h2>
             
             {/* Shipping Type */}
             <div className="form-group">
-              <label htmlFor="shippingType">Shipping Type <span className="required">*</span></label>
+              <label htmlFor="shippingType">Shipping Type {completedFields.has('shippingType') ? <span className="completed"></span> : <span className="required">*</span>}</label>
               <select 
                 id="shippingType" 
                 name="shippingType" 
                 required 
                 value={shippingType}
-                onChange={(e) => handleShippingTypeChange(e.target.value)}
+                onChange={(e) => { handleShippingTypeChange(e.target.value); markFieldCompleted('shippingType', e.target.value); }}
               >
                 <option value="">Select shipping method...</option>
                 <option value="ocean">Ocean Freight (Sea)</option>
@@ -595,13 +639,13 @@ export default function Home() {
 
             {/* Route Type */}
             <div className="form-group">
-              <label htmlFor="routeType">Route Type <span className="required">*</span></label>
+              <label htmlFor="routeType">Route Type {completedFields.has('routeType') ? <span className="completed"></span> : <span className="required">*</span>}</label>
               <select 
                 id="routeType" 
                 name="routeType" 
                 required
                 value={routeType}
-                onChange={(e) => handleRouteTypeChange(e.target.value)}
+                onChange={(e) => { handleRouteTypeChange(e.target.value); markFieldCompleted('routeType', e.target.value); }}
                 disabled={!shippingType}
               >
                 <option value="">Select route...</option>
@@ -614,13 +658,13 @@ export default function Home() {
             {/* Origin & Destination */}
             <div className="form-row">
               <div className="form-group">
-                <label htmlFor="origin">Origin <span className="required">*</span></label>
+                <label htmlFor="origin">Origin {completedFields.has('origin') ? <span className="completed"></span> : <span className="required">*</span>}</label>
                 <select 
                   id="origin" 
                   name="origin" 
                   required
                   value={origin}
-                  onChange={(e) => setOrigin(e.target.value)}
+                  onChange={(e) => { setOrigin(e.target.value); markFieldCompleted('origin', e.target.value); }}
                   disabled={locations.origins.length === 0}
                 >
                   {locations.origins.length === 0 ? (
@@ -636,13 +680,13 @@ export default function Home() {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="destination">Destination <span className="required">*</span></label>
+                <label htmlFor="destination">Destination {completedFields.has('destination') ? <span className="completed"></span> : <span className="required">*</span>}</label>
                 <select 
                   id="destination" 
                   name="destination" 
                   required
                   value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
+                  onChange={(e) => { setDestination(e.target.value); markFieldCompleted('destination', e.target.value); }}
                   disabled={locations.destinations.length === 0}
                 >
                   {locations.destinations.length === 0 ? (
@@ -661,7 +705,7 @@ export default function Home() {
 
             {/* Select Carriers */}
             <div className="form-group">
-              <label>Select Carriers <span className="required">*</span></label>
+              <label>Select Carriers {completedFields.has('carriers') ? <span className="completed"></span> : <span className="required">*</span>}</label>
               {allCarrierKeys.length > 0 && destination && (
                 <div id="selectAllContainer">
                   <div 
@@ -712,23 +756,136 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Carrier-Specific Fields Container */}
-            {carrierFields.size > 0 && (
+            {/* Contact Information Section */}
+            <div className="contact-info-section" style={{ marginTop: '30px', paddingTop: '20px', borderTop: '2px solid rgba(30, 159, 216, 0.3)' }}>
+              <h3 style={{ color: '#1e3a8a', fontSize: '1.3em', marginBottom: '20px' }}>📞 Contact Information</h3>
+              
+              <div className="form-group">
+                <label htmlFor="companyName">Company Name (Optional)</label>
+                <input 
+                  type="text" 
+                  id="companyName" 
+                  name="companyName" 
+                  placeholder="Your Company Name" 
+                  value={companyName}
+                  onChange={(e) => setCompanyName(e.target.value)}
+                  disabled={!destination}
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="name">Name {completedFields.has('name') ? <span className="completed"></span> : <span className="required">*</span>}</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  placeholder="Your Full Name" 
+                  required 
+                  value={name}
+                  onChange={(e) => { setName(e.target.value); markFieldCompleted('name', e.target.value); }}
+                  disabled={!destination}
+                />
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="phone">Phone {completedFields.has('phone') ? <span className="completed"></span> : <span className="required">*</span>}</label>
+                  <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    placeholder="(808) 555-1234" 
+                    required 
+                    value={phone}
+                    onChange={(e) => { setPhone(e.target.value); markFieldCompleted('phone', e.target.value); }}
+                    disabled={!name}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email">Email {completedFields.has('email') ? <span className="completed"></span> : <span className="required">*</span>}</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="you@example.com" 
+                    required 
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value); markFieldCompleted('email', e.target.value); }}
+                    disabled={!name}
+                  />
+                </div>
+              </div>
+
+              {/* Notification Preference */}
+              <div className="form-group">
+                <label>How should we send your quotes? {completedFields.has('notificationPref') ? <span className="completed"></span> : <span className="required">*</span>}</label>
+                <div className="notification-prefs">
+                  <div className="radio-group">
+                    <input 
+                      type="radio" 
+                      id="sms" 
+                      name="notificationPref" 
+                      value="sms" 
+                      required 
+                      disabled={!email}
+                      checked={notificationPref === 'sms'}
+                      onChange={(e) => { setNotificationPref(e.target.value); markFieldCompleted('notificationPref', e.target.value); }}
+                    />
+                    <label htmlFor="sms" style={{ margin: 0 }}>Text Only</label>
+                  </div>
+                  <div className="radio-group">
+                    <input 
+                      type="radio" 
+                      id="email-only" 
+                      name="notificationPref" 
+                      value="email" 
+                      required 
+                      disabled={!email}
+                      checked={notificationPref === 'email'}
+                      onChange={(e) => { setNotificationPref(e.target.value); markFieldCompleted('notificationPref', e.target.value); }}
+                    />
+                    <label htmlFor="email-only" style={{ margin: 0 }}>Email Only</label>
+                  </div>
+                  <div className="radio-group">
+                    <input 
+                      type="radio" 
+                      id="both" 
+                      name="notificationPref" 
+                      value="both" 
+                      required 
+                      disabled={!email}
+                      checked={notificationPref === 'both'}
+                      onChange={(e) => { setNotificationPref(e.target.value); markFieldCompleted('notificationPref', e.target.value); }}
+                    />
+                    <label htmlFor="both" style={{ margin: 0 }}>Both</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Carrier-Specific Information - Redesigned */}
+            {selectedCarriers.length > 0 && (
               <div id="carrierFieldsContainer">
+                {/* Part 1: Common Details Section */}
                 <div className="carrier-specific-section">
-                  <div className="carrier-specific-title">📋 Carrier-Specific Information</div>
-                  <p style={{ color: '#94a3b8', fontSize: '0.95em', marginBottom: '20px' }}>
-                    These fields are required by your selected carriers for accurate quotes.
+                  <div className="carrier-specific-title">📋 Shipment Details</div>
+                  <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.95em', marginBottom: '20px' }}>
+                    Please provide the following details required by all carriers for accurate quotes.
                   </p>
                   
-                  {Array.from(carrierFields.entries()).map(([fieldKey, field]) => (
-                    <div key={fieldKey} className="form-group">
-                      <label htmlFor={fieldKey}>
-                        {field.label} {field.required && <span className="required">*</span>}
+                  {COMMON_DETAIL_FIELDS.map((field) => (
+                    <div key={field.name} className="form-group">
+                      <label htmlFor={field.name}>
+                        {field.label} {field.required ? (completedFields.has(field.name) ? <span className="completed"></span> : <span className="required">*</span>) : ''}
                       </label>
                       
                       {field.type === 'select' ? (
-                        <select id={fieldKey} name={fieldKey} required={field.required}>
+                        <select 
+                          id={field.name} 
+                          name={field.name} 
+                          required={field.required}
+                          onChange={(e) => markFieldCompleted(field.name, e.target.value)}
+                        >
                           <option value="">Select...</option>
                           {field.options?.map((option: string) => (
                             <option key={option} value={option}>{option}</option>
@@ -737,14 +894,13 @@ export default function Home() {
                       ) : (
                         <input 
                           type={field.type} 
-                          id={fieldKey} 
-                          name={fieldKey} 
+                          id={field.name} 
+                          name={field.name} 
                           placeholder={field.placeholder || ''} 
                           required={field.required}
+                          onChange={(e) => markFieldCompleted(field.name, e.target.value)}
                         />
                       )}
-                      
-                      <div className="field-note">Required by: {field.carriers.join(', ')}</div>
                     </div>
                   ))}
                 </div>
@@ -753,13 +909,13 @@ export default function Home() {
 
             {/* Cargo Details */}
             <div className="form-group">
-              <label htmlFor="cargoType">Cargo Type <span className="required">*</span></label>
+              <label htmlFor="cargoType">Cargo Type {completedFields.has('cargoType') ? <span className="completed"></span> : <span className="required">*</span>}</label>
               <select 
                 id="cargoType" 
                 name="cargoType" 
                 required
                 value={cargoType}
-                onChange={(e) => setCargoType(e.target.value)}
+                onChange={(e) => { setCargoType(e.target.value); markFieldCompleted('cargoType', e.target.value); }}
                 disabled={!destination || selectedCarriers.length === 0}
               >
                 <option value="">Select cargo type...</option>
@@ -775,7 +931,7 @@ export default function Home() {
 
             {/* Weight & Dimensions */}
             <div className="form-group">
-              <label htmlFor="weight">Weight (lbs) <span className="required">*</span></label>
+              <label htmlFor="weight">Weight (lbs) {completedFields.has('weight') ? <span className="completed"></span> : <span className="required">*</span>}</label>
               <input 
                 type="text" 
                 id="weight" 
@@ -783,7 +939,7 @@ export default function Home() {
                 placeholder="e.g., 500" 
                 required 
                 value={weight}
-                onChange={(e) => setWeight(e.target.value)}
+                onChange={(e) => { setWeight(e.target.value); markFieldCompleted('weight', e.target.value); }}
                 disabled={!cargoType}
               />
             </div>
@@ -820,62 +976,58 @@ export default function Home() {
               ></textarea>
             </div>
 
-            {/* Contact Information */}
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="phone">Phone <span className="required">*</span></label>
-                <input 
-                  type="tel" 
-                  id="phone" 
-                  name="phone" 
-                  placeholder="(808) 555-1234" 
-                  required 
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  disabled={!weight}
-                />
+            {/* Part 2: Individual Carrier Service Options */}
+            {selectedCarriers.length > 0 && weight && (
+              <div className="carrier-specific-section" style={{ marginTop: '25px' }}>
+                <div className="carrier-specific-title">🚢 Select Services by Carrier</div>
+                <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.95em', marginBottom: '20px' }}>
+                  Choose which service options you'd like quotes for from each carrier.
+                </p>
+                
+                {selectedCarriers.map(carrierKey => {
+                  const carrier = carriers[carrierKey];
+                  if (!carrier || !carrier.serviceOptions || carrier.serviceOptions.length === 0) {
+                    return null;
+                  }
+                  
+                  const carrierServices = selectedServices.get(carrierKey) || [];
+                  
+                  return (
+                    <div key={carrierKey} className="carrier-service-box">
+                      <h3 className="carrier-service-title">{carrier.name}</h3>
+                      <div className="service-options-list">
+                        {carrier.serviceOptions.map((service: string) => (
+                          <div
+                            key={service}
+                            className="service-option-item"
+                            onClick={() => toggleServiceSelection(carrierKey, service)}
+                          >
+                            <div className={`service-bubble ${carrierServices.includes(service) ? 'selected' : ''}`}></div>
+                            <span className="service-text">{service}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-              <div className="form-group">
-                <label htmlFor="email">Email <span className="required">*</span></label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  placeholder="you@example.com" 
-                  required 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={!phone}
-                />
-              </div>
-            </div>
+            )}
 
-            {/* Notification Preference */}
-            <div className="form-group">
-              <label>How should we send your quotes? <span className="required">*</span></label>
-              <div className="notification-prefs">
-                <div className="radio-group">
-                  <input type="radio" id="sms" name="notificationPref" value="sms" required disabled={!email} />
-                  <label htmlFor="sms" style={{ margin: 0 }}>Text Only</label>
-                </div>
-                <div className="radio-group">
-                  <input type="radio" id="email-only" name="notificationPref" value="email" required disabled={!email} />
-                  <label htmlFor="email-only" style={{ margin: 0 }}>Email Only</label>
-                </div>
-                <div className="radio-group">
-                  <input type="radio" id="both" name="notificationPref" value="both" required defaultChecked disabled={!email} />
-                  <label htmlFor="both" style={{ margin: 0 }}>Both</label>
-                </div>
-              </div>
-            </div>
-
-            <button type="submit" className="submit-btn" disabled={!email}>Get Free Quotes 🚀</button>
+            <button 
+              type="submit" 
+              className="submit-btn" 
+              disabled={!email || isSubmitting || quoteComplete}
+              style={quoteComplete ? {
+                background: '#39ff14',
+                color: '#1e3a8a',
+                fontWeight: 800,
+                boxShadow: '0 0 20px rgba(57, 255, 20, 0.6)',
+                cursor: 'default'
+              } : {}}
+            >
+              {quoteComplete ? '✅ Quote Complete!' : (isSubmitting ? 'Submitting...' : 'Get Free Quotes 🚀')}
+            </button>
           </form>
-
-          <div id="successMessage" className={`success-message ${showSuccess ? 'show' : ''}`}>
-            ✅ <strong>Quote Request Submitted!</strong><br />
-            We&apos;ll send quotes from your selected carriers within 24-48 hours.
-          </div>
         </div>
       </section>
     </main>

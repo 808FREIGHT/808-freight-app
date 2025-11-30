@@ -14,7 +14,26 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "808 Freight - Hawaii's Shipping Solution",
-  description: "Hawaii's Premier Inter-Island Shipping Solution. Get instant freight quotes from multiple carriers. One form, all Hawaii freight quotes.",
+  description: "Hawaii's ONLY quote app for inter-island and West Coast shipping. Compare side-by-side quotes FOR FREE!",
+  openGraph: {
+    title: "808 Freight - Hawaii's Shipping Solution",
+    description: "Hawaii's ONLY quote app for inter-island and West Coast shipping. Compare side-by-side quotes FOR FREE!",
+    images: [
+      {
+        url: "/808-freight-logo-white.png",
+        width: 1200,
+        height: 630,
+        alt: "808 Freight Logo",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "808 Freight - Hawaii's Shipping Solution",
+    description: "Hawaii's ONLY quote app for inter-island and West Coast shipping. Compare side-by-side quotes FOR FREE!",
+    images: ["/808-freight-logo-white.png"],
+  },
 };
 
 export default function RootLayout({
