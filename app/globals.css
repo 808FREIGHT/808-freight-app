@@ -1139,9 +1139,11 @@ label:has(+ textarea:disabled) {
 
 /* Mobile responsive */
 @media (max-width: 768px) {
+  /* Form Layout */
   .form-row,
   .form-row-3 {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
   
   .container {
@@ -1149,33 +1151,104 @@ label:has(+ textarea:disabled) {
   }
   
   .quote-form {
+    padding: 20px;
+    max-width: 100%;
+  }
+  
+  .form-container {
     padding: 15px;
+    margin: 0;
   }
 
+  /* Typography */
   .main-heading {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    line-height: 1.2;
   }
 
   .tagline {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
+  .form-title {
+    font-size: 1.8rem !important;
   }
 
+  /* Steps */
   .step {
     max-width: 100%;
+    width: 100%;
+    padding: 15px;
+  }
+  
+  .steps-container {
+    align-items: stretch;
+    gap: 15px;
   }
 
   .port-label {
-    font-size: 2rem;
-    bottom: 20px;
-    right: 25px;
+    font-size: 1.5rem;
+    bottom: 15px;
+    right: 15px;
   }
-
-  .steps-container {
-    align-items: stretch;
+  
+  /* Slideshow */
+  .slideshow-section {
+    height: 25vh;
   }
-
-  .step {
+  
+  /* Carrier Grid */
+  .carrier-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .carrier-card {
+    padding: 12px;
+  }
+  
+  /* Carrier Service Boxes */
+  .carrier-service-box {
+    padding: 15px;
+  }
+  
+  .carrier-service-title {
+    font-size: 1.1em;
+  }
+  
+  .service-option-item {
+    padding: 10px 5px;
+  }
+  
+  .service-text {
+    font-size: 0.95em;
+  }
+  
+  /* Buttons */
+  .submit-btn {
+    font-size: 1.1rem;
+    padding: 16px 30px;
+  }
+  
+  /* Inputs and Select */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+  }
+  
+  /* Notification Prefs */
+  .notification-prefs {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .radio-group {
     width: 100%;
+    justify-content: flex-start;
   }
 }
 

@@ -15,6 +15,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "808 Freight - Hawaii's Shipping Solution",
   description: "Hawaii's ONLY quote app for inter-island and West Coast shipping. Compare side-by-side quotes FOR FREE!",
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
   openGraph: {
     title: "808 Freight - Hawaii's Shipping Solution",
     description: "Hawaii's ONLY quote app for inter-island and West Coast shipping. Compare side-by-side quotes FOR FREE!",
