@@ -466,6 +466,11 @@ export default function Home() {
 
   return (
     <main>
+      {/* TEST SITE BANNER */}
+      <div className="test-banner">
+        ⚠️ TEST SITE - FOR TRIAL USE ONLY ⚠️
+      </div>
+      
       {/* LANDING SECTION */}
       <section id="landing-section">
         {/* Slideshow Section - 33% */}
