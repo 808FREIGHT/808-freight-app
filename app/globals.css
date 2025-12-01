@@ -1201,15 +1201,17 @@ label:has(+ textarea:disabled) {
   }
   
   .quote-form {
-    padding: 20px;
-    max-width: 100%;
-    width: 100%;
+    padding: 20px 15px;
+    max-width: 90%;
+    width: 90%;
+    margin: 0 auto;
   }
   
   .form-container {
     padding: 15px;
-    margin: 0;
-    max-width: 100%;
+    margin: 0 auto;
+    max-width: 90%;
+    width: 90%;
   }
 
   /* Typography */
@@ -1282,11 +1284,32 @@ label:has(+ textarea:disabled) {
   
   /* Featured Carriers */
   .featured-carriers-section {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 25px 15px;
-    border-radius: 0;
+    width: 90%;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 20px 12px;
+    border-radius: 8px;
+  }
+  
+  .carriers-grid {
+    flex-wrap: wrap !important;
+    justify-content: center;
+    gap: 15px !important;
+    padding: 10px 5px !important;
+  }
+  
+  .carriers-grid .carrier-card {
+    min-width: 70px !important;
+    max-width: 90px !important;
+  }
+  
+  .carriers-grid .carrier-logo-box {
+    width: 70px !important;
+    height: 45px !important;
+  }
+  
+  .carriers-grid .carrier-name-label {
+    font-size: 0.6rem !important;
   }
   
   .carrier-grid {
