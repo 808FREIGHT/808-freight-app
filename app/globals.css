@@ -1202,16 +1202,16 @@ label:has(+ textarea:disabled) {
   
   .quote-form {
     padding: 20px 15px;
-    max-width: 90%;
-    width: 90%;
+    max-width: 95%;
+    width: 95%;
     margin: 0 auto;
   }
   
   .form-container {
     padding: 15px;
     margin: 0 auto;
-    max-width: 90%;
-    width: 90%;
+    max-width: 95%;
+    width: 95%;
   }
 
   /* Typography */
