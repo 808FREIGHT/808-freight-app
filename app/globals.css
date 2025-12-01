@@ -1233,16 +1233,16 @@ label:has(+ textarea:disabled) {
   }
 
   .tagline {
-    font-size: 0.75rem;
-    line-height: 1.5;
+    font-size: 1.1rem;
+    line-height: 1.4;
     text-align: center;
-    padding: 0 10px;
+    padding: 0 15px;
     max-width: 100%;
     margin-bottom: 25px;
   }
   
   .tagline span {
-    font-size: 1.6rem !important; /* Override the 2.8rem inline style for "808 FREIGHT" text */
+    font-size: 1.8rem !important; /* Override the 2.8rem inline style for "808 FREIGHT" text */
     display: block;
     margin-top: 10px;
   }
