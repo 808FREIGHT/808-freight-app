@@ -506,7 +506,7 @@ export default function Home() {
                 priority 
               />
             </div>
-            <p className="tagline">Hawaii&apos;s <span style={{ color: '#1E9FD8' }}>ONLY</span> quote app for inter-island and West Coast shipping.<br/>Compare side-by-side quotes...<br/>FOR FREE! Only here at<br/><span style={{ color: '#ffffff', fontWeight: 900, fontSize: '2.8rem' }}>808 FREIGHT</span></p>
+            <p className="tagline"><span style={{ color: '#1E9FD8' }}>FREE</span> shipping quotes for Inter-Island and West Coast.<br/><span style={{ color: '#1E9FD8' }}>ONLY</span> here at <span style={{ color: '#ffffff', fontWeight: 900, fontSize: '2.8rem' }}>808 FREIGHT</span></p>
 
             <div className="steps-container">
               <div className="step">
