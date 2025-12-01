@@ -506,7 +506,7 @@ export default function Home() {
                 priority 
               />
             </div>
-            <p className="tagline">Free shipping quotes for Inter-island and West Coast.<br/>Only here @ <span style={{ color: '#ffffff', fontWeight: 900, fontSize: '2.8rem' }}>808 FREIGHT</span></p>
+            <p className="tagline"><span style={{ fontSize: '0.86rem' }}>Free</span> shipping quotes for Inter-island and West Coast.<br/><span style={{ fontSize: '0.86rem' }}>Only</span> here @ <span style={{ color: '#ffffff', fontWeight: 900, fontSize: '2.8rem' }}>808 FREIGHT</span></p>
 
             <div className="steps-container">
               <div className="step">
