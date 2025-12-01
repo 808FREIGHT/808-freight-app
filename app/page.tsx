@@ -431,16 +431,50 @@ export default function Home() {
       
       console.log('Quote submitted successfully:', insertedData);
       
+      // Send confirmation email
+      try {
+        console.log('Sending confirmation email...');
+        const emailResponse = await fetch('/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: data.email,
+            name: name,
+            companyName: companyName,
+            phone: data.phone,
+            shippingType: data.shippingType,
+            routeType: data.routeType,
+            origin: data.origin,
+            destination: data.destination,
+            selectedCarriers: selectedCarriers,
+            selectedServices: carrierServiceSelections,
+            cargoType: data.cargoType,
+            weight: data.weight,
+            length: data.length,
+            width: data.width,
+            height: data.height,
+            quantity: data.quantity,
+            notificationPrefs: data.notificationPref
+          }),
+        });
+        
+        const emailResult = await emailResponse.json();
+        if (emailResult.success) {
+          console.log('✅ Confirmation email sent successfully!');
+        } else {
+          console.warn('⚠️ Email failed to send:', emailResult.error);
+          // Don't block the form submission if email fails
+        }
+      } catch (emailError) {
+        console.error('Email error:', emailError);
+        // Don't block the form submission if email fails
+      }
+      
       // Mark as complete - button will turn green
       setQuoteComplete(true);
-      setIsSubmitting(false);
-      
-      // TODO: Send confirmation email
-      // You can set up email notifications using:
-      // 1. Supabase Edge Functions with a service like Resend
-      // 2. A separate API endpoint that sends emails
-      // 3. Supabase Database Webhooks
-      // For now, data is saved in Supabase and you can manually follow up
+      setIsSubmitting(false)
   
     } catch (error: any) {
       console.error('Unexpected error:', error);
