@@ -1139,6 +1139,29 @@ label:has(+ textarea:disabled) {
 
 /* Mobile responsive */
 @media (max-width: 768px) {
+  /* Fix background coverage */
+  #landing-section {
+    width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  #quote-section {
+    width: 100vw;
+    padding: 40px 15px;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure everything stays within viewport */
+  body {
+    overflow-x: hidden;
+    width: 100vw;
+  }
+  
+  html {
+    overflow-x: hidden;
+    width: 100vw;
+  }
+  
   /* Form Layout */
   .form-row,
   .form-row-3 {
@@ -1148,31 +1171,46 @@ label:has(+ textarea:disabled) {
   
   .container {
     padding: 10px;
+    max-width: 100%;
   }
   
   .quote-form {
     padding: 20px;
     max-width: 100%;
+    width: 100%;
   }
   
   .form-container {
     padding: 15px;
     margin: 0;
+    max-width: 100%;
   }
 
   /* Typography */
   .main-heading {
-    font-size: 2rem;
+    font-size: 2.2rem;
     line-height: 1.2;
+    text-align: center;
+    padding: 0 10px;
   }
 
   .tagline {
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-align: center;
+    padding: 0 15px;
+    max-width: 100%;
+  }
+  
+  .tagline span {
+    font-size: 2rem !important; /* Override the 2.8rem inline style for "808 FREIGHT" text */
+    display: block;
+    margin-top: 10px;
   }
   
   .form-title {
     font-size: 1.8rem !important;
+    text-align: center;
   }
 
   /* Steps */
@@ -1185,6 +1223,7 @@ label:has(+ textarea:disabled) {
   .steps-container {
     align-items: stretch;
     gap: 15px;
+    padding: 0 10px;
   }
 
   .port-label {
@@ -1196,21 +1235,65 @@ label:has(+ textarea:disabled) {
   /* Slideshow */
   .slideshow-section {
     height: 25vh;
+    width: 100vw;
   }
   
-  /* Carrier Grid */
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Featured Carriers */
+  .featured-carriers-section {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 25px 15px;
+    border-radius: 0;
+  }
+  
   .carrier-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0;
+    width: 100%;
   }
   
   .carrier-card {
-    padding: 12px;
+    padding: 12px 8px;
+  }
+  
+  .carrier-logo {
+    max-width: 70px;
+    max-height: 45px;
+  }
+  
+  .carrier-name {
+    font-size: 0.8rem;
+  }
+  
+  /* CTA Section */
+  .cta-section {
+    padding: 20px 15px;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .cta-text {
+    font-size: 1.4rem !important;
+    letter-spacing: 1px;
+  }
+  
+  .cta-arrow {
+    font-size: 2rem;
   }
   
   /* Carrier Service Boxes */
   .carrier-service-box {
     padding: 15px;
+    margin-left: 0;
+    margin-right: 0;
   }
   
   .carrier-service-title {
@@ -1229,6 +1312,7 @@ label:has(+ textarea:disabled) {
   .submit-btn {
     font-size: 1.1rem;
     padding: 16px 30px;
+    width: 100%;
   }
   
   /* Inputs and Select */
@@ -1238,6 +1322,7 @@ label:has(+ textarea:disabled) {
   select,
   textarea {
     font-size: 16px !important; /* Prevents zoom on iOS */
+    width: 100%;
   }
   
   /* Notification Prefs */
@@ -1249,6 +1334,15 @@ label:has(+ textarea:disabled) {
   .radio-group {
     width: 100%;
     justify-content: flex-start;
+  }
+  
+  /* Center all content */
+  main {
+    text-align: center;
+  }
+  
+  .form-group {
+    text-align: left;
   }
 }
 
