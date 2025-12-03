@@ -1098,7 +1098,7 @@ export default function Home() {
 
             <button 
               type="submit" 
-              className="submit-btn" 
+              className="submit-btn ship-me-btn" 
               disabled={!email || isSubmitting || quoteComplete}
               style={quoteComplete ? {
                 background: '#39ff14',
@@ -1109,9 +1109,9 @@ export default function Home() {
               } : {}}
             >
               {quoteComplete ? '✅ Quote Complete!' : (isSubmitting ? 'Submitting...' : (
-                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-                  SHIP ME!
-                  <Image src="/808-freight-logo-white.png" alt="808 Freight" width={40} height={20} style={{ objectFit: 'contain' }} />
+                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#ffffff', letterSpacing: '2px', textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}>SHIP ME!</span>
+                  <Image src="/808-freight-logo-white.png" alt="808 Freight" width={50} height={25} style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
                 </span>
               ))}
             </button>
@@ -1132,19 +1132,21 @@ export default function Home() {
                 <Image 
                   src="/808-freight-logo-white.png" 
                   alt="808 Freight" 
-                  width={120} 
-                  height={60} 
-                  style={{ objectFit: 'contain', opacity: 0.9 }} 
+                  width={100} 
+                  height={50} 
+                  style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} 
                 />
               </div>
-              <p className="how-it-works-footer">A HUI HOU!</p>
+              <div className="hui-hou-badge">
+                <span>A HUI HOU!</span>
+              </div>
               <div className="how-it-works-logo">
                 <Image 
                   src="/808-freight-logo-white.png" 
                   alt="808 Freight" 
-                  width={120} 
-                  height={60} 
-                  style={{ objectFit: 'contain', opacity: 0.9 }} 
+                  width={100} 
+                  height={50} 
+                  style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} 
                 />
               </div>
             </div>
