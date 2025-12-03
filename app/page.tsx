@@ -248,6 +248,8 @@ export default function Home() {
   const [notificationPref, setNotificationPref] = useState('both');
   const [selectedServices, setSelectedServices] = useState<Map<string, string[]>>(new Map());
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [shippingDate, setShippingDate] = useState('');
+  const [flexibleDates, setFlexibleDates] = useState(false);
 
   // Helper function to mark field as completed
   const markFieldCompleted = (fieldName: string, value: string) => {
@@ -388,6 +390,8 @@ export default function Home() {
       metadata: {
         shippingType: data.shippingType,
         routeType: data.routeType,
+        shippingDate: flexibleDates ? 'flexible' : data.shippingDate,
+        flexibleDates: flexibleDates,
         carrierServiceSelections: carrierServiceSelections,
         commonDetails: Object.fromEntries(
           COMMON_DETAIL_FIELDS.map(f => [f.name, data[f.name]])
@@ -742,6 +746,46 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Shipping Date */}
+            <div className="form-group">
+              <label htmlFor="shippingDate">
+                Estimated Date of Cargo Movement {completedFields.has('shippingDate') || flexibleDates ? <span className="completed"></span> : <span className="required">*</span>}
+              </label>
+              <p className="field-helper-text">When will your cargo be ready for pickup?</p>
+              <input 
+                type="date" 
+                id="shippingDate" 
+                name="shippingDate" 
+                required={!flexibleDates}
+                value={shippingDate}
+                onChange={(e) => { setShippingDate(e.target.value); markFieldCompleted('shippingDate', e.target.value); }}
+                disabled={!destination || flexibleDates}
+                min={new Date().toISOString().split('T')[0]}
+                max={new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
+              />
+              <div className="flexible-dates-option">
+                <input 
+                  type="checkbox" 
+                  id="flexibleDates" 
+                  name="flexibleDates"
+                  checked={flexibleDates}
+                  onChange={(e) => {
+                    setFlexibleDates(e.target.checked);
+                    if (e.target.checked) {
+                      setShippingDate('');
+                      markFieldCompleted('shippingDate', 'flexible');
+                    } else {
+                      markFieldCompleted('shippingDate', '');
+                    }
+                  }}
+                  disabled={!destination}
+                />
+                <label htmlFor="flexibleDates" className="flexible-label">
+                  Flexible on dates (can ship anytime within the next 2 weeks)
+                </label>
+              </div>
+            </div>
+
             {/* Select Carriers */}
             <div className="form-group">
               <label>Select Carriers {completedFields.has('carriers') ? <span className="completed"></span> : <span className="required">*</span>}</label>
@@ -1064,9 +1108,47 @@ export default function Home() {
                 cursor: 'default'
               } : {}}
             >
-              {quoteComplete ? '✅ Quote Complete!' : (isSubmitting ? 'Submitting...' : 'Get Free Quotes 🚀')}
+              {quoteComplete ? '✅ Quote Complete!' : (isSubmitting ? 'Submitting...' : (
+                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+                  SHIP ME!
+                  <Image src="/808-freight-logo-white.png" alt="808 Freight" width={40} height={20} style={{ objectFit: 'contain' }} />
+                </span>
+              ))}
             </button>
           </form>
+
+          {/* How It Works Section */}
+          <div className="how-it-works-box">
+            <h2 className="how-it-works-title">HOW DOES THIS ALL WORK?</h2>
+            <ul className="how-it-works-list">
+              <li>After the form is submitted, we send you a confirmation email including your quote request to all carriers you selected.</li>
+              <li>Quote times are based on carrier response.</li>
+              <li>As carriers respond with their quotes, it will be automatically forwarded to you via text, email, or both.</li>
+              <li>Once all quotes are received, we&apos;ll send you an email with all quotes compiled into one list, side by side to compare and get the best deal for your situation.</li>
+              <li>Click the link for the quote of your choice, and we&apos;ll send you directly to the carrier&apos;s website to complete your booking.</li>
+            </ul>
+            <div className="how-it-works-bottom">
+              <div className="how-it-works-logo">
+                <Image 
+                  src="/808-freight-logo-white.png" 
+                  alt="808 Freight" 
+                  width={120} 
+                  height={60} 
+                  style={{ objectFit: 'contain', opacity: 0.9 }} 
+                />
+              </div>
+              <p className="how-it-works-footer">A HUI HOU!</p>
+              <div className="how-it-works-logo">
+                <Image 
+                  src="/808-freight-logo-white.png" 
+                  alt="808 Freight" 
+                  width={120} 
+                  height={60} 
+                  style={{ objectFit: 'contain', opacity: 0.9 }} 
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
