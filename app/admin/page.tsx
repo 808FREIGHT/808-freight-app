@@ -38,12 +38,12 @@ const CARRIER_NAMES: { [key: string]: string } = {
   dhx: 'DHX',
 };
 
-// Status colors
-const STATUS_COLORS: { [key: string]: { bg: string; text: string } } = {
-  pending: { bg: '#fef3c7', text: '#92400e' },
-  in_progress: { bg: '#dbeafe', text: '#1e40af' },
-  completed: { bg: '#d1fae5', text: '#065f46' },
-  cancelled: { bg: '#fee2e2', text: '#991b1b' },
+// Status colors - dark theme
+const STATUS_COLORS: { [key: string]: { bg: string; text: string; border: string } } = {
+  pending: { bg: 'rgba(251, 191, 36, 0.1)', text: '#fbbf24', border: '#fbbf24' },
+  in_progress: { bg: 'rgba(59, 130, 246, 0.1)', text: '#3b82f6', border: '#3b82f6' },
+  completed: { bg: 'rgba(34, 197, 94, 0.1)', text: '#22c55e', border: '#22c55e' },
+  cancelled: { bg: 'rgba(239, 68, 68, 0.1)', text: '#ef4444', border: '#ef4444' },
 };
 
 export default function AdminDashboard() {
@@ -117,28 +117,50 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f1f5f9', fontFamily: 'Arial, sans-serif' }}>
+    <div style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#0a0a0a', 
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      color: '#ffffff'
+    }}>
       {/* Header */}
       <header style={{ 
-        backgroundColor: '#1e3a8a', 
+        backgroundColor: '#0a0a0a', 
         padding: '20px 30px',
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderBottom: '1px solid #27272a'
       }}>
-        <div>
-          <h1 style={{ color: '#ffffff', margin: 0, fontSize: '28px', fontWeight: 800 }}>808 FREIGHT</h1>
-          <p style={{ color: '#1E9FD8', margin: '5px 0 0', fontSize: '14px' }}>Admin Dashboard</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{
+            width: '40px',
+            height: '40px',
+            borderRadius: '10px',
+            background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 800,
+            fontSize: '18px'
+          }}>
+            8
+          </div>
+          <div>
+            <h1 style={{ color: '#ffffff', margin: 0, fontSize: '20px', fontWeight: 600 }}>808 Freight</h1>
+            <p style={{ color: '#71717a', margin: 0, fontSize: '13px' }}>Admin Dashboard</p>
+          </div>
         </div>
         <a 
           href="/"
           style={{
-            color: '#1E9FD8',
+            color: '#ffffff',
             textDecoration: 'none',
             fontSize: '14px',
             padding: '8px 16px',
-            border: '2px solid #1E9FD8',
-            borderRadius: '6px',
+            backgroundColor: '#27272a',
+            borderRadius: '8px',
+            transition: 'background 0.2s',
           }}
         >
           ← Back to Site
@@ -150,76 +172,78 @@ export default function AdminDashboard() {
         <div style={{ 
           display: 'grid', 
           gridTemplateColumns: 'repeat(4, 1fr)', 
-          gap: '20px',
+          gap: '16px',
           marginBottom: '30px'
         }}>
           <div style={{ 
-            backgroundColor: '#ffffff', 
-            padding: '25px', 
+            backgroundColor: '#18181b', 
+            padding: '24px', 
             borderRadius: '12px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+            border: '1px solid #27272a'
           }}>
-            <p style={{ color: '#64748b', fontSize: '14px', margin: 0, fontWeight: 600 }}>TOTAL QUOTES</p>
-            <p style={{ color: '#1e3a8a', fontSize: '36px', margin: '10px 0 0', fontWeight: 800 }}>{stats.total}</p>
+            <p style={{ color: '#71717a', fontSize: '13px', margin: 0, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Quotes</p>
+            <p style={{ color: '#ffffff', fontSize: '36px', margin: '8px 0 0', fontWeight: 700 }}>{stats.total}</p>
           </div>
           <div style={{ 
-            backgroundColor: '#fef3c7', 
-            padding: '25px', 
+            backgroundColor: '#18181b', 
+            padding: '24px', 
             borderRadius: '12px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+            border: '1px solid #27272a'
           }}>
-            <p style={{ color: '#92400e', fontSize: '14px', margin: 0, fontWeight: 600 }}>PENDING</p>
-            <p style={{ color: '#92400e', fontSize: '36px', margin: '10px 0 0', fontWeight: 800 }}>{stats.pending}</p>
+            <p style={{ color: '#fbbf24', fontSize: '13px', margin: 0, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pending</p>
+            <p style={{ color: '#fbbf24', fontSize: '36px', margin: '8px 0 0', fontWeight: 700 }}>{stats.pending}</p>
           </div>
           <div style={{ 
-            backgroundColor: '#dbeafe', 
-            padding: '25px', 
+            backgroundColor: '#18181b', 
+            padding: '24px', 
             borderRadius: '12px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+            border: '1px solid #27272a'
           }}>
-            <p style={{ color: '#1e40af', fontSize: '14px', margin: 0, fontWeight: 600 }}>IN PROGRESS</p>
-            <p style={{ color: '#1e40af', fontSize: '36px', margin: '10px 0 0', fontWeight: 800 }}>{stats.inProgress}</p>
+            <p style={{ color: '#3b82f6', fontSize: '13px', margin: 0, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.5px' }}>In Progress</p>
+            <p style={{ color: '#3b82f6', fontSize: '36px', margin: '8px 0 0', fontWeight: 700 }}>{stats.inProgress}</p>
           </div>
           <div style={{ 
-            backgroundColor: '#d1fae5', 
-            padding: '25px', 
+            backgroundColor: '#18181b', 
+            padding: '24px', 
             borderRadius: '12px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+            border: '1px solid #27272a'
           }}>
-            <p style={{ color: '#065f46', fontSize: '14px', margin: 0, fontWeight: 600 }}>COMPLETED</p>
-            <p style={{ color: '#065f46', fontSize: '36px', margin: '10px 0 0', fontWeight: 800 }}>{stats.completed}</p>
+            <p style={{ color: '#22c55e', fontSize: '13px', margin: 0, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Completed</p>
+            <p style={{ color: '#22c55e', fontSize: '36px', margin: '8px 0 0', fontWeight: 700 }}>{stats.completed}</p>
           </div>
         </div>
 
         {/* Main Content */}
-        <div style={{ display: 'grid', gridTemplateColumns: selectedQuote ? '1fr 400px' : '1fr', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: selectedQuote ? '1fr 420px' : '1fr', gap: '20px' }}>
           {/* Quotes List */}
           <div style={{ 
-            backgroundColor: '#ffffff', 
+            backgroundColor: '#18181b', 
             borderRadius: '12px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+            border: '1px solid #27272a',
             overflow: 'hidden'
           }}>
             {/* Filter Tabs */}
             <div style={{ 
               display: 'flex', 
-              borderBottom: '2px solid #e2e8f0',
-              padding: '0 20px'
+              borderBottom: '1px solid #27272a',
+              padding: '0 20px',
+              alignItems: 'center'
             }}>
               {['all', 'pending', 'in_progress', 'completed'].map(status => (
                 <button
                   key={status}
                   onClick={() => setFilter(status)}
                   style={{
-                    padding: '15px 20px',
+                    padding: '16px 20px',
                     border: 'none',
                     background: 'none',
                     cursor: 'pointer',
                     fontSize: '14px',
-                    fontWeight: 600,
-                    color: filter === status ? '#1e3a8a' : '#64748b',
-                    borderBottom: filter === status ? '3px solid #1e3a8a' : '3px solid transparent',
-                    marginBottom: '-2px',
+                    fontWeight: 500,
+                    color: filter === status ? '#ffffff' : '#71717a',
+                    borderBottom: filter === status ? '2px solid #3b82f6' : '2px solid transparent',
+                    marginBottom: '-1px',
+                    transition: 'color 0.2s',
                   }}
                 >
                   {status === 'all' ? 'All Quotes' : 
@@ -231,36 +255,37 @@ export default function AdminDashboard() {
                 onClick={fetchQuotes}
                 style={{
                   marginLeft: 'auto',
-                  padding: '10px 15px',
-                  border: '2px solid #1e3a8a',
-                  background: 'none',
-                  borderRadius: '6px',
+                  padding: '8px 16px',
+                  border: '1px solid #27272a',
+                  backgroundColor: '#27272a',
+                  borderRadius: '8px',
                   cursor: 'pointer',
-                  fontSize: '14px',
-                  fontWeight: 600,
-                  color: '#1e3a8a',
-                  margin: '10px 0 10px auto',
+                  fontSize: '13px',
+                  fontWeight: 500,
+                  color: '#ffffff',
+                  margin: '12px 0 12px auto',
+                  transition: 'background 0.2s',
                 }}
               >
-                Refresh
+                ↻ Refresh
               </button>
             </div>
 
             {/* Quotes Table */}
-            <div style={{ padding: '20px' }}>
+            <div style={{ padding: '0' }}>
               {loading ? (
-                <p style={{ textAlign: 'center', color: '#64748b', padding: '40px' }}>Loading quotes...</p>
+                <p style={{ textAlign: 'center', color: '#71717a', padding: '60px' }}>Loading quotes...</p>
               ) : filteredQuotes.length === 0 ? (
-                <p style={{ textAlign: 'center', color: '#64748b', padding: '40px' }}>No quotes found</p>
+                <p style={{ textAlign: 'center', color: '#71717a', padding: '60px' }}>No quotes found</p>
               ) : (
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <thead>
-                    <tr style={{ borderBottom: '2px solid #e2e8f0' }}>
-                      <th style={{ textAlign: 'left', padding: '12px', color: '#64748b', fontSize: '12px', fontWeight: 700 }}>DATE</th>
-                      <th style={{ textAlign: 'left', padding: '12px', color: '#64748b', fontSize: '12px', fontWeight: 700 }}>CUSTOMER</th>
-                      <th style={{ textAlign: 'left', padding: '12px', color: '#64748b', fontSize: '12px', fontWeight: 700 }}>ROUTE</th>
-                      <th style={{ textAlign: 'left', padding: '12px', color: '#64748b', fontSize: '12px', fontWeight: 700 }}>CARRIERS</th>
-                      <th style={{ textAlign: 'left', padding: '12px', color: '#64748b', fontSize: '12px', fontWeight: 700 }}>STATUS</th>
+                    <tr style={{ borderBottom: '1px solid #27272a' }}>
+                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#71717a', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Date</th>
+                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#71717a', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Customer</th>
+                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#71717a', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Route</th>
+                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#71717a', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Carriers</th>
+                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#71717a', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -269,32 +294,44 @@ export default function AdminDashboard() {
                         key={quote.id}
                         onClick={() => setSelectedQuote(quote)}
                         style={{ 
-                          borderBottom: '1px solid #e2e8f0',
+                          borderBottom: '1px solid #27272a',
                           cursor: 'pointer',
-                          backgroundColor: selectedQuote?.id === quote.id ? '#f1f5f9' : 'transparent',
+                          backgroundColor: selectedQuote?.id === quote.id ? '#27272a' : 'transparent',
+                          transition: 'background 0.15s',
+                        }}
+                        onMouseEnter={(e) => {
+                          if (selectedQuote?.id !== quote.id) {
+                            e.currentTarget.style.backgroundColor = '#1f1f23';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (selectedQuote?.id !== quote.id) {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                          }
                         }}
                       >
-                        <td style={{ padding: '15px 12px', fontSize: '14px', color: '#334155' }}>
+                        <td style={{ padding: '16px 20px', fontSize: '14px', color: '#a1a1aa' }}>
                           {formatDate(quote.created_at)}
                         </td>
-                        <td style={{ padding: '15px 12px' }}>
-                          <p style={{ margin: 0, fontSize: '14px', fontWeight: 600, color: '#1e293b' }}>{quote.user_name}</p>
-                          <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#64748b' }}>{quote.user_email}</p>
+                        <td style={{ padding: '16px 20px' }}>
+                          <p style={{ margin: 0, fontSize: '14px', fontWeight: 500, color: '#ffffff' }}>{quote.user_name}</p>
+                          <p style={{ margin: '2px 0 0', fontSize: '13px', color: '#71717a' }}>{quote.user_email}</p>
                         </td>
-                        <td style={{ padding: '15px 12px', fontSize: '14px', color: '#334155' }}>
+                        <td style={{ padding: '16px 20px', fontSize: '14px', color: '#a1a1aa' }}>
                           {quote.pickup_island?.split('(')[0]?.trim()} → {quote.delivery_island?.split('(')[0]?.trim()}
                         </td>
-                        <td style={{ padding: '15px 12px', fontSize: '13px', color: '#64748b' }}>
+                        <td style={{ padding: '16px 20px', fontSize: '13px', color: '#71717a' }}>
                           {quote.selected_carriers?.length || 0} carriers
                         </td>
-                        <td style={{ padding: '15px 12px' }}>
+                        <td style={{ padding: '16px 20px' }}>
                           <span style={{
-                            padding: '4px 10px',
-                            borderRadius: '12px',
+                            padding: '5px 12px',
+                            borderRadius: '6px',
                             fontSize: '12px',
-                            fontWeight: 600,
-                            backgroundColor: STATUS_COLORS[quote.status]?.bg || '#e2e8f0',
-                            color: STATUS_COLORS[quote.status]?.text || '#334155',
+                            fontWeight: 500,
+                            backgroundColor: STATUS_COLORS[quote.status]?.bg || 'rgba(113,113,122,0.1)',
+                            color: STATUS_COLORS[quote.status]?.text || '#71717a',
+                            border: `1px solid ${STATUS_COLORS[quote.status]?.border || '#27272a'}`,
                           }}>
                             {quote.status === 'in_progress' ? 'In Progress' : 
                              quote.status?.charAt(0).toUpperCase() + quote.status?.slice(1)}
@@ -311,24 +348,30 @@ export default function AdminDashboard() {
           {/* Quote Details Panel */}
           {selectedQuote && (
             <div style={{ 
-              backgroundColor: '#ffffff', 
+              backgroundColor: '#18181b', 
               borderRadius: '12px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-              padding: '25px',
+              border: '1px solid #27272a',
+              padding: '24px',
               height: 'fit-content',
               position: 'sticky',
               top: '20px'
             }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '20px' }}>
-                <h3 style={{ margin: 0, color: '#1e3a8a', fontSize: '18px', fontWeight: 700 }}>Quote Details</h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                <h3 style={{ margin: 0, color: '#ffffff', fontSize: '16px', fontWeight: 600 }}>Quote Details</h3>
                 <button 
                   onClick={() => setSelectedQuote(null)}
                   style={{ 
-                    background: 'none', 
+                    background: '#27272a', 
                     border: 'none', 
-                    fontSize: '20px', 
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '8px',
+                    fontSize: '18px', 
                     cursor: 'pointer',
-                    color: '#64748b'
+                    color: '#71717a',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
                   ×
@@ -336,22 +379,23 @@ export default function AdminDashboard() {
               </div>
 
               {/* Status Update */}
-              <div style={{ marginBottom: '20px' }}>
-                <p style={{ fontSize: '12px', color: '#64748b', margin: '0 0 8px', fontWeight: 600 }}>UPDATE STATUS</p>
+              <div style={{ marginBottom: '24px' }}>
+                <p style={{ fontSize: '12px', color: '#71717a', margin: '0 0 10px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Update Status</p>
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   {['pending', 'in_progress', 'completed', 'cancelled'].map(status => (
                     <button
                       key={status}
                       onClick={() => updateStatus(selectedQuote.id, status)}
                       style={{
-                        padding: '6px 12px',
-                        borderRadius: '6px',
-                        border: selectedQuote.status === status ? 'none' : '2px solid #e2e8f0',
+                        padding: '8px 14px',
+                        borderRadius: '8px',
+                        border: `1px solid ${selectedQuote.status === status ? STATUS_COLORS[status]?.border : '#27272a'}`,
                         backgroundColor: selectedQuote.status === status ? STATUS_COLORS[status]?.bg : 'transparent',
-                        color: selectedQuote.status === status ? STATUS_COLORS[status]?.text : '#64748b',
-                        fontSize: '12px',
-                        fontWeight: 600,
+                        color: selectedQuote.status === status ? STATUS_COLORS[status]?.text : '#71717a',
+                        fontSize: '13px',
+                        fontWeight: 500,
                         cursor: 'pointer',
+                        transition: 'all 0.2s',
                       }}
                     >
                       {status === 'in_progress' ? 'In Progress' : status.charAt(0).toUpperCase() + status.slice(1)}
@@ -361,64 +405,75 @@ export default function AdminDashboard() {
               </div>
 
               {/* Customer Info */}
-              <div style={{ backgroundColor: '#f8fafc', padding: '15px', borderRadius: '8px', marginBottom: '15px' }}>
-                <p style={{ fontSize: '12px', color: '#64748b', margin: '0 0 10px', fontWeight: 600 }}>CUSTOMER</p>
-                <p style={{ margin: '0 0 5px', fontWeight: 600, color: '#1e293b' }}>{selectedQuote.user_name}</p>
+              <div style={{ backgroundColor: '#0a0a0a', padding: '16px', borderRadius: '10px', marginBottom: '16px', border: '1px solid #27272a' }}>
+                <p style={{ fontSize: '11px', color: '#71717a', margin: '0 0 12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Customer</p>
+                <p style={{ margin: '0 0 6px', fontWeight: 600, color: '#ffffff', fontSize: '15px' }}>{selectedQuote.user_name}</p>
                 {selectedQuote.company_name && (
-                  <p style={{ margin: '0 0 5px', fontSize: '14px', color: '#64748b' }}>{selectedQuote.company_name}</p>
+                  <p style={{ margin: '0 0 6px', fontSize: '14px', color: '#71717a' }}>{selectedQuote.company_name}</p>
                 )}
-                <p style={{ margin: '0 0 5px', fontSize: '14px' }}>
-                  <a href={`mailto:${selectedQuote.user_email}`} style={{ color: '#1e3a8a' }}>{selectedQuote.user_email}</a>
+                <p style={{ margin: '0 0 4px', fontSize: '14px' }}>
+                  <a href={`mailto:${selectedQuote.user_email}`} style={{ color: '#3b82f6', textDecoration: 'none' }}>{selectedQuote.user_email}</a>
                 </p>
                 <p style={{ margin: 0, fontSize: '14px' }}>
-                  <a href={`tel:${selectedQuote.user_phone}`} style={{ color: '#1e3a8a' }}>{selectedQuote.user_phone}</a>
+                  <a href={`tel:${selectedQuote.user_phone}`} style={{ color: '#3b82f6', textDecoration: 'none' }}>{selectedQuote.user_phone}</a>
                 </p>
               </div>
 
               {/* Shipment Info */}
-              <div style={{ backgroundColor: '#1E9FD8', padding: '15px', borderRadius: '8px', marginBottom: '15px' }}>
-                <p style={{ fontSize: '12px', color: '#1e3a8a', margin: '0 0 10px', fontWeight: 600 }}>SHIPMENT</p>
-                <p style={{ margin: '0 0 8px', fontSize: '14px', color: '#1e3a8a' }}>
-                  <strong>Type:</strong> {selectedQuote.metadata?.shippingType === 'ocean' ? 'Ocean Freight' : 'Air Cargo'}
-                </p>
-                <p style={{ margin: '0 0 8px', fontSize: '14px', color: '#1e3a8a' }}>
-                  <strong>From:</strong> {selectedQuote.pickup_island}
-                </p>
-                <p style={{ margin: 0, fontSize: '14px', color: '#1e3a8a' }}>
-                  <strong>To:</strong> {selectedQuote.delivery_island}
-                </p>
+              <div style={{ backgroundColor: '#0a0a0a', padding: '16px', borderRadius: '10px', marginBottom: '16px', border: '1px solid #27272a' }}>
+                <p style={{ fontSize: '11px', color: '#71717a', margin: '0 0 12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Shipment</p>
+                <div style={{ display: 'grid', gap: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#71717a', fontSize: '14px' }}>Type</span>
+                    <span style={{ color: '#ffffff', fontSize: '14px', fontWeight: 500 }}>{selectedQuote.metadata?.shippingType === 'ocean' ? '🚢 Ocean' : '✈️ Air'}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#71717a', fontSize: '14px' }}>From</span>
+                    <span style={{ color: '#ffffff', fontSize: '14px', fontWeight: 500, textAlign: 'right', maxWidth: '200px' }}>{selectedQuote.pickup_island?.split('(')[0]?.trim()}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#71717a', fontSize: '14px' }}>To</span>
+                    <span style={{ color: '#ffffff', fontSize: '14px', fontWeight: 500, textAlign: 'right', maxWidth: '200px' }}>{selectedQuote.delivery_island?.split('(')[0]?.trim()}</span>
+                  </div>
+                </div>
               </div>
 
               {/* Cargo Info */}
-              <div style={{ backgroundColor: '#f8fafc', padding: '15px', borderRadius: '8px', marginBottom: '15px' }}>
-                <p style={{ fontSize: '12px', color: '#64748b', margin: '0 0 10px', fontWeight: 600 }}>CARGO</p>
-                <p style={{ margin: '0 0 5px', fontSize: '14px', color: '#334155' }}>
-                  <strong>Type:</strong> {selectedQuote.cargo_type}
-                </p>
-                <p style={{ margin: '0 0 5px', fontSize: '14px', color: '#334155' }}>
-                  <strong>Weight:</strong> {selectedQuote.weight_lbs} lbs
-                </p>
-                {selectedQuote.length_inches && (
-                  <p style={{ margin: '0 0 5px', fontSize: '14px', color: '#334155' }}>
-                    <strong>Dimensions:</strong> {selectedQuote.length_inches}" × {selectedQuote.width_inches}" × {selectedQuote.height_inches}"
-                  </p>
-                )}
+              <div style={{ backgroundColor: '#0a0a0a', padding: '16px', borderRadius: '10px', marginBottom: '16px', border: '1px solid #27272a' }}>
+                <p style={{ fontSize: '11px', color: '#71717a', margin: '0 0 12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Cargo</p>
+                <div style={{ display: 'grid', gap: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#71717a', fontSize: '14px' }}>Type</span>
+                    <span style={{ color: '#ffffff', fontSize: '14px', fontWeight: 500 }}>{selectedQuote.cargo_type}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#71717a', fontSize: '14px' }}>Weight</span>
+                    <span style={{ color: '#ffffff', fontSize: '14px', fontWeight: 500 }}>{selectedQuote.weight_lbs} lbs</span>
+                  </div>
+                  {selectedQuote.length_inches && (
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: '#71717a', fontSize: '14px' }}>Dimensions</span>
+                      <span style={{ color: '#ffffff', fontSize: '14px', fontWeight: 500 }}>{selectedQuote.length_inches}" × {selectedQuote.width_inches}" × {selectedQuote.height_inches}"</span>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Carriers */}
-              <div style={{ backgroundColor: '#f8fafc', padding: '15px', borderRadius: '8px', marginBottom: '15px' }}>
-                <p style={{ fontSize: '12px', color: '#64748b', margin: '0 0 10px', fontWeight: 600 }}>CARRIERS REQUESTED</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+              <div style={{ backgroundColor: '#0a0a0a', padding: '16px', borderRadius: '10px', marginBottom: '16px', border: '1px solid #27272a' }}>
+                <p style={{ fontSize: '11px', color: '#71717a', margin: '0 0 12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Carriers Requested</p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                   {selectedQuote.selected_carriers?.map(carrier => (
                     <span 
                       key={carrier}
                       style={{
-                        padding: '4px 10px',
-                        backgroundColor: '#1e3a8a',
-                        color: '#ffffff',
+                        padding: '6px 12px',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        color: '#3b82f6',
                         borderRadius: '6px',
-                        fontSize: '12px',
-                        fontWeight: 600,
+                        fontSize: '13px',
+                        fontWeight: 500,
+                        border: '1px solid rgba(59, 130, 246, 0.3)',
                       }}
                     >
                       {CARRIER_NAMES[carrier] || carrier}
@@ -429,15 +484,15 @@ export default function AdminDashboard() {
 
               {/* Special Instructions */}
               {selectedQuote.special_instructions && (
-                <div style={{ backgroundColor: '#fef3c7', padding: '15px', borderRadius: '8px' }}>
-                  <p style={{ fontSize: '12px', color: '#92400e', margin: '0 0 10px', fontWeight: 600 }}>SPECIAL INSTRUCTIONS</p>
-                  <p style={{ margin: 0, fontSize: '14px', color: '#92400e' }}>{selectedQuote.special_instructions}</p>
+                <div style={{ backgroundColor: 'rgba(251, 191, 36, 0.05)', padding: '16px', borderRadius: '10px', border: '1px solid rgba(251, 191, 36, 0.2)' }}>
+                  <p style={{ fontSize: '11px', color: '#fbbf24', margin: '0 0 8px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Special Instructions</p>
+                  <p style={{ margin: 0, fontSize: '14px', color: '#fbbf24', lineHeight: 1.5 }}>{selectedQuote.special_instructions}</p>
                 </div>
               )}
 
               {/* Quote ID */}
-              <p style={{ fontSize: '11px', color: '#94a3b8', marginTop: '20px', textAlign: 'center' }}>
-                ID: {selectedQuote.id}
+              <p style={{ fontSize: '11px', color: '#52525b', marginTop: '20px', textAlign: 'center', fontFamily: 'monospace' }}>
+                {selectedQuote.id}
               </p>
             </div>
           )}
@@ -446,5 +501,3 @@ export default function AdminDashboard() {
     </div>
   );
 }
-
-
