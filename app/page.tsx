@@ -1148,23 +1148,23 @@ export default function Home() {
             }}>
               <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
                 <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
-                After the form is submitted, we send you a confirmation email including your quote request to all carriers you selected.
+                After you submit the form, we&apos;ll send you a confirmation email and forward your quote request to all carriers you selected.
               </li>
               <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
                 <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
-                Quote times are based on carrier response.
+                Quote response times vary by carrier.
               </li>
               <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
                 <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
-                As carriers respond with their quotes, it will be automatically forwarded to you via text, email, or both.
+                As carriers respond with their quotes, they&apos;ll be automatically forwarded to you via text, email, or both.
               </li>
               <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
                 <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
-                Once all quotes are received, we&apos;ll send you an email with all quotes compiled into one list, side by side to compare and get the best deal for your situation.
+                Once all quotes are received, we&apos;ll send you an email with everything compiled side by side so you can compare and choose the best deal.
               </li>
               <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', textAlign: 'left' }}>
                 <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
-                Click the link for the quote of your choice, and we&apos;ll send you directly to the carrier&apos;s website to complete your booking.
+                Click the link for your preferred quote, and you&apos;ll be taken directly to the carrier&apos;s website to complete your booking.
               </li>
             </ul>
             <div style={{
