@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 
 // ADMIN PASSWORD - Change this to your preferred password
-const ADMIN_PASSWORD = '808freight';
+const ADMIN_PASSWORD = 'walk the plank';
 
 // Types
 interface QuoteRequest {
