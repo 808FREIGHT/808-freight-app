@@ -1115,7 +1115,7 @@ export default function Home() {
             >
               {quoteComplete ? '✅ Quote Complete!' : (isSubmitting ? 'Submitting...' : (
                 <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
-                  <span style={{ fontSize: '1.6rem', fontWeight: 900, color: '#ffffff', letterSpacing: '3px', textShadow: '2px 2px 6px rgba(0,0,0,0.4)' }}>SHIP ME!</span>
+                  <span style={{ fontSize: '1.6rem', fontWeight: 800, color: '#ffffff', letterSpacing: '2px', textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}>SHIP ME!</span>
                   <Image src="/808-freight-logo-white.png" alt="808 Freight" width={60} height={30} style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
                 </span>
               ))}
