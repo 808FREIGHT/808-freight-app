@@ -181,8 +181,8 @@ export default function AdminDashboard() {
             borderRadius: '12px',
             border: '1px solid #27272a'
           }}>
-            <p style={{ color: '#71717a', fontSize: '13px', margin: 0, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Quotes</p>
-            <p style={{ color: '#ffffff', fontSize: '36px', margin: '8px 0 0', fontWeight: 700 }}>{stats.total}</p>
+            <p style={{ color: '#a1a1aa', fontSize: '13px', margin: 0, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Quotes</p>
+            <p style={{ color: '#ffffff', fontSize: '38px', margin: '8px 0 0', fontWeight: 700 }}>{stats.total}</p>
           </div>
           <div style={{ 
             backgroundColor: '#18181b', 
@@ -190,8 +190,8 @@ export default function AdminDashboard() {
             borderRadius: '12px',
             border: '1px solid #27272a'
           }}>
-            <p style={{ color: '#fbbf24', fontSize: '13px', margin: 0, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pending</p>
-            <p style={{ color: '#fbbf24', fontSize: '36px', margin: '8px 0 0', fontWeight: 700 }}>{stats.pending}</p>
+            <p style={{ color: '#fbbf24', fontSize: '13px', margin: 0, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Pending</p>
+            <p style={{ color: '#fbbf24', fontSize: '38px', margin: '8px 0 0', fontWeight: 700 }}>{stats.pending}</p>
           </div>
           <div style={{ 
             backgroundColor: '#18181b', 
@@ -199,8 +199,8 @@ export default function AdminDashboard() {
             borderRadius: '12px',
             border: '1px solid #27272a'
           }}>
-            <p style={{ color: '#3b82f6', fontSize: '13px', margin: 0, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.5px' }}>In Progress</p>
-            <p style={{ color: '#3b82f6', fontSize: '36px', margin: '8px 0 0', fontWeight: 700 }}>{stats.inProgress}</p>
+            <p style={{ color: '#3b82f6', fontSize: '13px', margin: 0, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>In Progress</p>
+            <p style={{ color: '#3b82f6', fontSize: '38px', margin: '8px 0 0', fontWeight: 700 }}>{stats.inProgress}</p>
           </div>
           <div style={{ 
             backgroundColor: '#18181b', 
@@ -208,8 +208,8 @@ export default function AdminDashboard() {
             borderRadius: '12px',
             border: '1px solid #27272a'
           }}>
-            <p style={{ color: '#22c55e', fontSize: '13px', margin: 0, fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Completed</p>
-            <p style={{ color: '#22c55e', fontSize: '36px', margin: '8px 0 0', fontWeight: 700 }}>{stats.completed}</p>
+            <p style={{ color: '#22c55e', fontSize: '13px', margin: 0, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Completed</p>
+            <p style={{ color: '#22c55e', fontSize: '38px', margin: '8px 0 0', fontWeight: 700 }}>{stats.completed}</p>
           </div>
         </div>
 
@@ -281,11 +281,11 @@ export default function AdminDashboard() {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid #27272a' }}>
-                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#71717a', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Date</th>
-                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#71717a', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Customer</th>
-                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#71717a', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Route</th>
-                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#71717a', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Carriers</th>
-                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#71717a', fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Status</th>
+                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#a1a1aa', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Date</th>
+                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#a1a1aa', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Customer</th>
+                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#a1a1aa', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Route</th>
+                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#a1a1aa', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Carriers</th>
+                      <th style={{ textAlign: 'left', padding: '14px 20px', color: '#a1a1aa', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -310,25 +310,25 @@ export default function AdminDashboard() {
                           }
                         }}
                       >
-                        <td style={{ padding: '16px 20px', fontSize: '14px', color: '#a1a1aa' }}>
+                        <td style={{ padding: '18px 20px', fontSize: '15px', color: '#d4d4d8' }}>
                           {formatDate(quote.created_at)}
                         </td>
-                        <td style={{ padding: '16px 20px' }}>
-                          <p style={{ margin: 0, fontSize: '14px', fontWeight: 500, color: '#ffffff' }}>{quote.user_name}</p>
-                          <p style={{ margin: '2px 0 0', fontSize: '13px', color: '#71717a' }}>{quote.user_email}</p>
+                        <td style={{ padding: '18px 20px' }}>
+                          <p style={{ margin: 0, fontSize: '15px', fontWeight: 600, color: '#ffffff' }}>{quote.user_name}</p>
+                          <p style={{ margin: '3px 0 0', fontSize: '14px', color: '#a1a1aa' }}>{quote.user_email}</p>
                         </td>
-                        <td style={{ padding: '16px 20px', fontSize: '14px', color: '#a1a1aa' }}>
+                        <td style={{ padding: '18px 20px', fontSize: '15px', color: '#d4d4d8' }}>
                           {quote.pickup_island?.split('(')[0]?.trim()} → {quote.delivery_island?.split('(')[0]?.trim()}
                         </td>
-                        <td style={{ padding: '16px 20px', fontSize: '13px', color: '#71717a' }}>
+                        <td style={{ padding: '18px 20px', fontSize: '15px', color: '#a1a1aa' }}>
                           {quote.selected_carriers?.length || 0} carriers
                         </td>
-                        <td style={{ padding: '16px 20px' }}>
+                        <td style={{ padding: '18px 20px' }}>
                           <span style={{
-                            padding: '5px 12px',
+                            padding: '6px 14px',
                             borderRadius: '6px',
-                            fontSize: '12px',
-                            fontWeight: 500,
+                            fontSize: '13px',
+                            fontWeight: 600,
                             backgroundColor: STATUS_COLORS[quote.status]?.bg || 'rgba(113,113,122,0.1)',
                             color: STATUS_COLORS[quote.status]?.text || '#71717a',
                             border: `1px solid ${STATUS_COLORS[quote.status]?.border || '#27272a'}`,
