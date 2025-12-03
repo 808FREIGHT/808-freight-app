@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 
+// ADMIN PASSWORD - Change this to your preferred password
+const ADMIN_PASSWORD = '808freight';
+
 // Types
 interface QuoteRequest {
   id: string;
@@ -47,15 +50,145 @@ const STATUS_COLORS: { [key: string]: { bg: string; text: string; border: string
 };
 
 export default function AdminDashboard() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [quotes, setQuotes] = useState<QuoteRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedQuote, setSelectedQuote] = useState<QuoteRequest | null>(null);
   const [filter, setFilter] = useState('all');
 
+  // Check if already authenticated
+  useEffect(() => {
+    const auth = sessionStorage.getItem('808admin');
+    if (auth === 'authenticated') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   // Fetch quotes from Supabase
   useEffect(() => {
-    fetchQuotes();
-  }, []);
+    if (isAuthenticated) {
+      fetchQuotes();
+    }
+  }, [isAuthenticated]);
+
+  // Handle login
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === ADMIN_PASSWORD) {
+      sessionStorage.setItem('808admin', 'authenticated');
+      setIsAuthenticated(true);
+      setError('');
+    } else {
+      setError('Invalid password');
+      setPassword('');
+    }
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    sessionStorage.removeItem('808admin');
+    setIsAuthenticated(false);
+    setPassword('');
+  };
+
+  // Login Screen
+  if (!isAuthenticated) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        backgroundColor: '#0a0a0a',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      }}>
+        <div style={{
+          backgroundColor: '#18181b',
+          padding: '40px',
+          borderRadius: '16px',
+          border: '1px solid #27272a',
+          width: '100%',
+          maxWidth: '400px',
+          textAlign: 'center',
+        }}>
+          <div style={{
+            width: '60px',
+            height: '60px',
+            borderRadius: '14px',
+            background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 800,
+            fontSize: '24px',
+            color: '#ffffff',
+            margin: '0 auto 20px',
+          }}>
+            8
+          </div>
+          <h1 style={{ color: '#ffffff', fontSize: '24px', fontWeight: 700, margin: '0 0 8px' }}>808 Freight</h1>
+          <p style={{ color: '#71717a', fontSize: '15px', margin: '0 0 30px' }}>Admin Dashboard</p>
+          
+          <form onSubmit={handleLogin}>
+            <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '14px 18px',
+                fontSize: '16px',
+                backgroundColor: '#0a0a0a',
+                border: error ? '2px solid #ef4444' : '2px solid #27272a',
+                borderRadius: '10px',
+                color: '#ffffff',
+                outline: 'none',
+                marginBottom: '16px',
+                boxSizing: 'border-box',
+              }}
+              autoFocus
+            />
+            {error && (
+              <p style={{ color: '#ef4444', fontSize: '14px', margin: '0 0 16px' }}>{error}</p>
+            )}
+            <button
+              type="submit"
+              style={{
+                width: '100%',
+                padding: '14px',
+                fontSize: '16px',
+                fontWeight: 600,
+                backgroundColor: '#3b82f6',
+                color: '#ffffff',
+                border: 'none',
+                borderRadius: '10px',
+                cursor: 'pointer',
+                transition: 'background 0.2s',
+              }}
+            >
+              Sign In
+            </button>
+          </form>
+          
+          <a 
+            href="/"
+            style={{
+              display: 'inline-block',
+              marginTop: '24px',
+              color: '#71717a',
+              fontSize: '14px',
+              textDecoration: 'none',
+            }}
+          >
+            ← Back to site
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   const fetchQuotes = async () => {
     setLoading(true);
@@ -151,20 +284,37 @@ export default function AdminDashboard() {
             <p style={{ color: '#71717a', margin: 0, fontSize: '13px' }}>Admin Dashboard</p>
           </div>
         </div>
-        <a 
-          href="/"
-          style={{
-            color: '#ffffff',
-            textDecoration: 'none',
-            fontSize: '14px',
-            padding: '8px 16px',
-            backgroundColor: '#27272a',
-            borderRadius: '8px',
-            transition: 'background 0.2s',
-          }}
-        >
-          ← Back to Site
-        </a>
+        <div style={{ display: 'flex', gap: '12px' }}>
+          <a 
+            href="/"
+            style={{
+              color: '#ffffff',
+              textDecoration: 'none',
+              fontSize: '14px',
+              padding: '8px 16px',
+              backgroundColor: '#27272a',
+              borderRadius: '8px',
+              transition: 'background 0.2s',
+            }}
+          >
+            ← Site
+          </a>
+          <button
+            onClick={handleLogout}
+            style={{
+              color: '#ef4444',
+              fontSize: '14px',
+              padding: '8px 16px',
+              backgroundColor: 'rgba(239, 68, 68, 0.1)',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              transition: 'background 0.2s',
+            }}
+          >
+            Logout
+          </button>
+        </div>
       </header>
 
       <div style={{ padding: '30px', maxWidth: '1400px', margin: '0 auto' }}>
