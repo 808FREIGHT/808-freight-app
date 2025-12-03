@@ -1098,57 +1098,110 @@ export default function Home() {
 
             <button 
               type="submit" 
-              className="submit-btn ship-me-btn" 
+              className="submit-btn" 
               disabled={!email || isSubmitting || quoteComplete}
               style={quoteComplete ? {
                 background: '#39ff14',
                 color: '#1e3a8a',
                 fontWeight: 800,
                 boxShadow: '0 0 20px rgba(57, 255, 20, 0.6)',
-                cursor: 'default'
-              } : {}}
+                cursor: 'default',
+                padding: '18px 30px',
+                fontSize: '1.2em'
+              } : {
+                padding: '18px 30px',
+                fontSize: '1.2em'
+              }}
             >
               {quoteComplete ? '✅ Quote Complete!' : (isSubmitting ? 'Submitting...' : (
-                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
-                  <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#ffffff', letterSpacing: '2px', textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}>SHIP ME!</span>
-                  <Image src="/808-freight-logo-white.png" alt="808 Freight" width={50} height={25} style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
+                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
+                  <span style={{ fontSize: '1.6rem', fontWeight: 900, color: '#ffffff', letterSpacing: '3px', textShadow: '2px 2px 6px rgba(0,0,0,0.4)' }}>SHIP ME!</span>
+                  <Image src="/808-freight-logo-white.png" alt="808 Freight" width={60} height={30} style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
                 </span>
               ))}
             </button>
           </form>
 
           {/* How It Works Section */}
-          <div className="how-it-works-box">
-            <h2 className="how-it-works-title">HOW DOES THIS ALL WORK?</h2>
-            <ul className="how-it-works-list">
-              <li>After the form is submitted, we send you a confirmation email including your quote request to all carriers you selected.</li>
-              <li>Quote times are based on carrier response.</li>
-              <li>As carriers respond with their quotes, it will be automatically forwarded to you via text, email, or both.</li>
-              <li>Once all quotes are received, we&apos;ll send you an email with all quotes compiled into one list, side by side to compare and get the best deal for your situation.</li>
-              <li>Click the link for the quote of your choice, and we&apos;ll send you directly to the carrier&apos;s website to complete your booking.</li>
+          <div style={{
+            background: '#1E9FD8',
+            padding: '25px 20px',
+            borderRadius: '12px',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+            marginTop: '30px',
+            maxWidth: '600px',
+            marginLeft: 'auto',
+            marginRight: 'auto'
+          }}>
+            <h2 style={{
+              fontSize: '1.6em',
+              color: '#1e3a8a',
+              marginBottom: '15px',
+              textAlign: 'center',
+              fontWeight: 800,
+              letterSpacing: '1px'
+            }}>HOW DOES THIS ALL WORK?</h2>
+            <ul style={{
+              listStyle: 'none',
+              padding: 0,
+              margin: '0 0 20px 0'
+            }}>
+              <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
+                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
+                After the form is submitted, we send you a confirmation email including your quote request to all carriers you selected.
+              </li>
+              <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
+                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
+                Quote times are based on carrier response.
+              </li>
+              <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
+                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
+                As carriers respond with their quotes, it will be automatically forwarded to you via text, email, or both.
+              </li>
+              <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
+                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
+                Once all quotes are received, we&apos;ll send you an email with all quotes compiled into one list, side by side to compare and get the best deal for your situation.
+              </li>
+              <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', textAlign: 'left' }}>
+                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
+                Click the link for the quote of your choice, and we&apos;ll send you directly to the carrier&apos;s website to complete your booking.
+              </li>
             </ul>
-            <div className="how-it-works-bottom">
-              <div className="how-it-works-logo">
-                <Image 
-                  src="/808-freight-logo-white.png" 
-                  alt="808 Freight" 
-                  width={100} 
-                  height={50} 
-                  style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} 
-                />
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingTop: '15px',
+              gap: '15px'
+            }}>
+              <Image 
+                src="/808-freight-logo-white.png" 
+                alt="808 Freight" 
+                width={80} 
+                height={40} 
+                style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} 
+              />
+              <div style={{
+                background: '#1e3a8a',
+                padding: '10px 25px',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+              }}>
+                <span style={{
+                  color: '#ffffff',
+                  fontSize: '1.3em',
+                  fontWeight: 800,
+                  letterSpacing: '2px',
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+                }}>A HUI HOU!</span>
               </div>
-              <div className="hui-hou-badge">
-                <span>A HUI HOU!</span>
-              </div>
-              <div className="how-it-works-logo">
-                <Image 
-                  src="/808-freight-logo-white.png" 
-                  alt="808 Freight" 
-                  width={100} 
-                  height={50} 
-                  style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} 
-                />
-              </div>
+              <Image 
+                src="/808-freight-logo-white.png" 
+                alt="808 Freight" 
+                width={80} 
+                height={40} 
+                style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} 
+              />
             </div>
           </div>
         </div>
