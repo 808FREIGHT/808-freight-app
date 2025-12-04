@@ -1,7 +1,26 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import twilio from 'twilio';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Initialize Twilio client (only if credentials are present)
+const twilioClient = process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN
+  ? twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
+  : null;
+const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER;
+
+// Format phone number to E.164 format for Twilio
+function formatPhoneNumber(phone: string): string {
+  const cleaned = phone.replace(/\D/g, '');
+  if (cleaned.length === 11 && cleaned.startsWith('1')) {
+    return `+${cleaned}`;
+  }
+  if (cleaned.length === 10) {
+    return `+1${cleaned}`;
+  }
+  return `+${cleaned}`;
+}
 
 // Admin email - receives ALL carrier requests during test phase
 // Once carriers respond with proper quote emails, we'll route directly to them
@@ -182,15 +201,47 @@ export async function POST(request: Request) {
       </html>
     `;
 
-    // Send to customer
-    await resend.emails.send({
-      from: '808 Freight <noreply@808freight.com>',
-      to: [email],
-      subject: 'Your 808 Freight Quote Request - Confirmed!',
-      html: customerEmailHtml,
-    });
+    // Send email to customer (if preference is 'email' or 'both')
+    if (notificationPrefs !== 'sms') {
+      await resend.emails.send({
+        from: '808 Freight <noreply@808freight.com>',
+        to: [email],
+        subject: 'Your 808 Freight Quote Request - Confirmed!',
+        html: customerEmailHtml,
+      });
+      console.log('✅ Customer confirmation email sent');
+    }
 
-    // 2. Send quote request to EACH CARRIER
+    // 3. Send SMS confirmation to customer (if preference is 'sms' or 'both')
+    if ((notificationPrefs === 'sms' || notificationPrefs === 'both') && phone && twilioClient && TWILIO_PHONE_NUMBER) {
+      try {
+        const carrierList = selectedCarriers
+          ?.map((c: string) => CARRIER_CONTACTS[c]?.name || c)
+          .join(', ') || 'N/A';
+        
+        const smsBody = `🚢 808 Freight - Mahalo, ${name || 'Valued Customer'}!\n\n` +
+          `Your quote request has been submitted!\n\n` +
+          `📍 Route: ${origin} → ${destination}\n` +
+          `📦 Carriers: ${carrierList}\n\n` +
+          `We'll notify you as quotes come in.\n\n` +
+          `Questions? Email admin@808freight.com`;
+
+        const formattedPhone = formatPhoneNumber(phone);
+        const message = await twilioClient.messages.create({
+          body: smsBody,
+          from: TWILIO_PHONE_NUMBER,
+          to: formattedPhone,
+        });
+        console.log(`✅ Customer confirmation SMS sent: ${message.sid}`);
+      } catch (smsError: any) {
+        // Log SMS error but don't fail the entire request
+        console.error('⚠️ SMS send failed (non-blocking):', smsError.message);
+      }
+    } else if ((notificationPrefs === 'sms' || notificationPrefs === 'both') && !twilioClient) {
+      console.warn('⚠️ SMS requested but Twilio not configured');
+    }
+
+    // 4. Send quote request to EACH CARRIER
     for (const carrierKey of selectedCarriers || []) {
       const carrier = CARRIER_CONTACTS[carrierKey];
       if (!carrier) continue;
