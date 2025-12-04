@@ -3,8 +3,9 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Admin email - receives copies of all carrier requests
-const ADMIN_EMAIL = 'imipono422@gmail.com';
+// Admin email - receives all carrier requests for manual forwarding
+// Until we have verified carrier quote department emails
+const ADMIN_EMAIL = 'admin@808freight.com';
 
 // ===========================================
 // CARRIER EMAIL CONFIGURATION
@@ -12,22 +13,27 @@ const ADMIN_EMAIL = 'imipono422@gmail.com';
 // Format: carrierKey: { name, email, phone, website }
 // ===========================================
 const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: string; website: string } } = {
+  // ===========================================
+  // ALL CARRIERS CURRENTLY ROUTE TO ADMIN
+  // Once we have verified carrier quote emails, update individual entries
+  // ===========================================
+  
   // OCEAN CARRIERS
   youngBrothers: { 
     name: 'Young Brothers', 
-    email: 'customerservice@htbyb.com',  // General customer service
+    email: ADMIN_EMAIL,  // TODO: Get quote dept email
     phone: '808-543-9311',
     website: 'https://www.htbyb.com'
   },
   matson: { 
     name: 'Matson Navigation', 
-    email: 'customerservice@matson.com',  // Update with sales/quotes email
+    email: ADMIN_EMAIL,  // TODO: Get quote dept email
     phone: '1-800-4-MATSON',
     website: 'https://www.matson.com'
   },
   pasha: { 
     name: 'Pasha Hawaii', 
-    email: 'customerservice@pashahawaii.com',  // Update with quotes email
+    email: ADMIN_EMAIL,  // TODO: Get quote dept email
     phone: '808-842-5594',
     website: 'https://www.pashahawaii.com'
   },
@@ -35,43 +41,43 @@ const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: s
   // AIR CARRIERS
   fedex: { 
     name: 'FedEx Cargo', 
-    email: ADMIN_EMAIL,  // FedEx uses online system - forward manually
+    email: ADMIN_EMAIL,  // FedEx uses online system
     phone: '1-800-463-3339',
     website: 'https://www.fedex.com'
   },
   ups: { 
     name: 'UPS Cargo', 
-    email: ADMIN_EMAIL,  // UPS uses online system - forward manually
+    email: ADMIN_EMAIL,  // UPS uses online system
     phone: '1-800-742-5877',
     website: 'https://www.ups.com'
   },
   alohaAir: { 
     name: 'Aloha Air Cargo', 
-    email: 'cargo@alohaaircargo.com',  // Verify this email
+    email: ADMIN_EMAIL,  // TODO: Verify cargo@alohaaircargo.com
     phone: '808-484-1170',
     website: 'https://www.alohaaircargo.com'
   },
   hawaiianAir: { 
     name: 'Hawaiian Air Cargo', 
-    email: 'cargo@hawaiianairlines.com',  // Verify this email
+    email: ADMIN_EMAIL,  // TODO: Verify cargo@hawaiianairlines.com
     phone: '808-835-3415',
     website: 'https://www.hawaiianaircargo.com'
   },
   hawaiiAir: { 
     name: 'Hawaii Air Cargo', 
-    email: ADMIN_EMAIL,  // Need to find contact - forward manually
+    email: ADMIN_EMAIL,  // Need to find contact
     phone: '',
     website: ''
   },
   pacificAir: { 
     name: 'Pacific Air Cargo', 
-    email: 'sales@pacificaircargo.com',  // Verify this email
+    email: ADMIN_EMAIL,  // TODO: Verify sales@pacificaircargo.com
     phone: '808-836-0011',
     website: 'https://www.pacificaircargo.com'
   },
   dhx: { 
     name: 'DHX (Dependable Hawaiian Express)', 
-    email: 'quotes@dhx.com',  // Verify this email
+    email: ADMIN_EMAIL,  // TODO: Verify quotes@dhx.com
     phone: '808-836-2424',
     website: 'https://www.dhx.com'
   },
