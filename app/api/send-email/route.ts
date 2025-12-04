@@ -3,37 +3,36 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Admin email - receives all carrier requests for manual forwarding
-// Until we have verified carrier quote department emails
+// Admin email - receives ALL carrier requests during test phase
+// Once carriers respond with proper quote emails, we'll route directly to them
 const ADMIN_EMAIL = 'admin@808freight.com';
 
 // ===========================================
 // CARRIER EMAIL CONFIGURATION
-// Update these with real carrier quote emails when available
-// Format: carrierKey: { name, email, phone, website }
+// ⚠️ TEST MODE: All emails routed to admin@808freight.com
+// Update with real carrier quote emails once they respond to our inquiries
+// Format: carrierKey: { name, email, phone, website, realEmail (for when we go live) }
 // ===========================================
-const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: string; website: string } } = {
-  // ===========================================
-  // ALL CARRIERS CURRENTLY ROUTE TO ADMIN
-  // Once we have verified carrier quote emails, update individual entries
-  // ===========================================
-  
+const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: string; website: string; realEmail?: string } } = {
   // OCEAN CARRIERS
   youngBrothers: { 
     name: 'Young Brothers', 
-    email: ADMIN_EMAIL,  // TODO: Get quote dept email
+    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
+    realEmail: 'customers@htbyb.com',  // Contacted: awaiting response
     phone: '808-543-9311',
     website: 'https://www.htbyb.com'
   },
   matson: { 
     name: 'Matson Navigation', 
-    email: ADMIN_EMAIL,  // TODO: Get quote dept email
+    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
+    realEmail: 'customerservice@matson.com',  // Contacted: awaiting response
     phone: '1-800-4-MATSON',
     website: 'https://www.matson.com'
   },
   pasha: { 
     name: 'Pasha Hawaii', 
-    email: ADMIN_EMAIL,  // TODO: Get quote dept email
+    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
+    realEmail: 'customerservice@pashahawaii.com',  // Contacted: awaiting response
     phone: '808-842-5594',
     website: 'https://www.pashahawaii.com'
   },
@@ -41,43 +40,50 @@ const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: s
   // AIR CARRIERS
   fedex: { 
     name: 'FedEx Cargo', 
-    email: ADMIN_EMAIL,  // FedEx uses online system
+    email: ADMIN_EMAIL,  // TEST MODE - FedEx uses online system
+    realEmail: 'insightwebmaster@fedex.com',  // Contacted: awaiting response
     phone: '1-800-463-3339',
     website: 'https://www.fedex.com'
   },
   ups: { 
     name: 'UPS Cargo', 
-    email: ADMIN_EMAIL,  // UPS uses online system
+    email: ADMIN_EMAIL,  // TEST MODE - UPS uses online system
+    realEmail: 'pkginfo@ups.com',  // Contacted: awaiting response
     phone: '1-800-742-5877',
     website: 'https://www.ups.com'
   },
   alohaAir: { 
     name: 'Aloha Air Cargo', 
-    email: ADMIN_EMAIL,  // TODO: Verify cargo@alohaaircargo.com
+    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
+    realEmail: 'customerservice@alohaaircargo.com',  // Contacted: awaiting response
     phone: '808-484-1170',
     website: 'https://www.alohaaircargo.com'
   },
   hawaiianAir: { 
     name: 'Hawaiian Air Cargo', 
-    email: ADMIN_EMAIL,  // TODO: Verify cargo@hawaiianairlines.com
+    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
+    realEmail: 'cargo.capacity@hawaiianair.com',  // Contacted: awaiting response
     phone: '808-835-3415',
     website: 'https://www.hawaiianaircargo.com'
   },
   hawaiiAir: { 
     name: 'Hawaii Air Cargo', 
-    email: ADMIN_EMAIL,  // Need to find contact
+    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
+    realEmail: 'cshnl@hawaiiaircargo.com',  // Contacted: awaiting response
     phone: '',
     website: ''
   },
   pacificAir: { 
     name: 'Pacific Air Cargo', 
-    email: ADMIN_EMAIL,  // TODO: Verify sales@pacificaircargo.com
+    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
+    realEmail: 'quotes@pacificaircargo.com',  // Contacted: awaiting response
     phone: '808-836-0011',
     website: 'https://www.pacificaircargo.com'
   },
   dhx: { 
     name: 'DHX (Dependable Hawaiian Express)', 
-    email: ADMIN_EMAIL,  // TODO: Verify quotes@dhx.com
+    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
+    realEmail: 'custserv@dhx.com',  // Contacted: awaiting response
     phone: '808-836-2424',
     website: 'https://www.dhx.com'
   },
