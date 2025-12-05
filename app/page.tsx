@@ -225,7 +225,7 @@ const slides = [
   { image: '/Harbor-Hilo-New.jpg', alt: 'Hilo Harbor', label: 'Hilo' },
   { image: '/Harbor Honolulu.webp', alt: 'Honolulu Harbor', label: 'Honolulu' },
   { image: '/Harbor Kahului.jpg', alt: 'Kahului Harbor', label: 'Kahului' },
-  { image: '/Harbor Nawiliwili.jpg', alt: 'Nawiliwili Harbor', label: 'Nawiliwili' },
+  { image: '/aerial-view-of-the-nawiliwili-harbor-pierre-leclerc-photography.jpg', alt: 'Nawiliwili Harbor', label: 'Nawiliwili' },
   { image: '/Harbor Kawaihae.jpg', alt: 'Kawaihae Harbor', label: 'Kawaihae' },
   { image: '/Harbor Kaunakakai.jpg', alt: 'Kaunakakai Harbor', label: 'Kaunakakai' }
 ];
@@ -1037,10 +1037,10 @@ export default function Home() {
                   <span className="loading-text">Sending to carriers...</span>
                 </div>
               ) : (
-                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '0 15px' }}>
-                  <Image src="/808-freight-logo_1.png" alt="808" width={50} height={35} style={{ objectFit: 'contain', filter: 'brightness(0) saturate(100%) invert(15%) sepia(50%) saturate(2000%) hue-rotate(210deg) brightness(90%)' }} />
-                  <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1e3a8a', letterSpacing: '1px' }}>SUBMIT QUOTE REQUEST</span>
-                  <Image src="/808-freight-logo_1.png" alt="808" width={50} height={35} style={{ objectFit: 'contain', filter: 'brightness(0) saturate(100%) invert(15%) sepia(50%) saturate(2000%) hue-rotate(210deg) brightness(90%)' }} />
+                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px', width: '100%' }}>
+                  <Image src="/808-freight-logo_1.png" alt="808" width={75} height={55} style={{ objectFit: 'contain', filter: 'brightness(0) saturate(100%) invert(15%) sepia(50%) saturate(2000%) hue-rotate(210deg) brightness(90%)' }} />
+                  <span style={{ fontSize: '1em', fontWeight: 800, color: '#1e3a8a', letterSpacing: '1px', whiteSpace: 'nowrap' }}>SUBMIT QUOTE REQUEST</span>
+                  <Image src="/808-freight-logo_1.png" alt="808" width={75} height={55} style={{ objectFit: 'contain', filter: 'brightness(0) saturate(100%) invert(15%) sepia(50%) saturate(2000%) hue-rotate(210deg) brightness(90%)' }} />
                 </span>
               ))}
             </button>
@@ -1097,13 +1097,6 @@ export default function Home() {
               paddingTop: '15px',
               gap: '15px'
             }}>
-              <Image 
-                src="/808-freight-logo-white.png" 
-                alt="808 Freight" 
-                width={80} 
-                height={40} 
-                style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} 
-              />
               <span style={{
                 color: '#ffffff',
                 fontSize: '1.3em',
@@ -1111,13 +1104,6 @@ export default function Home() {
                 letterSpacing: '2px',
                 textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
               }}>A HUI HOU!</span>
-              <Image 
-                src="/808-freight-logo-white.png" 
-                alt="808 Freight" 
-                width={80} 
-                height={40} 
-                style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} 
-              />
             </div>
           </div>
         </div>
