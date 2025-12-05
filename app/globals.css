@@ -195,101 +195,57 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  padding: 25px 30px;
-  background: #1e3a8a;
-  border: none;
-  border-radius: 12px;
-  max-width: 1200px;
-  margin: 5vh auto 0;
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.3),
-    inset 0 0 60px rgba(255, 255, 255, 0.1);
-  padding-bottom: 60px;
+  gap: 10px;
+  padding: 30px 20px;
+  background: transparent;
+  max-width: 600px;
+  margin: 3vh auto 0;
   position: relative;
   z-index: 10;
-}
-
-.featured-carriers-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 12px;
-  padding: 3px;
-  background: linear-gradient(
-    135deg,
-    rgba(30, 159, 216, 0.4) 0%,
-    rgba(57, 255, 20, 0.3) 25%,
-    rgba(30, 159, 216, 0.5) 50%,
-    rgba(57, 255, 20, 0.3) 75%,
-    rgba(30, 159, 216, 0.4) 100%
-  );
-  background-size: 200% 200%;
-  animation: bubbleBorder 4s ease-in-out infinite;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-@keyframes bubbleBorder {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  text-align: center;
 }
 
 .featured-carriers-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1E9FD8;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Carrier List Styles */
+.carrier-list-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.carrier-list-group {
+  text-align: center;
+}
+
+.carrier-list-header {
   font-size: 1.8rem;
   font-weight: 700;
   color: #1E9FD8;
-  text-align: center;
-  margin-bottom: 8px;
+  margin: 0 0 12px 0;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.carriers-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-  flex-wrap: nowrap;
+.carrier-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.carriers-grid:first-of-type {
-  gap: 20px;
-  max-width: 500px;
-}
-
-.carriers-grid .carrier-card {
-  flex-shrink: 0;
-  min-width: 80px;
-  max-width: 120px;
-  gap: 6px;
-}
-
-.carriers-grid .carrier-logo-box {
-  width: 80px;
-  height: 50px;
-  padding: 5px;
-}
-
-.carriers-grid .carrier-name-label {
-  font-size: 0.65rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.carrier-list li {
+  color: #ffffff;
+  font-size: 1.4rem;
+  padding: 5px 0;
+  font-weight: 500;
 }
 
 /* Call to Action Section */
@@ -685,7 +641,8 @@ body {
   min-height: 100vh;
   width: 100%;
   background: #1e3a8a;
-  padding: 60px 20px;
+  padding: 0 20px 60px;
+  margin-top: -100px;
   scroll-margin-top: 0;
   transform-style: preserve-3d;
   position: relative;
@@ -764,9 +721,31 @@ body {
 .form-title {
   font-size: 2em;
   color: #1e3a8a;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   text-align: center;
   font-weight: 700;
+}
+
+.form-intro-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 25px 0;
+  text-align: center;
+}
+
+.form-intro-bullets li {
+  color: #1e3a8a;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 6px 0;
+  line-height: 1.5;
+}
+
+.form-intro-bullets li::before {
+  content: "•";
+  color: #1E9FD8;
+  font-weight: bold;
+  margin-right: 8px;
 }
 
 .form-group {
@@ -1256,49 +1235,25 @@ label:has(+ textarea:disabled) {
     width: 90%;
     max-width: 90%;
     margin: 0 auto;
-    padding: 20px 12px;
-    border-radius: 8px;
+    padding: 20px 15px;
   }
   
-  .carriers-grid {
-    flex-wrap: wrap !important;
-    justify-content: center;
-    gap: 15px !important;
-    padding: 10px 5px !important;
+  .featured-carriers-title {
+    font-size: 1.6rem;
   }
   
-  .carriers-grid .carrier-card {
-    min-width: 70px !important;
-    max-width: 90px !important;
+  .carrier-list-header {
+    font-size: 1.2rem;
   }
   
-  .carriers-grid .carrier-logo-box {
-    width: 70px !important;
-    height: 45px !important;
+  .carrier-list li {
+    font-size: 1rem;
   }
   
-  .carriers-grid .carrier-name-label {
-    font-size: 0.6rem !important;
-  }
-  
-  .carrier-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    padding: 0;
-    width: 100%;
-  }
-  
-  .carrier-card {
-    padding: 12px 8px;
-  }
-  
-  .carrier-logo {
-    max-width: 70px;
-    max-height: 45px;
-  }
-  
-  .carrier-name {
-    font-size: 0.8rem;
+  .form-intro-bullets li {
+    font-size: 0.9rem;
+    text-align: left;
+    padding-left: 10px;
   }
   
   /* CTA Section */

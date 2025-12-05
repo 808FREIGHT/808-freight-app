@@ -580,78 +580,34 @@ export default function Home() {
               <div className="cta-arrow" style={{ color: '#ffffff' }}>↓</div>
             </div>
 
-            {/* Featured Carriers */}
+            {/* Featured Carriers - Vertical List */}
             <div className="featured-carriers-section">
-          <h3 className="featured-carriers-title">Featured Carriers</h3>
-          
-          {/* Ocean Freight Row */}
-          <div className="carriers-grid">
-            <div className="carrier-card">
-              <div className="carrier-logo-box">
-                <Image src="/YB-Logo-transparent.png" alt="Young Brothers" width={80} height={80} style={{ objectFit: 'contain' }} />
+              <h3 className="featured-carriers-title">Our Carrier Network</h3>
+              
+              <div className="carrier-list-vertical">
+                <div className="carrier-list-group">
+                  <h4 className="carrier-list-header">Ocean Freight</h4>
+                  <ul className="carrier-list">
+                    <li>Young Brothers</li>
+                    <li>Matson Navigation</li>
+                    <li>Pasha Hawaii</li>
+                  </ul>
+                </div>
+
+                <div className="carrier-list-group">
+                  <h4 className="carrier-list-header">Air Cargo</h4>
+                  <ul className="carrier-list">
+                    <li>FedEx</li>
+                    <li>UPS</li>
+                    <li>Aloha Air Cargo</li>
+                    <li>Hawaiian Airlines Cargo</li>
+                    <li>Hawaii Air Cargo</li>
+                    <li>Pacific Air Cargo</li>
+                    <li>DHX</li>
+                  </ul>
+                </div>
               </div>
-              <div className="carrier-name-label">Young Brothers</div>
             </div>
-            <div className="carrier-card">
-              <div className="carrier-logo-box">
-                <Image src="/matson_logo.png" alt="Matson" width={80} height={80} style={{ objectFit: 'contain' }} />
-              </div>
-              <div className="carrier-name-label">Matson</div>
-            </div>
-            <div className="carrier-card">
-              <div className="carrier-logo-box">
-                <Image src="/Pasha Logo.png" alt="Pasha Hawaii" width={80} height={80} style={{ objectFit: 'contain' }} />
-              </div>
-              <div className="carrier-name-label">Pasha Hawaii</div>
-            </div>
-          </div>
-          
-          {/* Air Cargo Row */}
-          <div className="carriers-grid">
-            <div className="carrier-card">
-              <div className="carrier-logo-box">
-                <Image src="/FedEx Logo.png" alt="FedEx" width={80} height={80} style={{ objectFit: 'contain' }} />
-              </div>
-              <div className="carrier-name-label">FedEx</div>
-            </div>
-            <div className="carrier-card">
-              <div className="carrier-logo-box">
-                <Image src="/ups-logo2.png" alt="UPS" width={80} height={80} style={{ objectFit: 'contain' }} />
-              </div>
-              <div className="carrier-name-label">UPS</div>
-            </div>
-            <div className="carrier-card">
-              <div className="carrier-logo-box">
-                <Image src="/Aloha Air Cargo Logo.png" alt="Aloha Air" width={80} height={80} style={{ objectFit: 'contain' }} />
-              </div>
-              <div className="carrier-name-label">Aloha Air</div>
-            </div>
-            <div className="carrier-card">
-              <div className="carrier-logo-box">
-                <Image src="/Hawaiian Air Cargo Logo.png" alt="Hawaiian Air" width={80} height={80} style={{ objectFit: 'contain' }} />
-              </div>
-              <div className="carrier-name-label">Hawaiian Air</div>
-            </div>
-            <div className="carrier-card">
-              <div className="carrier-logo-box">
-                <Image src="/Hawaii Air Cargo Logo.png" alt="Hawaii Air" width={80} height={80} style={{ objectFit: 'contain' }} />
-              </div>
-              <div className="carrier-name-label">Hawaii Air</div>
-            </div>
-            <div className="carrier-card">
-              <div className="carrier-logo-box">
-                <Image src="/Pacific Air Cargo Logo.jpeg" alt="Pacific Air" width={80} height={80} style={{ objectFit: 'contain' }} />
-              </div>
-              <div className="carrier-name-label">Pacific Air</div>
-            </div>
-            <div className="carrier-card">
-              <div className="carrier-logo-box">
-                <Image src="/DHX Logo.jpeg" alt="DHX" width={80} height={80} style={{ objectFit: 'contain' }} />
-              </div>
-              <div className="carrier-name-label">DHX</div>
-            </div>
-          </div>
-          </div>
         </div>
         </div>
       </section>
@@ -660,7 +616,11 @@ export default function Home() {
       <section id="quote-section">
         <div className="form-container">
           <form id="quoteForm" className="quote-form" onSubmit={handleSubmit}>
-            <h2 className="form-title" style={{ color: '#1e3a8a' }}>Free <span style={{ textDecoration: 'underline' }}>808 FREIGHT</span> Quote</h2>
+            <h2 className="form-title" style={{ color: '#1e3a8a' }}>Quote Request Form</h2>
+            <ul className="form-intro-bullets">
+              <li>We perform a weekly check with carriers for any updates in shipping rates.</li>
+              <li>Below is a compilation of required information from our carrier network.</li>
+            </ul>
             
             {/* Shipping Type */}
             <div className="form-group">
