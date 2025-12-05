@@ -1037,7 +1037,7 @@ export default function Home() {
                   <span className="loading-text">Sending to carriers...</span>
                 </div>
               ) : (
-                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '0 15px' }}>
                   <Image src="/808-freight-logo_1.png" alt="808" width={50} height={35} style={{ objectFit: 'contain', filter: 'brightness(0) saturate(100%) invert(15%) sepia(50%) saturate(2000%) hue-rotate(210deg) brightness(90%)' }} />
                   <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1e3a8a', letterSpacing: '1px' }}>SUBMIT QUOTE REQUEST</span>
                   <Image src="/808-freight-logo_1.png" alt="808" width={50} height={35} style={{ objectFit: 'contain', filter: 'brightness(0) saturate(100%) invert(15%) sepia(50%) saturate(2000%) hue-rotate(210deg) brightness(90%)' }} />
