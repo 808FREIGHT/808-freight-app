@@ -1104,20 +1104,13 @@ export default function Home() {
                 height={40} 
                 style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} 
               />
-              <div style={{
-                background: '#1e3a8a',
-                padding: '10px 25px',
-                borderRadius: '8px',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
-              }}>
-                <span style={{
-                  color: '#ffffff',
-                  fontSize: '1.3em',
-                  fontWeight: 800,
-                  letterSpacing: '2px',
-                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
-                }}>A HUI HOU!</span>
-              </div>
+              <span style={{
+                color: '#ffffff',
+                fontSize: '1.3em',
+                fontWeight: 800,
+                letterSpacing: '2px',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+              }}>A HUI HOU!</span>
               <Image 
                 src="/808-freight-logo-white.png" 
                 alt="808 Freight" 
