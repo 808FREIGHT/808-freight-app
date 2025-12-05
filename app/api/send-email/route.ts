@@ -107,48 +107,48 @@ export async function POST(request: Request) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
-      <body style="margin: 0; padding: 0; background-color: #ffffff;">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #ffffff;">
+      <body style="margin: 0; padding: 0; background-color: #000435;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #000435;">
           <tr>
             <td align="center" style="padding: 20px;">
-              <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="background-color: #ffffff; max-width: 600px;">
+              <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="background-color: #000435; max-width: 600px;">
                 
                 <tr>
-                  <td align="center" style="padding: 30px 20px; background-color: #ffffff;">
-                    <h2 style="color: #1e3a8a; font-size: 36px; margin: 0; font-family: Arial, sans-serif; font-weight: 900;">MAHALO!</h2>
-                    <p style="color: #1e3a8a; font-size: 18px; font-family: Arial, sans-serif; margin: 15px 0; font-weight: 600;">Your quote request has been submitted successfully!</p>
+                  <td align="center" style="padding: 30px 20px; background-color: #000435;">
+                    <h2 style="color: #39ff14; font-size: 36px; margin: 0; font-family: Arial, sans-serif; font-weight: 900;">MAHALO!</h2>
+                    <p style="color: #ffffff; font-size: 18px; font-family: Arial, sans-serif; margin: 15px 0; font-weight: 600;">Your quote request has been submitted successfully!</p>
                   </td>
                 </tr>
                 
                 <tr>
                   <td style="padding: 0 20px 20px;">
-                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #1E9FD8; border-radius: 10px;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #1e3a8a; border-radius: 10px;">
                       <tr>
                         <td style="padding: 25px;">
-                          <h3 style="color: #1e3a8a; font-size: 22px; margin: 0 0 20px 0; font-family: Arial, sans-serif; font-weight: 800;">Quote Details</h3>
+                          <h3 style="color: #1E9FD8; font-size: 22px; margin: 0 0 20px 0; font-family: Arial, sans-serif; font-weight: 800;">Quote Details</h3>
                           
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">Company:</strong> ${companyName || 'N/A'}</p>
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">Name:</strong> ${name || 'N/A'}</p>
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">Email:</strong> ${email}</p>
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">Phone:</strong> ${phone}</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">Company:</strong> ${companyName || 'N/A'}</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">Name:</strong> ${name || 'N/A'}</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">Email:</strong> ${email}</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">Phone:</strong> ${phone}</p>
                           
-                          <hr style="border: none; border-top: 2px solid #1e3a8a; margin: 20px 0; opacity: 0.3;" />
+                          <hr style="border: none; border-top: 2px solid #1E9FD8; margin: 20px 0; opacity: 0.5;" />
                           
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">Shipping Type:</strong> ${shippingType === 'ocean' ? 'Ocean Freight' : 'Air Cargo'}</p>
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">Route:</strong> ${routeType}</p>
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">From:</strong> ${origin}</p>
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">To:</strong> ${destination}</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">Shipping Type:</strong> ${shippingType === 'ocean' ? 'Ocean Freight' : 'Air Cargo'}</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">Route:</strong> ${routeType}</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">From:</strong> ${origin}</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">To:</strong> ${destination}</p>
                           
-                          <hr style="border: none; border-top: 2px solid #1e3a8a; margin: 20px 0; opacity: 0.3;" />
+                          <hr style="border: none; border-top: 2px solid #1E9FD8; margin: 20px 0; opacity: 0.5;" />
                           
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">Carriers:</strong> ${selectedCarriers?.map((c: string) => CARRIER_CONTACTS[c]?.name || c).join(', ') || 'N/A'}</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">Carriers:</strong> ${selectedCarriers?.map((c: string) => CARRIER_CONTACTS[c]?.name || c).join(', ') || 'N/A'}</p>
                           
-                          <hr style="border: none; border-top: 2px solid #1e3a8a; margin: 20px 0; opacity: 0.3;" />
+                          <hr style="border: none; border-top: 2px solid #1E9FD8; margin: 20px 0; opacity: 0.5;" />
                           
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">Cargo:</strong> ${cargoType}</p>
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">Weight:</strong> ${weight} lbs</p>
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">Dimensions:</strong> ${length || '-'}" x ${width || '-'}" x ${height || '-'}"</p>
-                          <p style="color: #1e3a8a; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800;">Quantity:</strong> ${quantity || '1'}</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">Cargo:</strong> ${cargoType}</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">Weight:</strong> ${weight} lbs</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">Dimensions:</strong> ${length || '-'}" x ${width || '-'}" x ${height || '-'}"</p>
+                          <p style="color: #ffffff; font-size: 16px; margin: 10px 0; font-family: Arial, sans-serif; font-weight: 600;"><strong style="font-weight: 800; color: #1E9FD8;">Quantity:</strong> ${quantity || '1'}</p>
                         </td>
                       </tr>
                     </table>
@@ -157,7 +157,7 @@ export async function POST(request: Request) {
                 
                 <tr>
                   <td align="center" style="padding: 20px;">
-                    <p style="color: #1e3a8a; font-size: 16px; margin: 0; font-family: Arial, sans-serif; font-weight: 600;">Quote response times vary by carrier.</p>
+                    <p style="color: #1E9FD8; font-size: 16px; margin: 0; font-family: Arial, sans-serif; font-weight: 600;">Quote response times vary by carrier.</p>
                   </td>
                 </tr>
                 
@@ -189,57 +189,57 @@ export async function POST(request: Request) {
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
-        <body style="margin: 0; padding: 0; background-color: #ffffff; font-family: Arial, sans-serif;">
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #ffffff;">
+        <body style="margin: 0; padding: 0; background-color: #000435; font-family: Arial, sans-serif;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #000435;">
             <tr>
               <td style="padding: 30px;">
-                <h2 style="color: #1e3a8a; margin: 0 0 20px 0; font-size: 24px; font-weight: 800;">Freight Quote Request</h2>
+                <h2 style="color: #39ff14; margin: 0 0 20px 0; font-size: 24px; font-weight: 800;">Freight Quote Request</h2>
                 
-                <p style="color: #333; font-size: 16px; margin: 0 0 20px 0; font-weight: 600;">A customer has submitted a shipping quote request via 808 Freight.</p>
+                <p style="color: #ffffff; font-size: 16px; margin: 0 0 20px 0; font-weight: 600;">A customer has submitted a shipping quote request via 808 Freight.</p>
                 
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f5f5f5; border-radius: 8px; margin-bottom: 20px;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #1e3a8a; border-radius: 8px; margin-bottom: 20px;">
                   <tr>
                     <td style="padding: 20px;">
-                      <h3 style="color: #1e3a8a; margin: 0 0 15px 0; font-size: 18px; font-weight: 800;">Customer Information</h3>
-                      <p style="margin: 8px 0; font-size: 15px;"><strong>Name:</strong> ${name || 'N/A'}</p>
-                      <p style="margin: 8px 0; font-size: 15px;"><strong>Company:</strong> ${companyName || 'N/A'}</p>
-                      <p style="margin: 8px 0; font-size: 15px;"><strong>Email:</strong> ${email}</p>
-                      <p style="margin: 8px 0; font-size: 15px;"><strong>Phone:</strong> ${phone}</p>
+                      <h3 style="color: #1E9FD8; margin: 0 0 15px 0; font-size: 18px; font-weight: 800;">Customer Information</h3>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Name:</strong> ${name || 'N/A'}</p>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Company:</strong> ${companyName || 'N/A'}</p>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Email:</strong> ${email}</p>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Phone:</strong> ${phone}</p>
                     </td>
                   </tr>
                 </table>
                 
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #1E9FD8; border-radius: 8px; margin-bottom: 20px;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #1e3a8a; border-radius: 8px; margin-bottom: 20px;">
                   <tr>
                     <td style="padding: 20px;">
-                      <h3 style="color: #1e3a8a; margin: 0 0 15px 0; font-size: 18px; font-weight: 800;">Shipment Details</h3>
-                      <p style="margin: 8px 0; font-size: 15px; color: #1e3a8a;"><strong>Type:</strong> ${shippingType === 'ocean' ? 'Ocean Freight' : 'Air Cargo'}</p>
-                      <p style="margin: 8px 0; font-size: 15px; color: #1e3a8a;"><strong>Route:</strong> ${routeType}</p>
-                      <p style="margin: 8px 0; font-size: 15px; color: #1e3a8a;"><strong>Origin:</strong> ${origin}</p>
-                      <p style="margin: 8px 0; font-size: 15px; color: #1e3a8a;"><strong>Destination:</strong> ${destination}</p>
+                      <h3 style="color: #1E9FD8; margin: 0 0 15px 0; font-size: 18px; font-weight: 800;">Shipment Details</h3>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Type:</strong> ${shippingType === 'ocean' ? 'Ocean Freight' : 'Air Cargo'}</p>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Route:</strong> ${routeType}</p>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Origin:</strong> ${origin}</p>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Destination:</strong> ${destination}</p>
                     </td>
                   </tr>
                 </table>
                 
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f5f5f5; border-radius: 8px; margin-bottom: 20px;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #1e3a8a; border-radius: 8px; margin-bottom: 20px;">
                   <tr>
                     <td style="padding: 20px;">
-                      <h3 style="color: #1e3a8a; margin: 0 0 15px 0; font-size: 18px; font-weight: 800;">Cargo Information</h3>
-                      <p style="margin: 8px 0; font-size: 15px;"><strong>Cargo Type:</strong> ${cargoType}</p>
-                      <p style="margin: 8px 0; font-size: 15px;"><strong>Weight:</strong> ${weight} lbs</p>
-                      <p style="margin: 8px 0; font-size: 15px;"><strong>Dimensions:</strong> ${length || '-'}" L x ${width || '-'}" W x ${height || '-'}" H</p>
-                      <p style="margin: 8px 0; font-size: 15px;"><strong>Quantity:</strong> ${quantity || '1'}</p>
+                      <h3 style="color: #1E9FD8; margin: 0 0 15px 0; font-size: 18px; font-weight: 800;">Cargo Information</h3>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Cargo Type:</strong> ${cargoType}</p>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Weight:</strong> ${weight} lbs</p>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Dimensions:</strong> ${length || '-'}" L x ${width || '-'}" W x ${height || '-'}" H</p>
+                      <p style="margin: 8px 0; font-size: 15px; color: #ffffff;"><strong style="color: #1E9FD8;">Quantity:</strong> ${quantity || '1'}</p>
                     </td>
                   </tr>
                 </table>
                 
-                <p style="color: #333; font-size: 15px; margin: 20px 0; font-weight: 600;">
-                  Please respond to the customer directly at <strong>${email}</strong> or <strong>${phone}</strong>.
+                <p style="color: #ffffff; font-size: 15px; margin: 20px 0; font-weight: 600;">
+                  Please respond to the customer directly at <strong style="color: #39ff14;">${email}</strong> or <strong style="color: #39ff14;">${phone}</strong>.
                 </p>
                 
-                <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;" />
+                <hr style="border: none; border-top: 1px solid #1E9FD8; margin: 30px 0; opacity: 0.5;" />
                 
-                <p style="color: #666; font-size: 13px; margin: 0;">
+                <p style="color: #1E9FD8; font-size: 13px; margin: 0;">
                   Submitted via 808 Freight | Carrier: ${carrier.name}
                 </p>
               </td>
