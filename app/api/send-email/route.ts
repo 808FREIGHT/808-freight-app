@@ -1,57 +1,33 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import twilio from 'twilio';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Initialize Twilio client (only if credentials are present)
-const twilioClient = process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN
-  ? twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
-  : null;
-const TWILIO_PHONE_NUMBER = process.env.TWILIO_PHONE_NUMBER;
-
-// Format phone number to E.164 format for Twilio
-function formatPhoneNumber(phone: string): string {
-  const cleaned = phone.replace(/\D/g, '');
-  if (cleaned.length === 11 && cleaned.startsWith('1')) {
-    return `+${cleaned}`;
-  }
-  if (cleaned.length === 10) {
-    return `+1${cleaned}`;
-  }
-  return `+${cleaned}`;
-}
-
-// Admin email - receives ALL carrier requests during test phase
-// Once carriers respond with proper quote emails, we'll route directly to them
-const ADMIN_EMAIL = 'admin@808freight.com';
+// Admin email - receives copies of all carrier requests
+const ADMIN_EMAIL = 'imipono422@gmail.com';
 
 // ===========================================
 // CARRIER EMAIL CONFIGURATION
-// ⚠️ TEST MODE: All emails routed to admin@808freight.com
-// Update with real carrier quote emails once they respond to our inquiries
-// Format: carrierKey: { name, email, phone, website, realEmail (for when we go live) }
+// Update these with real carrier quote emails when available
+// Format: carrierKey: { name, email, phone, website }
 // ===========================================
-const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: string; website: string; realEmail?: string } } = {
+const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: string; website: string } } = {
   // OCEAN CARRIERS
   youngBrothers: { 
     name: 'Young Brothers', 
-    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
-    realEmail: 'customers@htbyb.com',  // Contacted: awaiting response
+    email: 'customerservice@htbyb.com',  // General customer service
     phone: '808-543-9311',
     website: 'https://www.htbyb.com'
   },
   matson: { 
     name: 'Matson Navigation', 
-    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
-    realEmail: 'customerservice@matson.com',  // Contacted: awaiting response
+    email: 'customerservice@matson.com',  // Update with sales/quotes email
     phone: '1-800-4-MATSON',
     website: 'https://www.matson.com'
   },
   pasha: { 
     name: 'Pasha Hawaii', 
-    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
-    realEmail: 'customerservice@pashahawaii.com',  // Contacted: awaiting response
+    email: 'customerservice@pashahawaii.com',  // Update with quotes email
     phone: '808-842-5594',
     website: 'https://www.pashahawaii.com'
   },
@@ -59,50 +35,43 @@ const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: s
   // AIR CARRIERS
   fedex: { 
     name: 'FedEx Cargo', 
-    email: ADMIN_EMAIL,  // TEST MODE - FedEx uses online system
-    realEmail: 'insightwebmaster@fedex.com',  // Contacted: awaiting response
+    email: ADMIN_EMAIL,  // FedEx uses online system - forward manually
     phone: '1-800-463-3339',
     website: 'https://www.fedex.com'
   },
   ups: { 
     name: 'UPS Cargo', 
-    email: ADMIN_EMAIL,  // TEST MODE - UPS uses online system
-    realEmail: 'pkginfo@ups.com',  // Contacted: awaiting response
+    email: ADMIN_EMAIL,  // UPS uses online system - forward manually
     phone: '1-800-742-5877',
     website: 'https://www.ups.com'
   },
   alohaAir: { 
     name: 'Aloha Air Cargo', 
-    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
-    realEmail: 'customerservice@alohaaircargo.com',  // Contacted: awaiting response
+    email: 'cargo@alohaaircargo.com',  // Verify this email
     phone: '808-484-1170',
     website: 'https://www.alohaaircargo.com'
   },
   hawaiianAir: { 
     name: 'Hawaiian Air Cargo', 
-    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
-    realEmail: 'cargo.capacity@hawaiianair.com',  // Contacted: awaiting response
+    email: 'cargo@hawaiianairlines.com',  // Verify this email
     phone: '808-835-3415',
     website: 'https://www.hawaiianaircargo.com'
   },
   hawaiiAir: { 
     name: 'Hawaii Air Cargo', 
-    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
-    realEmail: 'cshnl@hawaiiaircargo.com',  // Contacted: awaiting response
+    email: ADMIN_EMAIL,  // Need to find contact - forward manually
     phone: '',
     website: ''
   },
   pacificAir: { 
     name: 'Pacific Air Cargo', 
-    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
-    realEmail: 'quotes@pacificaircargo.com',  // Contacted: awaiting response
+    email: 'sales@pacificaircargo.com',  // Verify this email
     phone: '808-836-0011',
     website: 'https://www.pacificaircargo.com'
   },
   dhx: { 
     name: 'DHX (Dependable Hawaiian Express)', 
-    email: ADMIN_EMAIL,  // TEST MODE - routed to admin
-    realEmail: 'custserv@dhx.com',  // Contacted: awaiting response
+    email: 'quotes@dhx.com',  // Verify this email
     phone: '808-836-2424',
     website: 'https://www.dhx.com'
   },
@@ -201,47 +170,15 @@ export async function POST(request: Request) {
       </html>
     `;
 
-    // Send email to customer (if preference is 'email' or 'both')
-    if (notificationPrefs !== 'sms') {
-      await resend.emails.send({
-        from: '808 Freight <noreply@808freight.com>',
-        to: [email],
-        subject: 'Your 808 Freight Quote Request - Confirmed!',
-        html: customerEmailHtml,
-      });
-      console.log('✅ Customer confirmation email sent');
-    }
+    // Send to customer
+    await resend.emails.send({
+      from: '808 Freight <noreply@808freight.com>',
+      to: [email],
+      subject: 'Your 808 Freight Quote Request - Confirmed!',
+      html: customerEmailHtml,
+    });
 
-    // 3. Send SMS confirmation to customer (if preference is 'sms' or 'both')
-    if ((notificationPrefs === 'sms' || notificationPrefs === 'both') && phone && twilioClient && TWILIO_PHONE_NUMBER) {
-      try {
-        const carrierList = selectedCarriers
-          ?.map((c: string) => CARRIER_CONTACTS[c]?.name || c)
-          .join(', ') || 'N/A';
-        
-        const smsBody = `🚢 808 Freight - Mahalo, ${name || 'Valued Customer'}!\n\n` +
-          `Your quote request has been submitted!\n\n` +
-          `📍 Route: ${origin} → ${destination}\n` +
-          `📦 Carriers: ${carrierList}\n\n` +
-          `We'll notify you as quotes come in.\n\n` +
-          `Questions? Email admin@808freight.com`;
-
-        const formattedPhone = formatPhoneNumber(phone);
-        const message = await twilioClient.messages.create({
-          body: smsBody,
-          from: TWILIO_PHONE_NUMBER,
-          to: formattedPhone,
-        });
-        console.log(`✅ Customer confirmation SMS sent: ${message.sid}`);
-      } catch (smsError: any) {
-        // Log SMS error but don't fail the entire request
-        console.error('⚠️ SMS send failed (non-blocking):', smsError.message);
-      }
-    } else if ((notificationPrefs === 'sms' || notificationPrefs === 'both') && !twilioClient) {
-      console.warn('⚠️ SMS requested but Twilio not configured');
-    }
-
-    // 4. Send quote request to EACH CARRIER
+    // 2. Send quote request to EACH CARRIER
     for (const carrierKey of selectedCarriers || []) {
       const carrier = CARRIER_CONTACTS[carrierKey];
       if (!carrier) continue;

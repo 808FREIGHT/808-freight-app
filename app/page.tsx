@@ -245,7 +245,7 @@ export default function Home() {
   const [companyName, setCompanyName] = useState('');
   const [name, setName] = useState('');
   const [completedFields, setCompletedFields] = useState<Set<string>>(new Set());
-  const [notificationPref, setNotificationPref] = useState('both');
+  const [notificationPref, setNotificationPref] = useState('email'); // Default to email until SMS is configured
   const [selectedServices, setSelectedServices] = useState<Map<string, string[]>>(new Map());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [shippingDate, setShippingDate] = useState('');
@@ -899,10 +899,24 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Notification Preference */}
+              {/* Notification Preference - SMS options hidden until service is configured */}
               <div className="form-group">
                 <label>How should we send your quotes? {completedFields.has('notificationPref') ? <span className="completed"></span> : <span className="required">*</span>}</label>
                 <div className="notification-prefs">
+                  <div className="radio-group">
+                    <input 
+                      type="radio" 
+                      id="email-only" 
+                      name="notificationPref" 
+                      value="email" 
+                      required 
+                      disabled={!email}
+                      checked={notificationPref === 'email'}
+                      onChange={(e) => { setNotificationPref(e.target.value); markFieldCompleted('notificationPref', e.target.value); }}
+                    />
+                    <label htmlFor="email-only" style={{ margin: 0 }}>Email</label>
+                  </div>
+                  {/* SMS options - uncomment when Twilio/SMS service is configured
                   <div className="radio-group">
                     <input 
                       type="radio" 
@@ -919,19 +933,6 @@ export default function Home() {
                   <div className="radio-group">
                     <input 
                       type="radio" 
-                      id="email-only" 
-                      name="notificationPref" 
-                      value="email" 
-                      required 
-                      disabled={!email}
-                      checked={notificationPref === 'email'}
-                      onChange={(e) => { setNotificationPref(e.target.value); markFieldCompleted('notificationPref', e.target.value); }}
-                    />
-                    <label htmlFor="email-only" style={{ margin: 0 }}>Email Only</label>
-                  </div>
-                  <div className="radio-group">
-                    <input 
-                      type="radio" 
                       id="both" 
                       name="notificationPref" 
                       value="both" 
@@ -942,6 +943,7 @@ export default function Home() {
                     />
                     <label htmlFor="both" style={{ margin: 0 }}>Both</label>
                   </div>
+                  */}
                 </div>
               </div>
             </div>
