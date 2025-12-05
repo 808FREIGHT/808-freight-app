@@ -245,7 +245,7 @@ export default function Home() {
   const [companyName, setCompanyName] = useState('');
   const [name, setName] = useState('');
   const [completedFields, setCompletedFields] = useState<Set<string>>(new Set());
-  const [notificationPref, setNotificationPref] = useState('email'); // Default to email until SMS is configured
+  // notificationPref removed for email-only launch (SMS coming later)
   const [selectedServices, setSelectedServices] = useState<Map<string, string[]>>(new Map());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [shippingDate, setShippingDate] = useState('');
@@ -396,8 +396,7 @@ export default function Home() {
         commonDetails: Object.fromEntries(
           COMMON_DETAIL_FIELDS.map(f => [f.name, data[f.name]])
         ),
-        quantity: data.quantity,
-        notificationPref: data.notificationPref
+        quantity: data.quantity
       }
     };
   
@@ -459,8 +458,7 @@ export default function Home() {
             length: data.length,
             width: data.width,
             height: data.height,
-            quantity: data.quantity,
-            notificationPrefs: data.notificationPref
+            quantity: data.quantity
           }),
         });
         
@@ -899,53 +897,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Notification Preference - SMS options hidden until service is configured */}
-              <div className="form-group">
-                <label>How should we send your quotes? {completedFields.has('notificationPref') ? <span className="completed"></span> : <span className="required">*</span>}</label>
-                <div className="notification-prefs">
-                  <div className="radio-group">
-                    <input 
-                      type="radio" 
-                      id="email-only" 
-                      name="notificationPref" 
-                      value="email" 
-                      required 
-                      disabled={!email}
-                      checked={notificationPref === 'email'}
-                      onChange={(e) => { setNotificationPref(e.target.value); markFieldCompleted('notificationPref', e.target.value); }}
-                    />
-                    <label htmlFor="email-only" style={{ margin: 0 }}>Email</label>
-                  </div>
-                  {/* SMS options - uncomment when Twilio/SMS service is configured
-                  <div className="radio-group">
-                    <input 
-                      type="radio" 
-                      id="sms" 
-                      name="notificationPref" 
-                      value="sms" 
-                      required 
-                      disabled={!email}
-                      checked={notificationPref === 'sms'}
-                      onChange={(e) => { setNotificationPref(e.target.value); markFieldCompleted('notificationPref', e.target.value); }}
-                    />
-                    <label htmlFor="sms" style={{ margin: 0 }}>Text Only</label>
-                  </div>
-                  <div className="radio-group">
-                    <input 
-                      type="radio" 
-                      id="both" 
-                      name="notificationPref" 
-                      value="both" 
-                      required 
-                      disabled={!email}
-                      checked={notificationPref === 'both'}
-                      onChange={(e) => { setNotificationPref(e.target.value); markFieldCompleted('notificationPref', e.target.value); }}
-                    />
-                    <label htmlFor="both" style={{ margin: 0 }}>Both</label>
-                  </div>
-                  */}
-                </div>
-              </div>
+              {/* Quote confirmations will be sent via email */}
             </div>
 
             {/* Carrier-Specific Information - Redesigned */}

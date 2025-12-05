@@ -868,39 +868,7 @@ textarea:disabled::placeholder {
   gap: 12px;
 }
 
-.notification-prefs {
-  display: flex;
-  gap: 15px;
-  margin-top: 8px;
-}
-
-.radio-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #1e3a8a;
-}
-
-.radio-group input[type="radio"] {
-  width: auto;
-  margin: 0;
-  appearance: none;
-  -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #cbd5e1;
-  border-radius: 50%;
-  background: #f8fafc;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.radio-group input[type="radio"]:checked {
-  background: #39ff14;
-  border-color: #39ff14;
-  box-shadow: 0 0 8px rgba(57, 255, 20, 0.5);
-}
+/* Notification preferences removed for email-only launch */
 
 .radio-group input[type="radio"]:checked::after {
   content: '';
@@ -1383,17 +1351,6 @@ label:has(+ textarea:disabled) {
   textarea {
     font-size: 16px !important; /* Prevents zoom on iOS */
     width: 100%;
-  }
-  
-  /* Notification Prefs */
-  .notification-prefs {
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .radio-group {
-    width: 100%;
-    justify-content: flex-start;
   }
   
   /* Center all content */

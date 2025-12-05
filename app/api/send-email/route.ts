@@ -96,8 +96,7 @@ export async function POST(request: Request) {
       length,
       width,
       height,
-      quantity,
-      notificationPrefs
+      quantity
     } = body;
 
     // 1. Send confirmation email to CUSTOMER
