@@ -575,7 +575,7 @@ export default function AdminDashboard() {
                 <div style={{ display: 'grid', gap: '8px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span style={{ color: '#71717a', fontSize: '14px' }}>Type</span>
-                    <span style={{ color: '#ffffff', fontSize: '14px', fontWeight: 500 }}>{selectedQuote.metadata?.shippingType === 'ocean' ? '🚢 Ocean' : '✈️ Air'}</span>
+                    <span style={{ color: '#ffffff', fontSize: '14px', fontWeight: 500 }}>{selectedQuote.metadata?.shippingType === 'ocean' ? 'Ocean Freight' : 'Air Cargo'}</span>
                   </div>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <span style={{ color: '#71717a', fontSize: '14px' }}>From</span>

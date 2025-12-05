@@ -504,7 +504,7 @@ export default function Home() {
     <main>
       {/* TEST SITE BANNER */}
       <div className="test-banner">
-        ⚠️ TEST SITE - FOR TRIAL USE ONLY ⚠️
+        TEST SITE - FOR TRIAL USE ONLY
       </div>
       
       {/* LANDING SECTION */}
@@ -616,7 +616,7 @@ export default function Home() {
       <section id="quote-section">
         <div className="form-container">
           <form id="quoteForm" className="quote-form" onSubmit={handleSubmit}>
-            <h2 className="form-title" style={{ color: '#1e3a8a' }}>Quote Request Form</h2>
+            <h2 className="form-title">Quote Request Form</h2>
             <ul className="form-intro-bullets">
               <li>We perform a weekly check with carriers for any updates in shipping rates.</li>
               <li>Below is a compilation of required information from our carrier network.</li>
@@ -759,7 +759,7 @@ export default function Home() {
                       cursor: destination ? 'pointer' : 'not-allowed'
                     }}
                   >
-                    {allSelected ? '✗ Deselect All Carriers' : '✓ Select All Carriers'}
+                    {allSelected ? 'Deselect All Carriers' : 'Select All Carriers'}
                   </div>
                 </div>
               )}
@@ -799,7 +799,7 @@ export default function Home() {
 
             {/* Contact Information Section */}
             <div className="contact-info-section" style={{ marginTop: '30px', paddingTop: '20px', borderTop: '2px solid rgba(30, 159, 216, 0.3)' }}>
-              <h3 style={{ color: '#1e3a8a', fontSize: '1.3em', marginBottom: '20px' }}>📞 Contact Information</h3>
+              <h3 style={{ color: '#1E9FD8', fontSize: '1.3em', marginBottom: '20px' }}>Contact Information</h3>
               
               <div className="form-group">
                 <label htmlFor="companyName">Company Name (Optional)</label>
@@ -865,7 +865,7 @@ export default function Home() {
               <div id="carrierFieldsContainer">
                 {/* Part 1: Common Details Section */}
                 <div className="carrier-specific-section">
-                  <div className="carrier-specific-title">📋 Shipment Details</div>
+                  <div className="carrier-specific-title">Shipment Details</div>
                   <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.95em', marginBottom: '20px' }}>
                     Please provide the following details required by all carriers for accurate quotes.
                   </p>
@@ -976,7 +976,7 @@ export default function Home() {
             {/* Part 2: Individual Carrier Service Options */}
             {selectedCarriers.length > 0 && weight && (
               <div className="carrier-specific-section" style={{ marginTop: '25px' }}>
-                <div className="carrier-specific-title">🚢 Select Services by Carrier</div>
+                <div className="carrier-specific-title">Select Services by Carrier</div>
                 <p style={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.95em', marginBottom: '20px' }}>
                   Choose which service options you'd like quotes for from each carrier.
                 </p>
@@ -1012,25 +1012,35 @@ export default function Home() {
 
             <button 
               type="submit" 
-              className="submit-btn" 
+              className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
               disabled={!email || isSubmitting || quoteComplete}
               style={quoteComplete ? {
                 background: '#39ff14',
                 color: '#1e3a8a',
                 fontWeight: 800,
-                boxShadow: '0 0 20px rgba(57, 255, 20, 0.6)',
-                cursor: 'default',
-                padding: '18px 30px',
-                fontSize: '1.2em'
-              } : {
-                padding: '18px 30px',
-                fontSize: '1.2em'
-              }}
+                boxShadow: 'inset 3px 3px 6px rgba(255, 255, 255, 0.4), inset -3px -3px 6px rgba(0, 0, 0, 0.2), 0 0 20px rgba(57, 255, 20, 0.5)',
+                cursor: 'default'
+              } : {}}
             >
-              {quoteComplete ? '✅ Quote Complete!' : (isSubmitting ? 'Submitting...' : (
-                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
-                  <span style={{ fontSize: '1.6rem', fontWeight: 800, color: '#ffffff', letterSpacing: '2px', textShadow: '1px 1px 2px rgba(0,0,0,0.3)' }}>SHIP ME!</span>
-                  <Image src="/808-freight-logo-white.png" alt="808 Freight" width={60} height={30} style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
+              {quoteComplete ? 'QUOTE SUBMITTED SUCCESSFULLY' : (isSubmitting ? (
+                <div className="barge-loader">
+                  <svg className="barge-icon" width="60" height="30" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 20 L10 25 L50 25 L55 20 L50 15 L10 15 Z" fill="#1E9FD8" stroke="#ffffff" strokeWidth="2"/>
+                    <rect x="15" y="8" width="8" height="7" fill="#ffffff" rx="1"/>
+                    <rect x="26" y="5" width="10" height="10" fill="#ffffff" rx="1"/>
+                    <rect x="39" y="8" width="8" height="7" fill="#ffffff" rx="1"/>
+                    <path d="M0 28 Q15 32 30 28 Q45 24 60 28" stroke="#1E9FD8" strokeWidth="2" fill="none"/>
+                  </svg>
+                  <div className="progress-bar-container">
+                    <div className="progress-bar"></div>
+                  </div>
+                  <span className="loading-text">Sending to carriers...</span>
+                </div>
+              ) : (
+                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+                  <Image src="/808-freight-logo_1.png" alt="808" width={50} height={35} style={{ objectFit: 'contain', filter: 'brightness(0) saturate(100%) invert(15%) sepia(50%) saturate(2000%) hue-rotate(210deg) brightness(90%)' }} />
+                  <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1e3a8a', letterSpacing: '1px' }}>SUBMIT QUOTE REQUEST</span>
+                  <Image src="/808-freight-logo_1.png" alt="808" width={50} height={35} style={{ objectFit: 'contain', filter: 'brightness(0) saturate(100%) invert(15%) sepia(50%) saturate(2000%) hue-rotate(210deg) brightness(90%)' }} />
                 </span>
               ))}
             </button>
@@ -1038,46 +1048,45 @@ export default function Home() {
 
           {/* How It Works Section */}
           <div style={{
-            background: '#1E9FD8',
-            padding: '25px 20px',
-            borderRadius: '12px',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
-            marginTop: '30px',
+            background: 'transparent',
+            padding: '30px 20px',
+            marginTop: '40px',
             maxWidth: '600px',
             marginLeft: 'auto',
             marginRight: 'auto'
           }}>
             <h2 style={{
-              fontSize: '1.6em',
-              color: '#1e3a8a',
-              marginBottom: '15px',
+              fontSize: '1.8em',
+              color: '#1E9FD8',
+              marginBottom: '20px',
               textAlign: 'center',
               fontWeight: 800,
-              letterSpacing: '1px'
+              letterSpacing: '1px',
+              textTransform: 'uppercase'
             }}>HOW DOES THIS ALL WORK?</h2>
             <ul style={{
               listStyle: 'none',
               padding: 0,
               margin: '0 0 20px 0'
             }}>
-              <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
-                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
+              <li style={{ color: '#ffffff', fontSize: '1em', fontWeight: 500, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 159, 216, 0.3)', textAlign: 'left' }}>
+                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold', color: '#1E9FD8' }}>•</span>
                 After you submit the form, we&apos;ll send you a confirmation email and forward your quote request to all carriers you selected.
               </li>
-              <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
-                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
+              <li style={{ color: '#ffffff', fontSize: '1em', fontWeight: 500, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 159, 216, 0.3)', textAlign: 'left' }}>
+                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold', color: '#1E9FD8' }}>•</span>
                 Quote response times vary by carrier.
               </li>
-              <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
-                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
-                As carriers respond with their quotes, they&apos;ll be automatically forwarded to you via text, email, or both.
+              <li style={{ color: '#ffffff', fontSize: '1em', fontWeight: 500, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 159, 216, 0.3)', textAlign: 'left' }}>
+                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold', color: '#1E9FD8' }}>•</span>
+                As carriers respond with their quotes, they&apos;ll be automatically forwarded to you via email.
               </li>
-              <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 58, 138, 0.2)', textAlign: 'left' }}>
-                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
+              <li style={{ color: '#ffffff', fontSize: '1em', fontWeight: 500, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 159, 216, 0.3)', textAlign: 'left' }}>
+                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold', color: '#1E9FD8' }}>•</span>
                 Once all quotes are received, we&apos;ll send you an email with everything compiled side by side so you can compare and choose the best deal.
               </li>
-              <li style={{ color: '#1e3a8a', fontSize: '1em', fontWeight: 600, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', textAlign: 'left' }}>
-                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold' }}>•</span>
+              <li style={{ color: '#ffffff', fontSize: '1em', fontWeight: 500, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', textAlign: 'left' }}>
+                <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold', color: '#1E9FD8' }}>•</span>
                 Click the link for your preferred quote, and you&apos;ll be taken directly to the carrier&apos;s website to complete your booking.
               </li>
             </ul>
