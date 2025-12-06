@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Admin email - receives copies of all carrier requests
-const ADMIN_EMAIL = 'imipono422@gmail.com';
+const ADMIN_EMAIL = 'admin@808freight.com';
 
 // ===========================================
 // CARRIER EMAIL CONFIGURATION
