@@ -1061,7 +1061,7 @@ export default function Home() {
                   <span className="loading-text">Sending to carriers...</span>
                 </div>
               ) : (
-                'SUBMIT QUOTE REQUEST'
+                <>SUBMIT QUOTE REQUEST</>
               ))}
             </button>
             <p className="submit-helper-text">Free service • No obligation • Book direct with carrier</p>
