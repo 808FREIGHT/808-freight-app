@@ -48,10 +48,11 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   perspective: 1500px;
   perspective-origin: center top;
-  padding-top: 30px; /* Account for test banner */
+  padding-top: 35px; /* Account for test banner */
+  background: #000435;
 }
 
 /* Slideshow Section - 30% */
@@ -59,9 +60,10 @@ body {
   height: 30vh;
   width: 100%;
   position: sticky;
-  top: 30px; /* Account for test banner */
+  top: 35px; /* Account for test banner */
   overflow: hidden;
   z-index: 100;
+  background: #000435;
 }
 
 .slideshow-section::after {
@@ -401,7 +403,7 @@ body {
 .logo-main {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   margin-bottom: 60px;
   margin-top: 80px;
   background: transparent;
@@ -414,9 +416,9 @@ body {
 }
 
 .logo-main img {
-  width: auto !important;
-  height: 350px !important;
-  max-width: 500px;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 450px;
   object-fit: contain;
   transform: scaleY(1.15);
   /* White filter */
@@ -1361,15 +1363,18 @@ label:has(+ textarea:disabled) {
     width: 95%;
   }
 
-  /* Typography */
+  /* Logo - FIXED: Show full logo including 808 */
   .logo-main {
     max-width: 90%;
-    margin-top: -3vh;
+    margin-top: 25px;
+    margin-bottom: 30px;
   }
 
   .logo-main img {
-    height: 180px !important;
-    max-width: 100%;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 320px;
+    transform: scaleY(1.1);
   }
 
   .main-heading {
@@ -1427,17 +1432,30 @@ label:has(+ textarea:disabled) {
     text-align: center;
   }
 
-  /* Steps */
-  .step {
-    max-width: 100%;
-    width: 100%;
-    padding: 15px;
+  /* Steps - 3 column layout on mobile */
+  .steps-container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding: 0 10px;
+    justify-content: center;
   }
   
-  .steps-container {
-    align-items: stretch;
-    gap: 15px;
-    padding: 0 10px;
+  .step {
+    max-width: 110px;
+    padding: 10px 5px;
+    flex: 0 0 auto;
+  }
+  
+  .step-number {
+    width: 38px;
+    height: 38px;
+    font-size: 1.2rem;
+  }
+  
+  .step-title {
+    font-size: 0.85rem;
+    line-height: 1.3;
   }
 
   .port-label {
@@ -1446,9 +1464,9 @@ label:has(+ textarea:disabled) {
     right: 15px;
   }
   
-  /* Slideshow */
+  /* Slideshow - account for test banner on mobile */
   .slideshow-section {
-    height: 25vh;
+    height: 32vh;
     width: 100vw;
   }
   
@@ -1462,20 +1480,27 @@ label:has(+ textarea:disabled) {
   .featured-carriers-section {
     width: 90%;
     max-width: 90%;
-    margin: 0 auto;
+    margin: 20px auto 0;
     padding: 20px 15px;
   }
   
   .featured-carriers-title {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
   }
   
   .carrier-list-header {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   
   .carrier-list li {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    padding: 3px 0;
+  }
+  
+  .carrier-network-subtext {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
   }
   
   .form-intro-bullets li {
@@ -1486,18 +1511,20 @@ label:has(+ textarea:disabled) {
   
   /* CTA Section */
   .cta-section {
-    padding: 20px 15px;
-    gap: 10px;
+    padding: 15px 10px;
+    gap: 8px;
     width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
   
   .cta-text {
-    font-size: 1.4rem !important;
+    font-size: 1.2rem !important;
     letter-spacing: 1px;
   }
   
   .cta-arrow {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
   /* Carrier Service Boxes */
@@ -1522,7 +1549,7 @@ label:has(+ textarea:disabled) {
   /* Buttons */
   .submit-btn {
     font-size: 1.1rem;
-    padding: 16px 30px;
+    padding: 18px 20px;
     width: 100%;
   }
   

@@ -537,8 +537,8 @@ export default function Home() {
                 src="/808-freight-logo-white.png" 
                 alt="808 Freight Logo" 
                 width={900} 
-                height={240} 
-                style={{ width: '100%', height: 'auto', maxHeight: '240px', objectFit: 'contain' }} 
+                height={550} 
+                style={{ width: '100%', height: 'auto', objectFit: 'contain' }} 
                 priority 
               />
             </div>
@@ -1044,11 +1044,7 @@ export default function Home() {
                   <span className="loading-text">Sending to carriers...</span>
                 </div>
               ) : (
-                <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px', width: '100%' }}>
-                  <Image src="/808-freight-logo_1.png" alt="808" width={75} height={55} style={{ objectFit: 'contain', filter: 'brightness(0) saturate(100%) invert(15%) sepia(50%) saturate(2000%) hue-rotate(210deg) brightness(90%)' }} />
-                  <span style={{ fontSize: '1em', fontWeight: 800, color: '#1e3a8a', letterSpacing: '1px', whiteSpace: 'nowrap' }}>SUBMIT QUOTE REQUEST</span>
-                  <Image src="/808-freight-logo_1.png" alt="808" width={75} height={55} style={{ objectFit: 'contain', filter: 'brightness(0) saturate(100%) invert(15%) sepia(50%) saturate(2000%) hue-rotate(210deg) brightness(90%)' }} />
-                </span>
+  SUBMIT QUOTE REQUEST
               ))}
             </button>
             <p className="submit-helper-text">Free service • No obligation • Book direct with carrier</p>
