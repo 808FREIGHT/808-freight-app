@@ -504,17 +504,12 @@ export default function Home() {
     if (!shippingType) return {};
     const allCarriers = CARRIERS[shippingType as keyof typeof CARRIERS];
     
-    // For inter-island ocean freight, only show Young Brothers
+    // For inter-island ocean freight, only show Young Brothers (Matson/Pasha don't do inter-island)
     if (shippingType === 'ocean' && routeType === 'inter-island') {
       return { youngBrothers: allCarriers.youngBrothers };
     }
     
-    // For West Coast routes (ocean), exclude Young Brothers (they don't do mainland)
-    if (shippingType === 'ocean' && (routeType === 'westcoast-to-hawaii' || routeType === 'hawaii-to-westcoast')) {
-      const { youngBrothers, ...westCoastCarriers } = allCarriers;
-      return westCoastCarriers;
-    }
-    
+    // For West Coast routes, show all ocean carriers (Young Brothers, Matson, Pasha all do West Coast)
     return allCarriers;
   };
   
