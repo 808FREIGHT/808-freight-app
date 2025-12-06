@@ -1363,11 +1363,13 @@ label:has(+ textarea:disabled) {
     width: 95%;
   }
 
-  /* Logo - FIXED: Show full logo including 808 */
+  /* ====== CONSISTENT MOBILE SPACING: 25px between sections ====== */
+  
+  /* Logo */
   .logo-main {
     max-width: 90%;
-    margin-top: 25px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 25px;
   }
 
   .logo-main img {
@@ -1382,6 +1384,7 @@ label:has(+ textarea:disabled) {
     line-height: 1.2;
     text-align: center;
     padding: 0 10px;
+    margin-bottom: 25px;
   }
 
   .tagline {
@@ -1394,7 +1397,7 @@ label:has(+ textarea:disabled) {
   }
   
   .tagline span {
-    font-size: 2.2rem !important; /* Override the 2.8rem inline style for "808 FREIGHT" text */
+    font-size: 2.2rem !important;
     display: block;
     margin-top: 10px;
   }
@@ -1404,6 +1407,7 @@ label:has(+ textarea:disabled) {
     font-size: 1.4rem;
     padding: 0 15px;
     line-height: 1.5;
+    margin-bottom: 25px;
   }
   
   /* Trust Signals Mobile */
@@ -1412,6 +1416,7 @@ label:has(+ textarea:disabled) {
     gap: 10px;
     padding: 15px;
     align-items: flex-start;
+    margin-bottom: 25px;
   }
   
   .trust-item {
@@ -1419,17 +1424,20 @@ label:has(+ textarea:disabled) {
   }
   
   .carrier-network-subtext {
-    font-size: 1rem;
+    font-size: 0.9rem;
     padding: 0 10px;
+    margin-bottom: 15px;
   }
   
   .submit-helper-text {
     font-size: 0.85rem;
+    margin-top: 15px;
   }
   
   .form-title {
     font-size: 1.8rem !important;
     text-align: center;
+    margin-bottom: 20px;
   }
 
   /* Steps - 3 column layout on mobile */
@@ -1439,6 +1447,7 @@ label:has(+ textarea:disabled) {
     gap: 10px;
     padding: 0 10px;
     justify-content: center;
+    margin-bottom: 25px;
   }
   
   .step {
@@ -1464,7 +1473,7 @@ label:has(+ textarea:disabled) {
     right: 15px;
   }
   
-  /* Slideshow - account for test banner on mobile */
+  /* Slideshow */
   .slideshow-section {
     height: 32vh;
     width: 100vw;
@@ -1480,8 +1489,8 @@ label:has(+ textarea:disabled) {
   .featured-carriers-section {
     width: 90%;
     max-width: 90%;
-    margin: 20px auto 0;
-    padding: 20px 15px;
+    margin: 0 auto;
+    padding: 25px 15px;
   }
   
   .featured-carriers-title {
@@ -1498,9 +1507,12 @@ label:has(+ textarea:disabled) {
     padding: 3px 0;
   }
   
-  .carrier-network-subtext {
-    font-size: 0.9rem;
-    margin-bottom: 15px;
+  .carrier-list-vertical {
+    gap: 20px;
+  }
+  
+  .form-intro-bullets {
+    margin-bottom: 25px;
   }
   
   .form-intro-bullets li {
@@ -1514,8 +1526,8 @@ label:has(+ textarea:disabled) {
     padding: 15px 10px;
     gap: 8px;
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 0;
+    margin-bottom: 25px;
   }
   
   .cta-text {
@@ -1532,6 +1544,7 @@ label:has(+ textarea:disabled) {
     padding: 15px;
     margin-left: 0;
     margin-right: 0;
+    margin-bottom: 20px;
   }
   
   .carrier-service-title {
@@ -1546,11 +1559,28 @@ label:has(+ textarea:disabled) {
     font-size: 0.95em;
   }
   
+  /* Form groups - consistent spacing */
+  .form-group {
+    margin-bottom: 18px;
+  }
+  
+  .carrier-specific-section {
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+  
+  /* Contact info section */
+  .contact-info-section {
+    margin-top: 25px !important;
+    padding-top: 20px !important;
+  }
+  
   /* Buttons */
   .submit-btn {
     font-size: 1.1rem;
     padding: 18px 20px;
     width: 100%;
+    margin-top: 25px;
   }
   
   /* Inputs and Select */
