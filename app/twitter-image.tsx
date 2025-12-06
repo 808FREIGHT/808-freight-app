@@ -21,52 +21,27 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          fontFamily: 'system-ui, sans-serif',
         }}
       >
-        {/* 808 Text */}
-        <div
+        {/* Logo */}
+        <img
+          src="https://808freight.com/808-freight-logo-white.png"
+          alt="808 FREIGHT"
+          width={600}
+          height={370}
           style={{
-            fontSize: 180,
-            fontWeight: 900,
-            color: '#000435',
-            letterSpacing: '-5px',
-            marginBottom: -30,
+            objectFit: 'contain',
           }}
-        >
-          808
-        </div>
-        
-        {/* Ship Icon (simplified) */}
-        <div
-          style={{
-            fontSize: 80,
-            marginBottom: -20,
-          }}
-        >
-          🚢
-        </div>
-        
-        {/* FREIGHT Text */}
-        <div
-          style={{
-            fontSize: 120,
-            fontWeight: 900,
-            color: '#000435',
-            letterSpacing: '8px',
-          }}
-        >
-          FREIGHT
-        </div>
+        />
         
         {/* Tagline */}
         <div
           style={{
-            fontSize: 36,
+            fontSize: 32,
             fontWeight: 600,
             color: '#1E9FD8',
-            marginTop: 30,
-            letterSpacing: '2px',
+            marginTop: 20,
+            letterSpacing: '1px',
           }}
         >
           Compare Hawaii Shipping Quotes
