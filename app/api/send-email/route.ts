@@ -78,13 +78,13 @@ const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: s
   },
   alohaAir: { 
     name: 'Aloha Air Cargo', 
-    email: 'cargo@alohaaircargo.com',  // Verify this email
+    email: 'customerservice@alohaaircargo.com',  // Verified
     phone: '808-484-1170',
     website: 'https://www.alohaaircargo.com'
   },
   hawaiianAir: { 
-    name: 'Hawaiian Air Cargo', 
-    email: 'cargo@hawaiianairlines.com',  // Verify this email
+    name: 'Hawaiian Airlines Cargo', 
+    email: 'cargo.booking@alaskaair.com',  // Verified - Hawaiian partners with Alaska Air
     phone: '808-835-3415',
     website: 'https://www.hawaiianaircargo.com'
   },
@@ -96,13 +96,13 @@ const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: s
   },
   pacificAir: { 
     name: 'Pacific Air Cargo', 
-    email: 'sales@pacificaircargo.com',  // Verify this email
+    email: 'quotes@pacificaircargo.com',  // Verified
     phone: '808-836-0011',
     website: 'https://www.pacificaircargo.com'
   },
   dhx: { 
     name: 'DHX (Dependable Hawaiian Express)', 
-    email: 'quotes@dhx.com',  // Verify this email
+    email: 'rates@dhx.com',  // Verified
     phone: '808-836-2424',
     website: 'https://www.dhx.com'
   },
