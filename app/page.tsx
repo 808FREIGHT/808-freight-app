@@ -542,22 +542,20 @@ export default function Home() {
                 priority 
               />
             </div>
-            <p className="tagline">FREE QUOTES ON INTER-ISLAND AND WEST COAST SHIPPING.<br/>ONLY HERE AT <span style={{ color: '#ffffff', fontWeight: 900, fontSize: '2.8rem' }}>808 FREIGHT</span></p>
-
             <div className="steps-container">
               <div className="step">
                 <div className="step-number">1</div>
-                <div className="step-title">Enter Information</div>
+                <div className="step-title">Tell Us What You're Shipping</div>
               </div>
 
               <div className="step">
                 <div className="step-number">2</div>
-                <div className="step-title">Select Carriers</div>
+                <div className="step-title">We Contact All Carriers</div>
               </div>
 
               <div className="step">
                 <div className="step-number">3</div>
-                <div className="step-title">Compare Quotes</div>
+                <div className="step-title">Compare & Book Direct</div>
               </div>
             </div>
 
@@ -576,13 +574,14 @@ export default function Home() {
               }}
             >
               <div className="cta-arrow" style={{ color: '#ffffff' }}>↓</div>
-              <h2 className="cta-text" style={{ color: '#ffffff', fontSize: '1.8rem' }}>WE MAKE SHIP HAPPEN</h2>
+              <h2 className="cta-text" style={{ color: '#ffffff', fontSize: '1.8rem' }}>Get Your Free Quotes</h2>
               <div className="cta-arrow" style={{ color: '#ffffff' }}>↓</div>
             </div>
 
             {/* Featured Carriers - Vertical List */}
             <div className="featured-carriers-section">
               <h3 className="featured-carriers-title">Our Carrier Network</h3>
+              <p className="carrier-network-subtext">All major Hawaii freight carriers in one place</p>
               
               <div className="carrier-list-vertical">
                 <div className="carrier-list-group">
@@ -615,11 +614,19 @@ export default function Home() {
       {/* QUOTE FORM SECTION */}
       <section id="quote-section">
         <div className="form-container">
+          {/* Trust Signals */}
+          <div className="trust-signals">
+            <div className="trust-item"><span className="trust-check">✓</span> All Major Hawaii Carriers</div>
+            <div className="trust-item"><span className="trust-check">✓</span> Ocean & Air Freight</div>
+            <div className="trust-item"><span className="trust-check">✓</span> No Account Required</div>
+            <div className="trust-item"><span className="trust-check">✓</span> Quotes Within 24-48 Hours</div>
+          </div>
+
           <form id="quoteForm" className="quote-form" onSubmit={handleSubmit}>
             <h2 className="form-title">Quote Request Form</h2>
             <ul className="form-intro-bullets">
-              <li>We perform a weekly check with carriers for any updates in shipping rates.</li>
-              <li>Below is a compilation of required information from our carrier network.</li>
+              <li>We check carrier rates weekly to ensure accuracy.</li>
+              <li>Fill out once—we handle the rest.</li>
             </ul>
             
             {/* Shipping Type */}
@@ -1044,9 +1051,10 @@ export default function Home() {
                 </span>
               ))}
             </button>
+            <p className="submit-helper-text">Free service • No obligation • Book direct with carrier</p>
           </form>
 
-          {/* How It Works Section */}
+          {/* What Happens Next Section */}
           <div style={{
             background: 'transparent',
             padding: '30px 20px',
@@ -1063,7 +1071,7 @@ export default function Home() {
               fontWeight: 800,
               letterSpacing: '1px',
               textTransform: 'uppercase'
-            }}>HOW DOES THIS ALL WORK?</h2>
+            }}>What Happens Next?</h2>
             <ul style={{
               listStyle: 'none',
               padding: 0,
@@ -1071,23 +1079,23 @@ export default function Home() {
             }}>
               <li style={{ color: '#ffffff', fontSize: '1em', fontWeight: 500, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 159, 216, 0.3)', textAlign: 'left' }}>
                 <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold', color: '#1E9FD8' }}>•</span>
-                After you submit the form, we&apos;ll send you a confirmation email and forward your quote request to all carriers you selected.
+                You&apos;ll receive a confirmation email. We forward your request to all selected carriers.
               </li>
               <li style={{ color: '#ffffff', fontSize: '1em', fontWeight: 500, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 159, 216, 0.3)', textAlign: 'left' }}>
                 <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold', color: '#1E9FD8' }}>•</span>
-                Quote response times vary by carrier.
+                Most quotes arrive within 24-48 hours.
               </li>
               <li style={{ color: '#ffffff', fontSize: '1em', fontWeight: 500, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 159, 216, 0.3)', textAlign: 'left' }}>
                 <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold', color: '#1E9FD8' }}>•</span>
-                As carriers respond with their quotes, they&apos;ll be automatically forwarded to you via email.
+                Quotes are forwarded to you as they come in.
               </li>
               <li style={{ color: '#ffffff', fontSize: '1em', fontWeight: 500, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', borderBottom: '1px solid rgba(30, 159, 216, 0.3)', textAlign: 'left' }}>
                 <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold', color: '#1E9FD8' }}>•</span>
-                Once all quotes are received, we&apos;ll send you an email with everything compiled side by side so you can compare and choose the best deal.
+                We compile all quotes side-by-side so you can compare easily.
               </li>
               <li style={{ color: '#ffffff', fontSize: '1em', fontWeight: 500, lineHeight: 1.6, padding: '12px 0 12px 28px', position: 'relative', textAlign: 'left' }}>
                 <span style={{ position: 'absolute', left: '6px', top: '8px', fontSize: '1.4em', fontWeight: 'bold', color: '#1E9FD8' }}>•</span>
-                Click the link for your preferred quote, and you&apos;ll be taken directly to the carrier&apos;s website to complete your booking.
+                Book directly with your preferred carrier—no middleman.
               </li>
             </ul>
             <div style={{

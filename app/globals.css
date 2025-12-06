@@ -56,7 +56,7 @@ body {
 
 /* Slideshow Section - 30% */
 .slideshow-section {
-  height: 45vh;
+  height: 30vh;
   width: 100%;
   position: sticky;
   top: 30px; /* Account for test banner */
@@ -258,8 +258,8 @@ body {
 
 /* Call to Action Section */
 .cta-section {
-  margin-top: 5px;
-  margin-bottom: 0px;
+  margin-top: 15px;
+  margin-bottom: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -327,9 +327,9 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 80px 20px 80px;
+  padding: 20px 20px 60px;
   background: #000435;
-  min-height: 90vh;
+  min-height: auto;
   z-index: 50;
   transform-origin: center top;
   transform-style: preserve-3d;
@@ -402,8 +402,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  margin-bottom: 20px;
-  margin-top: -6vh;
+  margin-bottom: 60px;
+  margin-top: 80px;
   background: transparent;
   position: relative;
   z-index: 2000;
@@ -418,6 +418,7 @@ body {
   height: 350px !important;
   max-width: 500px;
   object-fit: contain;
+  transform: scaleY(1.15);
   /* White filter */
   filter: brightness(0) invert(1);
 }
@@ -432,6 +433,66 @@ body {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Hero Section - New Messaging */
+.hero-headline {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #1E9FD8;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 35px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Carrier Network Subtext */
+.carrier-network-subtext {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Trust Signals */
+.trust-signals {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px 30px;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(30, 58, 138, 0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(30, 159, 216, 0.3);
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.trust-check {
+  color: #39ff14;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* Submit Helper Text */
+.submit-helper-text {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 15px;
+  letter-spacing: 0.5px;
 }
 
 /* Carriers Animated Ticker */
@@ -584,7 +645,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 35px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -1331,6 +1392,34 @@ label:has(+ textarea:disabled) {
     font-size: 2.2rem !important; /* Override the 2.8rem inline style for "808 FREIGHT" text */
     display: block;
     margin-top: 10px;
+  }
+  
+  /* Hero Section Mobile */
+  .hero-headline {
+    font-size: 1.4rem;
+    padding: 0 15px;
+    line-height: 1.5;
+  }
+  
+  /* Trust Signals Mobile */
+  .trust-signals {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    align-items: flex-start;
+  }
+  
+  .trust-item {
+    font-size: 0.9rem;
+  }
+  
+  .carrier-network-subtext {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+  
+  .submit-helper-text {
+    font-size: 0.85rem;
   }
   
   .form-title {
