@@ -83,10 +83,10 @@ const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: s
     website: 'https://www.alohaaircargo.com'
   },
   hawaiianAir: { 
-    name: 'Hawaiian Airlines Cargo', 
-    email: 'cargo.booking@alaskaair.com',  // Verified - Hawaiian partners with Alaska Air
+    name: 'Alaska/Hawaiian Air Cargo', 
+    email: 'cargo.booking@alaskaair.com',  // Verified - Hawaiian merged with Alaska Air
     phone: '808-835-3415',
-    website: 'https://www.hawaiianaircargo.com'
+    website: 'https://www.alaskaair.com/cargo'
   },
   hawaiiAir: { 
     name: 'Hawaii Air Cargo', 

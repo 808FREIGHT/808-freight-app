@@ -182,7 +182,7 @@ const CARRIERS: { ocean: Carriers; air: Carriers } = {
       commonFields: ['packaging_condition', 'declared_value', 'temperature_sensitive']
     },
     hawaiianAir: {
-      name: 'Hawaiian Air Cargo',
+      name: 'Alaska/Hawaiian Air Cargo',
       description: 'Priority air freight',
       serviceOptions: ['Next Flight Out', 'Priority (1-2 days)', 'Standard (3-5 days)'],
       commonFields: ['dangerous_goods', 'time_sensitivity', 'special_handling']
@@ -599,7 +599,7 @@ export default function Home() {
                     <li>FedEx</li>
                     <li>UPS</li>
                     <li>Aloha Air Cargo</li>
-                    <li>Hawaiian Airlines Cargo</li>
+                    <li>Alaska/Hawaiian Air Cargo</li>
                     <li>Hawaii Air Cargo</li>
                     <li>Pacific Air Cargo</li>
                     <li>DHX</li>
