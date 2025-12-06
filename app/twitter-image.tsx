@@ -14,7 +14,7 @@ export default async function Image() {
     (
       <div
         style={{
-          background: '#ffffff',
+          background: '#000435',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -23,25 +23,26 @@ export default async function Image() {
           justifyContent: 'center',
         }}
       >
-        {/* Logo */}
+        {/* Logo - white version using filter */}
         <img
           src="https://808freight.com/808-freight-logo-white.png"
           alt="808 FREIGHT"
-          width={600}
-          height={370}
+          width={550}
+          height={340}
           style={{
             objectFit: 'contain',
+            filter: 'brightness(0) invert(1)',
           }}
         />
         
         {/* Tagline */}
         <div
           style={{
-            fontSize: 32,
-            fontWeight: 600,
+            fontSize: 36,
+            fontWeight: 700,
             color: '#1E9FD8',
-            marginTop: 20,
-            letterSpacing: '1px',
+            marginTop: 25,
+            letterSpacing: '2px',
           }}
         >
           Compare Hawaii Shipping Quotes
