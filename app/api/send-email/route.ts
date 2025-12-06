@@ -7,28 +7,59 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const ADMIN_EMAIL = 'admin@808freight.com';
 
 // ===========================================
+// YOUNG BROTHERS PORT-SPECIFIC EMAILS
+// Routes quotes to the correct port office
+// ===========================================
+const YOUNG_BROTHERS_PORT_EMAILS: { [key: string]: string } = {
+  'Honolulu': 'booking@htbyb.com',
+  'Hilo': 'hilo@htbyb.com',
+  'Kahului': 'maui@htbyb.com',
+  'Kaunakakai': 'molokai@htbyb.com',
+  'Nawiliwili': 'kauai@htbyb.com',
+  'Kaumalapau': 'lanai@htbyb.com',
+  'Kawaihae': 'kawaihae@htbyb.com',
+};
+
+// Helper function to get Young Brothers email based on port
+function getYoungBrothersEmail(origin: string, destination: string): string {
+  // Check origin first (where cargo is being picked up)
+  for (const port of Object.keys(YOUNG_BROTHERS_PORT_EMAILS)) {
+    if (origin.includes(port)) {
+      return YOUNG_BROTHERS_PORT_EMAILS[port];
+    }
+  }
+  // Then check destination
+  for (const port of Object.keys(YOUNG_BROTHERS_PORT_EMAILS)) {
+    if (destination.includes(port)) {
+      return YOUNG_BROTHERS_PORT_EMAILS[port];
+    }
+  }
+  // Default to Honolulu if no match
+  return YOUNG_BROTHERS_PORT_EMAILS['Honolulu'];
+}
+
+// ===========================================
 // CARRIER EMAIL CONFIGURATION
-// Update these with real carrier quote emails when available
 // Format: carrierKey: { name, email, phone, website }
 // ===========================================
 const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: string; website: string } } = {
   // OCEAN CARRIERS
   youngBrothers: { 
     name: 'Young Brothers', 
-    email: 'customerservice@htbyb.com',  // General customer service
+    email: 'booking@htbyb.com',  // Default - will be overridden by port-specific
     phone: '808-543-9311',
     website: 'https://www.htbyb.com'
   },
   matson: { 
     name: 'Matson Navigation', 
-    email: 'customerservice@matson.com',  // Update with sales/quotes email
-    phone: '1-800-4-MATSON',
+    email: 'customerservice@matson.com',  // Confirmed
+    phone: '1-800-4MATSON',
     website: 'https://www.matson.com'
   },
   pasha: { 
     name: 'Pasha Hawaii', 
-    email: 'customerservice@pashahawaii.com',  // Update with quotes email
-    phone: '808-842-5594',
+    email: 'ContainerQuotes@pashahawaii.com',  // Confirmed quote email
+    phone: '(877) 322-9920',
     website: 'https://www.pashahawaii.com'
   },
   
@@ -182,6 +213,12 @@ export async function POST(request: Request) {
       const carrier = CARRIER_CONTACTS[carrierKey];
       if (!carrier) continue;
 
+      // Get the correct email - use port-specific for Young Brothers
+      let carrierEmail = carrier.email;
+      if (carrierKey === 'youngBrothers') {
+        carrierEmail = getYoungBrothersEmail(origin, destination);
+      }
+
       const carrierEmailHtml = `
         <!DOCTYPE html>
         <html>
@@ -253,8 +290,8 @@ export async function POST(request: Request) {
       // Always CC admin so you have a record
       await resend.emails.send({
         from: '808 Freight <noreply@808freight.com>',
-        to: [carrier.email],
-        cc: carrier.email !== ADMIN_EMAIL ? [ADMIN_EMAIL] : undefined,
+        to: [carrierEmail],
+        cc: carrierEmail !== ADMIN_EMAIL ? [ADMIN_EMAIL] : undefined,
         subject: `Quote Request: ${origin} to ${destination}`,
         html: carrierEmailHtml,
         replyTo: email, // Customer can receive direct replies
