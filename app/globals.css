@@ -1365,10 +1365,10 @@ label:has(+ textarea:disabled) {
 
   /* ====== CONSISTENT MOBILE SPACING: 25px between sections ====== */
   
-  /* Logo */
+  /* Logo - extra top margin to prevent cutoff */
   .logo-main {
     max-width: 90%;
-    margin-top: 20px;
+    margin-top: 35px;
     margin-bottom: 25px;
   }
 
@@ -1477,6 +1477,11 @@ label:has(+ textarea:disabled) {
   .slideshow-section {
     height: 32vh;
     width: 100vw;
+  }
+  
+  /* Reduce gradient overlay so logo isn't covered */
+  .info-section::before {
+    height: 4vh;
   }
   
   .slide img {
