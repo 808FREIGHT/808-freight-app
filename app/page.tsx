@@ -308,6 +308,8 @@ export default function Home() {
     setRouteType(value);
     setOrigin('');
     setDestination('');
+    setSelectedCarriers([]); // Clear carriers when route changes (different routes have different carrier options)
+    markFieldCompleted('carriers', '');
   };
 
   const handleCarrierToggle = (carrierKey: string) => {
@@ -496,7 +498,27 @@ export default function Home() {
   };
 
   const locations = getLocations();
-  const carriers = shippingType ? CARRIERS[shippingType as keyof typeof CARRIERS] : {};
+  
+  // Filter carriers based on route type
+  const getFilteredCarriers = () => {
+    if (!shippingType) return {};
+    const allCarriers = CARRIERS[shippingType as keyof typeof CARRIERS];
+    
+    // For inter-island ocean freight, only show Young Brothers
+    if (shippingType === 'ocean' && routeType === 'inter-island') {
+      return { youngBrothers: allCarriers.youngBrothers };
+    }
+    
+    // For West Coast routes (ocean), exclude Young Brothers (they don't do mainland)
+    if (shippingType === 'ocean' && (routeType === 'westcoast-to-hawaii' || routeType === 'hawaii-to-westcoast')) {
+      const { youngBrothers, ...westCoastCarriers } = allCarriers;
+      return westCoastCarriers;
+    }
+    
+    return allCarriers;
+  };
+  
+  const carriers = getFilteredCarriers();
   const allCarrierKeys = Object.keys(carriers);
   const allSelected = selectedCarriers.length === allCarrierKeys.length && allCarrierKeys.length > 0;
 
