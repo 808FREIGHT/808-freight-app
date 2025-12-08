@@ -274,7 +274,6 @@ export default function PrivacyPolicy() {
           }}>
             <p style={{ margin: '5px 0' }}><strong>808 Freight</strong></p>
             <p style={{ margin: '5px 0' }}>Email: <a href="mailto:admin@808freight.com" style={{ color: '#1E9FD8' }}>admin@808freight.com</a></p>
-            <p style={{ margin: '5px 0' }}>Phone: <a href="tel:8085570429" style={{ color: '#1E9FD8' }}>(808) 557-0429</a></p>
             <p style={{ margin: '5px 0' }}>Location: Hawaii, USA</p>
           </div>
         </section>

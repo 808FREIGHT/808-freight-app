@@ -1144,7 +1144,7 @@ export default function Home() {
               © 2024 808 Freight. All rights reserved.
             </p>
             <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', margin: '5px 0' }}>
-              Contact: <a href="mailto:admin@808freight.com" style={{ color: '#1E9FD8' }}>admin@808freight.com</a> | <a href="tel:8085570429" style={{ color: '#1E9FD8' }}>(808) 557-0429</a>
+              Contact: <a href="mailto:admin@808freight.com" style={{ color: '#1E9FD8' }}>admin@808freight.com</a>
             </p>
           </footer>
         </div>
