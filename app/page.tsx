@@ -2,6 +2,7 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { supabase } from './lib/supabase';
 
 // Types
@@ -1127,6 +1128,25 @@ export default function Home() {
               }}>A HUI HOU!</span>
             </div>
           </div>
+
+          {/* Footer */}
+          <footer style={{
+            marginTop: '60px',
+            paddingTop: '30px',
+            borderTop: '1px solid rgba(30, 159, 216, 0.3)',
+            textAlign: 'center'
+          }}>
+            <div style={{ marginBottom: '15px' }}>
+              <Link href="/privacy" style={{ color: '#1E9FD8', marginRight: '30px', textDecoration: 'none', fontSize: '0.95rem' }}>Privacy Policy</Link>
+              <Link href="/terms" style={{ color: '#1E9FD8', textDecoration: 'none', fontSize: '0.95rem' }}>Terms of Service</Link>
+            </div>
+            <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', margin: '10px 0' }}>
+              © 2024 808 Freight. All rights reserved.
+            </p>
+            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', margin: '5px 0' }}>
+              Contact: <a href="mailto:admin@808freight.com" style={{ color: '#1E9FD8' }}>admin@808freight.com</a> | <a href="tel:8085570429" style={{ color: '#1E9FD8' }}>(808) 557-0429</a>
+            </p>
+          </footer>
         </div>
       </section>
     </main>
