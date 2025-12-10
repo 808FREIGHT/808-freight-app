@@ -17,31 +17,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== TEST BANNER ===== */
-.test-banner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  background: linear-gradient(135deg, #FFA500 0%, #FF8C00 100%);
-  color: #000;
-  text-align: center;
-  padding: 8px 10px;
-  font-weight: bold;
-  font-size: 14px;
-  z-index: 9999;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  letter-spacing: 1px;
-}
-
-@media (max-width: 768px) {
-  .test-banner {
-    font-size: 11px;
-    padding: 6px 8px;
-  }
-}
-
 /* ===== LANDING SECTION ===== */
 #landing-section {
   width: 100%;
