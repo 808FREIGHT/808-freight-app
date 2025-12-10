@@ -942,6 +942,7 @@ export default function Home() {
               >
                 <option value="">Select cargo type...</option>
                 <option value="general">General Cargo</option>
+                <option value="fragile">Fragile Items</option>
                 <option value="vehicle">Vehicle</option>
                 <option value="household">Household Goods</option>
                 <option value="equipment">Equipment/Machinery</option>
