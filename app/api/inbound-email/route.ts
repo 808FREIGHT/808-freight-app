@@ -115,100 +115,39 @@ export async function POST(request: NextRequest) {
       console.error('Failed to log carrier response:', insertError);
     }
 
-    // Forward to customer with styled template
+    // Forward to customer with simple flat design
     const forwardEmailHtml = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      </head>
-      <body style="margin: 0; padding: 0; background-color: #000435; font-family: Arial, Helvetica, sans-serif;">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #000435;">
-          <tr>
-            <td align="center" style="padding: 40px 20px;">
-              <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px;">
-                
-                <!-- Header -->
-                <tr>
-                  <td align="center" style="padding-bottom: 30px;">
-                    <h1 style="color: #1E9FD8; font-size: 42px; margin: 0; font-weight: 900; letter-spacing: 3px;">808 FREIGHT</h1>
-                  </td>
-                </tr>
-                
-                <!-- Title -->
-                <tr>
-                  <td align="center" style="padding-bottom: 30px;">
-                    <h2 style="color: #39ff14; font-size: 32px; margin: 0; font-weight: 900;">QUOTE RESPONSE RECEIVED!</h2>
-                    <p style="color: #ffffff; font-size: 20px; margin: 15px 0 0 0; font-weight: 700;">You've received a response from ${carrierName}</p>
-                  </td>
-                </tr>
-                
-                <!-- Quote Info -->
-                <tr>
-                  <td style="padding: 25px 0 15px 0; border-top: 2px solid #1E9FD8;">
-                    <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">QUOTE DETAILS</h3>
-                  </td>
-                </tr>
-                
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Quote ID:</span> ${quoteId.toUpperCase()}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Carrier:</span> ${carrierName}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Subject:</span> ${emailData.subject || 'No Subject'}</p>
-                  </td>
-                </tr>
-                
-                <!-- Carrier Message -->
-                <tr>
-                  <td style="padding: 25px 0 15px 0; border-top: 2px solid #1E9FD8;">
-                    <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">CARRIER MESSAGE</h3>
-                  </td>
-                </tr>
-                
-                <tr>
-                  <td style="padding: 15px 0;">
-                    <div style="color: #ffffff; font-size: 16px; line-height: 1.6; font-weight: 500;">
-                      ${emailData.html || emailData.text?.replace(/\n/g, '<br>') || 'No content'}
-                    </div>
-                  </td>
-                </tr>
-                
-                <!-- Contact Carrier -->
-                <tr>
-                  <td style="padding: 25px 0 15px 0; border-top: 2px solid #1E9FD8;">
-                    <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">REPLY DIRECTLY TO CARRIER</h3>
-                  </td>
-                </tr>
-                
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #39ff14; font-size: 20px; margin: 0; font-weight: 700;">${carrierEmail}</p>
-                  </td>
-                </tr>
-                
-                <!-- Footer -->
-                <tr>
-                  <td align="center" style="padding: 40px 0 20px 0; border-top: 2px solid #1E9FD8; margin-top: 30px;">
-                    <p style="color: #1E9FD8; font-size: 14px; margin: 0; font-weight: 600;">This quote was facilitated by 808 Freight</p>
-                    <p style="color: #ffffff; font-size: 16px; margin: 10px 0 0 0; font-weight: 600;">admin@808freight.com</p>
-                  </td>
-                </tr>
-                
-              </table>
-            </td>
-          </tr>
-        </table>
-      </body>
-      </html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body bgcolor="#000435" style="margin: 0; padding: 40px 20px; background-color: #000435; font-family: Arial, Helvetica, sans-serif;">
+  
+  <h1 style="color: #1E9FD8; font-size: 36px; margin: 0 0 10px 0; font-weight: 900; text-align: center;">808 FREIGHT</h1>
+  
+  <h2 style="color: #39ff14; font-size: 28px; margin: 30px 0 10px 0; font-weight: 900; text-align: center;">QUOTE RESPONSE RECEIVED!</h2>
+  <p style="color: #ffffff; font-size: 20px; margin: 0 0 30px 0; font-weight: 700; text-align: center;">You've received a response from ${carrierName}</p>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">QUOTE DETAILS</h3>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Quote ID:</span> ${quoteId.toUpperCase()}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Carrier:</span> ${carrierName}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Subject:</span> ${emailData.subject || 'No Subject'}</p>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">CARRIER MESSAGE</h3>
+  <div style="color: #ffffff; font-size: 18px; line-height: 1.6; font-weight: 500; margin: 8px 0;">
+    ${emailData.html || emailData.text?.replace(/\n/g, '<br>') || 'No content'}
+  </div>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">REPLY DIRECTLY TO CARRIER</h3>
+  <p style="color: #39ff14; font-size: 20px; margin: 8px 0; font-weight: 700;">${carrierEmail}</p>
+  
+  <p style="color: #1E9FD8; font-size: 14px; margin: 40px 0 5px 0; font-weight: 600; text-align: center;">This quote was facilitated by 808 Freight</p>
+  <p style="color: #ffffff; font-size: 16px; margin: 0; font-weight: 600; text-align: center;">admin@808freight.com</p>
+
+</body>
+</html>
     `;
 
     // Send to customer

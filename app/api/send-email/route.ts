@@ -181,164 +181,51 @@ export async function POST(request: Request) {
       // Continue anyway - don't fail the whole request if DB save fails
     }
 
-    // 1. Send confirmation email to CUSTOMER
+    // 1. Send confirmation email to CUSTOMER - Simple flat design
     const customerEmailHtml = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      </head>
-      <body style="margin: 0; padding: 0; background-color: #000435; font-family: Arial, Helvetica, sans-serif;">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #000435;">
-          <tr>
-            <td align="center" style="padding: 40px 20px;">
-              <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px;">
-                
-                <!-- Header -->
-                <tr>
-                  <td align="center" style="padding-bottom: 30px;">
-                    <h1 style="color: #1E9FD8; font-size: 42px; margin: 0; font-weight: 900; letter-spacing: 3px;">808 FREIGHT</h1>
-                  </td>
-                </tr>
-                
-                <!-- Mahalo -->
-                <tr>
-                  <td align="center" style="padding-bottom: 30px;">
-                    <h2 style="color: #39ff14; font-size: 38px; margin: 0; font-weight: 900;">MAHALO!</h2>
-                    <p style="color: #ffffff; font-size: 20px; margin: 15px 0 0 0; font-weight: 700;">Your quote request has been submitted successfully.</p>
-                    <p style="color: #1E9FD8; font-size: 18px; margin: 10px 0 0 0; font-weight: 700;">Quote ID: ${quoteId.toUpperCase()}</p>
-                  </td>
-                </tr>
-                
-                <!-- Quote Details Header -->
-                <tr>
-                  <td style="padding: 25px 0 15px 0; border-top: 2px solid #1E9FD8;">
-                    <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">QUOTE DETAILS</h3>
-                  </td>
-                </tr>
-                
-                <!-- Contact Info -->
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Name:</span> ${name || 'N/A'}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Company:</span> ${companyName || 'N/A'}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Email:</span> ${email}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Phone:</span> ${phone}</p>
-                  </td>
-                </tr>
-                
-                <!-- Shipping Info Header -->
-                <tr>
-                  <td style="padding: 25px 0 15px 0; border-top: 2px solid #1E9FD8; margin-top: 20px;">
-                    <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">SHIPPING INFO</h3>
-                  </td>
-                </tr>
-                
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Type:</span> ${shippingType === 'ocean' ? 'Ocean Freight' : 'Air Cargo'}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Route:</span> ${routeType}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">From:</span> ${origin}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">To:</span> ${destination}</p>
-                  </td>
-                </tr>
-                
-                <!-- Carriers Header -->
-                <tr>
-                  <td style="padding: 25px 0 15px 0; border-top: 2px solid #1E9FD8;">
-                    <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">CARRIERS CONTACTED</h3>
-                  </td>
-                </tr>
-                
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;">${selectedCarriers?.map((c: string) => CARRIER_CONTACTS[c]?.name || c).join(', ') || 'N/A'}</p>
-                  </td>
-                </tr>
-                
-                <!-- Cargo Info Header -->
-                <tr>
-                  <td style="padding: 25px 0 15px 0; border-top: 2px solid #1E9FD8;">
-                    <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">CARGO DETAILS</h3>
-                  </td>
-                </tr>
-                
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Cargo Type:</span> ${cargoType}</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Weight:</span> ${weight} lbs</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Dimensions:</span> ${length || '-'}" x ${width || '-'}" x ${height || '-'}"</p>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Quantity:</span> ${quantity || '1'}</p>
-                  </td>
-                </tr>
-                
-                <!-- What's Next -->
-                <tr>
-                  <td style="padding: 35px 0 15px 0; border-top: 2px solid #1E9FD8;">
-                    <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">WHAT HAPPENS NEXT?</h3>
-                  </td>
-                </tr>
-                
-                <tr>
-                  <td style="padding: 8px 0;">
-                    <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 600; line-height: 1.6;">
-                      Your request has been sent to all selected carriers. Most quotes arrive within 24-48 hours. 
-                      We'll compile your quotes and send you a side-by-side comparison once all carriers respond.
-                    </p>
-                  </td>
-                </tr>
-                
-                <!-- Footer -->
-                <tr>
-                  <td align="center" style="padding: 40px 0 20px 0; border-top: 2px solid #1E9FD8; margin-top: 30px;">
-                    <p style="color: #1E9FD8; font-size: 16px; margin: 0; font-weight: 700;">Questions? Contact us:</p>
-                    <p style="color: #ffffff; font-size: 18px; margin: 10px 0 0 0; font-weight: 700;">admin@808freight.com</p>
-                  </td>
-                </tr>
-                
-              </table>
-            </td>
-          </tr>
-        </table>
-      </body>
-      </html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body bgcolor="#000435" style="margin: 0; padding: 40px 20px; background-color: #000435; font-family: Arial, Helvetica, sans-serif;">
+  
+  <h1 style="color: #1E9FD8; font-size: 36px; margin: 0 0 10px 0; font-weight: 900; text-align: center;">808 FREIGHT</h1>
+  
+  <h2 style="color: #39ff14; font-size: 32px; margin: 30px 0 10px 0; font-weight: 900; text-align: center;">MAHALO!</h2>
+  <p style="color: #ffffff; font-size: 20px; margin: 0 0 5px 0; font-weight: 700; text-align: center;">Your quote request has been submitted successfully.</p>
+  <p style="color: #1E9FD8; font-size: 18px; margin: 0 0 30px 0; font-weight: 700; text-align: center;">Quote ID: ${quoteId.toUpperCase()}</p>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">QUOTE DETAILS</h3>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Name:</span> ${name || 'N/A'}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Company:</span> ${companyName || 'N/A'}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Email:</span> ${email}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Phone:</span> ${phone}</p>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">SHIPPING INFO</h3>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Type:</span> ${shippingType === 'ocean' ? 'Ocean Freight' : 'Air Cargo'}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Route:</span> ${routeType}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">From:</span> ${origin}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">To:</span> ${destination}</p>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">CARRIERS CONTACTED</h3>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;">${selectedCarriers?.map((c: string) => CARRIER_CONTACTS[c]?.name || c).join(', ') || 'N/A'}</p>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">CARGO DETAILS</h3>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Cargo Type:</span> ${cargoType}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Weight:</span> ${weight} lbs</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Dimensions:</span> ${length || '-'}" x ${width || '-'}" x ${height || '-'}"</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Quantity:</span> ${quantity || '1'}</p>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">WHAT HAPPENS NEXT?</h3>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 600; line-height: 1.6;">Your request has been sent to all selected carriers. Most quotes arrive within 24-48 hours. We'll compile your quotes and send you a side-by-side comparison once all carriers respond.</p>
+  
+  <p style="color: #1E9FD8; font-size: 16px; margin: 40px 0 5px 0; font-weight: 700; text-align: center;">Questions? Contact us:</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700; text-align: center;">admin@808freight.com</p>
+
+</body>
+</html>
     `;
 
     // Send to customer
@@ -361,150 +248,47 @@ export async function POST(request: Request) {
       }
 
       const carrierEmailHtml = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        </head>
-        <body style="margin: 0; padding: 0; background-color: #000435; font-family: Arial, Helvetica, sans-serif;">
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #000435;">
-            <tr>
-              <td align="center" style="padding: 40px 20px;">
-                <table role="presentation" width="600" cellspacing="0" cellpadding="0" style="max-width: 600px;">
-                  
-                  <!-- Header -->
-                  <tr>
-                    <td align="center" style="padding-bottom: 30px;">
-                      <h1 style="color: #1E9FD8; font-size: 42px; margin: 0; font-weight: 900; letter-spacing: 3px;">808 FREIGHT</h1>
-                    </td>
-                  </tr>
-                  
-                <!-- Title -->
-                <tr>
-                  <td align="center" style="padding-bottom: 30px;">
-                    <h2 style="color: #39ff14; font-size: 32px; margin: 0; font-weight: 900;">FREIGHT QUOTE REQUEST</h2>
-                    <p style="color: #ffffff; font-size: 18px; margin: 15px 0 0 0; font-weight: 600;">A customer has submitted a quote request via 808 Freight.</p>
-                    <p style="color: #1E9FD8; font-size: 16px; margin: 10px 0 0 0; font-weight: 700;">Quote ID: ${quoteId.toUpperCase()}</p>
-                  </td>
-                </tr>
-                  
-                  <!-- Customer Info Header -->
-                  <tr>
-                    <td style="padding: 25px 0 15px 0; border-top: 2px solid #1E9FD8;">
-                      <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">CUSTOMER INFORMATION</h3>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Name:</span> ${name || 'N/A'}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Company:</span> ${companyName || 'N/A'}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Email:</span> ${email}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Phone:</span> ${phone}</p>
-                    </td>
-                  </tr>
-                  
-                  <!-- Shipment Details Header -->
-                  <tr>
-                    <td style="padding: 25px 0 15px 0; border-top: 2px solid #1E9FD8;">
-                      <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">SHIPMENT DETAILS</h3>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Type:</span> ${shippingType === 'ocean' ? 'Ocean Freight' : 'Air Cargo'}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Route:</span> ${routeType}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Origin:</span> ${origin}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Destination:</span> ${destination}</p>
-                    </td>
-                  </tr>
-                  
-                  <!-- Cargo Info Header -->
-                  <tr>
-                    <td style="padding: 25px 0 15px 0; border-top: 2px solid #1E9FD8;">
-                      <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">CARGO INFORMATION</h3>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Cargo Type:</span> ${cargoType}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Weight:</span> ${weight} lbs</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Dimensions:</span> ${length || '-'}" L x ${width || '-'}" W x ${height || '-'}" H</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 700;"><span style="color: #1E9FD8;">Quantity:</span> ${quantity || '1'}</p>
-                    </td>
-                  </tr>
-                  
-                  <!-- Response Instructions -->
-                  <tr>
-                    <td style="padding: 35px 0 15px 0; border-top: 2px solid #1E9FD8;">
-                      <h3 style="color: #1E9FD8; font-size: 26px; margin: 0; font-weight: 800;">PLEASE RESPOND TO:</h3>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #39ff14; font-size: 20px; margin: 0; font-weight: 700;">${email}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 8px 0;">
-                      <p style="color: #39ff14; font-size: 20px; margin: 0; font-weight: 700;">${phone}</p>
-                    </td>
-                  </tr>
-                  
-                  <!-- Footer -->
-                  <tr>
-                    <td align="center" style="padding: 40px 0 20px 0; border-top: 2px solid #1E9FD8; margin-top: 30px;">
-                      <p style="color: #1E9FD8; font-size: 14px; margin: 0; font-weight: 600;">Submitted via 808 Freight | Carrier: ${carrier.name}</p>
-                      <p style="color: #ffffff; font-size: 16px; margin: 10px 0 0 0; font-weight: 600;">admin@808freight.com</p>
-                    </td>
-                  </tr>
-                  
-                </table>
-              </td>
-            </tr>
-          </table>
-        </body>
-        </html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body bgcolor="#000435" style="margin: 0; padding: 40px 20px; background-color: #000435; font-family: Arial, Helvetica, sans-serif;">
+  
+  <h1 style="color: #1E9FD8; font-size: 36px; margin: 0 0 10px 0; font-weight: 900; text-align: center;">808 FREIGHT</h1>
+  
+  <h2 style="color: #39ff14; font-size: 28px; margin: 30px 0 10px 0; font-weight: 900; text-align: center;">FREIGHT QUOTE REQUEST</h2>
+  <p style="color: #ffffff; font-size: 18px; margin: 0 0 5px 0; font-weight: 600; text-align: center;">A customer has submitted a quote request via 808 Freight.</p>
+  <p style="color: #1E9FD8; font-size: 16px; margin: 0 0 30px 0; font-weight: 700; text-align: center;">Quote ID: ${quoteId.toUpperCase()}</p>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">CUSTOMER INFORMATION</h3>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Name:</span> ${name || 'N/A'}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Company:</span> ${companyName || 'N/A'}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Email:</span> ${email}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Phone:</span> ${phone}</p>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">SHIPMENT DETAILS</h3>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Type:</span> ${shippingType === 'ocean' ? 'Ocean Freight' : 'Air Cargo'}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Route:</span> ${routeType}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Origin:</span> ${origin}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Destination:</span> ${destination}</p>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">CARGO INFORMATION</h3>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Cargo Type:</span> ${cargoType}</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Weight:</span> ${weight} lbs</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Dimensions:</span> ${length || '-'}" L x ${width || '-'}" W x ${height || '-'}" H</p>
+  <p style="color: #ffffff; font-size: 18px; margin: 8px 0; font-weight: 700;"><span style="color: #1E9FD8;">Quantity:</span> ${quantity || '1'}</p>
+  
+  <h3 style="color: #1E9FD8; font-size: 24px; margin: 30px 0 15px 0; font-weight: 800;">PLEASE RESPOND TO:</h3>
+  <p style="color: #39ff14; font-size: 20px; margin: 8px 0; font-weight: 700;">${email}</p>
+  <p style="color: #39ff14; font-size: 20px; margin: 8px 0; font-weight: 700;">${phone}</p>
+  
+  <p style="color: #1E9FD8; font-size: 14px; margin: 40px 0 5px 0; font-weight: 600; text-align: center;">Submitted via 808 Freight | Carrier: ${carrier.name}</p>
+  <p style="color: #ffffff; font-size: 16px; margin: 0; font-weight: 600; text-align: center;">admin@808freight.com</p>
+
+</body>
+</html>
       `;
 
       // Send to carrier email (or admin if carrier email not verified)
