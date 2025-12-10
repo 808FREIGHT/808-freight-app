@@ -1,7 +1,24 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { generateQuoteId } from '@/utils/generateQuoteId';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Inbound email domain for tracking carrier responses
+const INBOUND_DOMAIN = 'inbound.808freight.com';
+
+// Lazy-initialize Supabase client (avoid build-time errors)
+let supabase: SupabaseClient | null = null;
+function getSupabase(): SupabaseClient {
+  if (!supabase) {
+    supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+  return supabase;
+}
 
 // Admin email - receives copies of all carrier requests
 const ADMIN_EMAIL = 'admin@808freight.com';
@@ -130,6 +147,40 @@ export async function POST(request: Request) {
       quantity
     } = body;
 
+    // Generate unique quote ID for tracking
+    const quoteId = generateQuoteId();
+    
+    // Save quote request to database
+    const { error: dbError } = await getSupabase()
+      .from('quote_requests')
+      .insert({
+        quote_id: quoteId,
+        user_email: email,
+        user_name: name,
+        user_phone: phone,
+        company_name: companyName,
+        pickup_island: origin,
+        delivery_island: destination,
+        cargo_type: cargoType,
+        length_inches: length || null,
+        width_inches: width || null,
+        height_inches: height || null,
+        weight_lbs: weight,
+        selected_carriers: selectedCarriers,
+        status: 'pending',
+        metadata: {
+          shippingType,
+          routeType,
+          quantity,
+          selectedServices
+        }
+      });
+
+    if (dbError) {
+      console.error('Database error:', dbError);
+      // Continue anyway - don't fail the whole request if DB save fails
+    }
+
     // 1. Send confirmation email to CUSTOMER
     const customerEmailHtml = `
       <!DOCTYPE html>
@@ -156,6 +207,7 @@ export async function POST(request: Request) {
                   <td align="center" style="padding-bottom: 30px;">
                     <h2 style="color: #39ff14; font-size: 38px; margin: 0; font-weight: 900;">MAHALO!</h2>
                     <p style="color: #ffffff; font-size: 20px; margin: 15px 0 0 0; font-weight: 700;">Your quote request has been submitted successfully.</p>
+                    <p style="color: #1E9FD8; font-size: 18px; margin: 10px 0 0 0; font-weight: 700;">Quote ID: ${quoteId.toUpperCase()}</p>
                   </td>
                 </tr>
                 
@@ -328,13 +380,14 @@ export async function POST(request: Request) {
                     </td>
                   </tr>
                   
-                  <!-- Title -->
-                  <tr>
-                    <td align="center" style="padding-bottom: 30px;">
-                      <h2 style="color: #39ff14; font-size: 32px; margin: 0; font-weight: 900;">FREIGHT QUOTE REQUEST</h2>
-                      <p style="color: #ffffff; font-size: 18px; margin: 15px 0 0 0; font-weight: 600;">A customer has submitted a quote request via 808 Freight.</p>
-                    </td>
-                  </tr>
+                <!-- Title -->
+                <tr>
+                  <td align="center" style="padding-bottom: 30px;">
+                    <h2 style="color: #39ff14; font-size: 32px; margin: 0; font-weight: 900;">FREIGHT QUOTE REQUEST</h2>
+                    <p style="color: #ffffff; font-size: 18px; margin: 15px 0 0 0; font-weight: 600;">A customer has submitted a quote request via 808 Freight.</p>
+                    <p style="color: #1E9FD8; font-size: 16px; margin: 10px 0 0 0; font-weight: 700;">Quote ID: ${quoteId.toUpperCase()}</p>
+                  </td>
+                </tr>
                   
                   <!-- Customer Info Header -->
                   <tr>
@@ -456,13 +509,14 @@ export async function POST(request: Request) {
 
       // Send to carrier email (or admin if carrier email not verified)
       // Always CC admin so you have a record
+      // Reply-To uses quote-specific inbound address for automated tracking
       await resend.emails.send({
         from: '808 Freight <noreply@808freight.com>',
         to: [carrierEmail],
         cc: carrierEmail !== ADMIN_EMAIL ? [ADMIN_EMAIL] : undefined,
-        subject: `Quote Request: ${origin} to ${destination}`,
+        subject: `Quote Request: ${origin} to ${destination} [${quoteId.toUpperCase()}]`,
         html: carrierEmailHtml,
-        replyTo: email, // Customer can receive direct replies
+        replyTo: `${quoteId}@${INBOUND_DOMAIN}`, // Routes carrier replies through our system
       });
     }
 
