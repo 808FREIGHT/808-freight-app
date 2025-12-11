@@ -236,8 +236,17 @@ export async function POST(request: Request) {
       html: customerEmailHtml,
     });
 
+    // Helper function to add delay between emails (avoid rate limiting)
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
     // 2. Send quote request to EACH CARRIER
-    for (const carrierKey of selectedCarriers || []) {
+    for (let i = 0; i < (selectedCarriers || []).length; i++) {
+      const carrierKey = selectedCarriers[i];
+      
+      // Add delay between emails to avoid Resend rate limit (2 req/sec on free tier)
+      if (i > 0) {
+        await delay(600); // 600ms delay between each carrier email
+      }
       const carrier = CARRIER_CONTACTS[carrierKey];
       if (!carrier) continue;
 
