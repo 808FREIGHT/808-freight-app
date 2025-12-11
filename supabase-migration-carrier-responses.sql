@@ -79,3 +79,4 @@ CREATE POLICY "Allow service role updates" ON quote_requests
 -- DONE! Your database is now ready for carrier tracking.
 -- =====================================================
 
+

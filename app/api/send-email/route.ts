@@ -294,7 +294,12 @@ export async function POST(request: Request) {
       // Send to carrier email (or admin if carrier email not verified)
       // Always CC admin so you have a record
       // Reply-To uses quote-specific inbound address for automated tracking
-      await resend.emails.send({
+      console.log(`📧 Sending carrier email for ${quoteId}:`);
+      console.log(`   Carrier: ${carrier.name}`);
+      console.log(`   TO: ${carrierEmail}`);
+      console.log(`   CC: ${carrierEmail !== ADMIN_EMAIL ? ADMIN_EMAIL : 'none'}`);
+      
+      const sendResult = await resend.emails.send({
         from: '808 Freight <noreply@808freight.com>',
         to: [carrierEmail],
         cc: carrierEmail !== ADMIN_EMAIL ? [ADMIN_EMAIL] : undefined,
@@ -302,6 +307,8 @@ export async function POST(request: Request) {
         html: carrierEmailHtml,
         replyTo: `${quoteId}@${INBOUND_DOMAIN}`, // Routes carrier replies through our system
       });
+      
+      console.log(`   Result:`, JSON.stringify(sendResult));
     }
 
     return NextResponse.json({ success: true, message: 'Emails sent successfully' });

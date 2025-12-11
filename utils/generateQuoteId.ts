@@ -12,3 +12,4 @@ export function generateQuoteId(): string {
   return id;
 }
 
+
