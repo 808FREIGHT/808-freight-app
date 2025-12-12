@@ -597,8 +597,6 @@ export default function Home() {
                 <div className="carrier-list-group">
                   <h4 className="carrier-list-header">Air Cargo</h4>
                   <ul className="carrier-list">
-                    <li>FedEx</li>
-                    <li>UPS</li>
                     <li>Aloha Air Cargo</li>
                     <li>Alaska/Hawaiian Air Cargo</li>
                     <li>Hawaii Air Cargo</li>
