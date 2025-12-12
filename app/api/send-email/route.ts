@@ -81,18 +81,6 @@ const CARRIER_CONTACTS: { [key: string]: { name: string; email: string; phone: s
   },
   
   // AIR CARRIERS
-  fedex: { 
-    name: 'FedEx Cargo', 
-    email: ADMIN_EMAIL,  // FedEx uses online system - forward manually
-    phone: '1-800-463-3339',
-    website: 'https://www.fedex.com'
-  },
-  ups: { 
-    name: 'UPS Cargo', 
-    email: ADMIN_EMAIL,  // UPS uses online system - forward manually
-    phone: '1-800-742-5877',
-    website: 'https://www.ups.com'
-  },
   alohaAir: { 
     name: 'Aloha Air Cargo', 
     email: 'customerservice@alohaaircargo.com',  // Verified

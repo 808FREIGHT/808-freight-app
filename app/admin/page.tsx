@@ -32,8 +32,6 @@ const CARRIER_NAMES: { [key: string]: string } = {
   youngBrothers: 'Young Brothers',
   matson: 'Matson Navigation',
   pasha: 'Pasha Hawaii',
-  fedex: 'FedEx Cargo',
-  ups: 'UPS Cargo',
   alohaAir: 'Aloha Air Cargo',
   hawaiianAir: 'Hawaiian Air Cargo',
   hawaiiAir: 'Hawaii Air Cargo',

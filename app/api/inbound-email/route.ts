@@ -29,8 +29,6 @@ function getCarrierName(email: string): string {
   if (domain.includes('hawaiianair') || domain.includes('alaskaair')) return 'Alaska/Hawaiian Air Cargo';
   if (domain.includes('pacificaircargo')) return 'Pacific Air Cargo';
   if (domain.includes('dhx')) return 'DHX - Dependable Hawaiian Express';
-  if (domain.includes('fedex')) return 'FedEx Cargo';
-  if (domain.includes('ups')) return 'UPS Cargo';
   return 'Carrier';
 }
 

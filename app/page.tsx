@@ -164,18 +164,6 @@ const CARRIERS: { ocean: Carriers; air: Carriers } = {
     }
   },
   air: {
-    fedex: {
-      name: 'FedEx Cargo',
-      description: 'Global express shipping',
-      serviceOptions: ['Priority Overnight', 'FedEx 2Day', 'Express Saver', 'Ground'],
-      commonFields: ['dangerous_goods', 'declared_value', 'packaging_type']
-    },
-    ups: {
-      name: 'UPS Cargo',
-      description: 'Reliable worldwide delivery',
-      serviceOptions: ['Next Day Air', '2nd Day Air', '3 Day Select', 'Ground'],
-      commonFields: ['declared_value', 'packaging_type', 'special_handling']
-    },
     alohaAir: {
       name: 'Aloha Air Cargo',
       description: 'Fast inter-island & mainland',
