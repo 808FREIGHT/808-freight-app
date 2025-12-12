@@ -78,70 +78,70 @@ const LOCATIONS = {
   air: {
     'westcoast-to-hawaii': {
       origins: [
-        'Los Angeles, CA (LAX)',
-        'San Francisco, CA (SFO)',
-        'Oakland, CA (OAK)',
-        'San Jose, CA (SJC)',
-        'Seattle, WA (SEA)',
-        'Bellingham, WA (BLI)',
-        'Portland, OR (PDX)',
-        'San Diego, CA (SAN)',
-        'Sacramento, CA (SMF)',
-        'Phoenix, AZ (PHX)',
-        'Las Vegas, NV (LAS)'
+        'Los Angeles, CA (LAX) - Aloha Air, Hawaiian Air, Pacific Air, DHX',
+        'San Francisco, CA (SFO) - Hawaiian Air, DHX',
+        'Oakland, CA (OAK) - Aloha Air, Pacific Air, DHX',
+        'San Jose, CA (SJC) - Hawaiian Air, DHX',
+        'Seattle, WA (SEA) - Aloha Air, Hawaiian Air, DHX',
+        'Bellingham, WA (BLI) - DHX',
+        'Portland, OR (PDX) - Hawaiian Air, DHX',
+        'San Diego, CA (SAN) - Hawaiian Air, DHX',
+        'Sacramento, CA (SMF) - Hawaiian Air, DHX',
+        'Phoenix, AZ (PHX) - Aloha Air, Hawaiian Air, DHX',
+        'Las Vegas, NV (LAS) - Hawaiian Air, DHX'
       ],
       destinations: [
-        'Honolulu, HI (HNL)',
-        'Kahului, HI (OGG)',
-        'Kona, HI (KOA)',
-        'Hilo, HI (ITO)',
-        'Lihue, HI (LIH)',
-        'Molokai, HI (MKK)',
-        'Lanai, HI (LNY)'
+        'Honolulu, HI (HNL) - All Carriers',
+        'Kahului, HI (OGG) - Aloha Air, Hawaiian Air, DHX',
+        'Kona, HI (KOA) - Aloha Air, Hawaiian Air, DHX',
+        'Hilo, HI (ITO) - Aloha Air, Hawaiian Air, DHX',
+        'Lihue, HI (LIH) - Aloha Air, Hawaiian Air, DHX',
+        'Molokai, HI (MKK) - Aloha Air, Hawaii Air Cargo',
+        'Lanai, HI (LNY) - Aloha Air, Hawaii Air Cargo'
       ]
     },
     'hawaii-to-westcoast': {
       origins: [
-        'Honolulu, HI (HNL)',
-        'Kahului, HI (OGG)',
-        'Kona, HI (KOA)',
-        'Hilo, HI (ITO)',
-        'Lihue, HI (LIH)',
-        'Molokai, HI (MKK)',
-        'Lanai, HI (LNY)'
+        'Honolulu, HI (HNL) - All Carriers',
+        'Kahului, HI (OGG) - Aloha Air, Hawaiian Air, DHX',
+        'Kona, HI (KOA) - Aloha Air, Hawaiian Air, DHX',
+        'Hilo, HI (ITO) - Aloha Air, Hawaiian Air, DHX',
+        'Lihue, HI (LIH) - Aloha Air, Hawaiian Air, DHX',
+        'Molokai, HI (MKK) - Aloha Air, Hawaii Air Cargo',
+        'Lanai, HI (LNY) - Aloha Air, Hawaii Air Cargo'
       ],
       destinations: [
-        'Los Angeles, CA (LAX)',
-        'San Francisco, CA (SFO)',
-        'Oakland, CA (OAK)',
-        'San Jose, CA (SJC)',
-        'Seattle, WA (SEA)',
-        'Bellingham, WA (BLI)',
-        'Portland, OR (PDX)',
-        'San Diego, CA (SAN)',
-        'Sacramento, CA (SMF)',
-        'Phoenix, AZ (PHX)',
-        'Las Vegas, NV (LAS)'
+        'Los Angeles, CA (LAX) - Aloha Air, Hawaiian Air, Pacific Air, DHX',
+        'San Francisco, CA (SFO) - Hawaiian Air, DHX',
+        'Oakland, CA (OAK) - Aloha Air, Pacific Air, DHX',
+        'San Jose, CA (SJC) - Hawaiian Air, DHX',
+        'Seattle, WA (SEA) - Aloha Air, Hawaiian Air, DHX',
+        'Bellingham, WA (BLI) - DHX',
+        'Portland, OR (PDX) - Hawaiian Air, DHX',
+        'San Diego, CA (SAN) - Hawaiian Air, DHX',
+        'Sacramento, CA (SMF) - Hawaiian Air, DHX',
+        'Phoenix, AZ (PHX) - Aloha Air, Hawaiian Air, DHX',
+        'Las Vegas, NV (LAS) - Hawaiian Air, DHX'
       ]
     },
     'inter-island': {
       origins: [
-        'Honolulu, HI (HNL)',
-        'Kahului, HI (OGG)',
-        'Kona, HI (KOA)',
-        'Hilo, HI (ITO)',
-        'Lihue, HI (LIH)',
-        'Molokai, HI (MKK)',
-        'Lanai, HI (LNY)'
+        'Honolulu, HI (HNL) - All Carriers',
+        'Kahului, HI (OGG) - Aloha Air, Hawaiian Air, Hawaii Air Cargo',
+        'Kona, HI (KOA) - Aloha Air, Hawaiian Air, Hawaii Air Cargo',
+        'Hilo, HI (ITO) - Aloha Air, Hawaiian Air, Hawaii Air Cargo',
+        'Lihue, HI (LIH) - Aloha Air, Hawaiian Air, Hawaii Air Cargo',
+        'Molokai, HI (MKK) - Aloha Air, Hawaii Air Cargo',
+        'Lanai, HI (LNY) - Aloha Air, Hawaii Air Cargo'
       ],
       destinations: [
-        'Honolulu, HI (HNL)',
-        'Kahului, HI (OGG)',
-        'Kona, HI (KOA)',
-        'Hilo, HI (ITO)',
-        'Lihue, HI (LIH)',
-        'Molokai, HI (MKK)',
-        'Lanai, HI (LNY)'
+        'Honolulu, HI (HNL) - All Carriers',
+        'Kahului, HI (OGG) - Aloha Air, Hawaiian Air, Hawaii Air Cargo',
+        'Kona, HI (KOA) - Aloha Air, Hawaiian Air, Hawaii Air Cargo',
+        'Hilo, HI (ITO) - Aloha Air, Hawaiian Air, Hawaii Air Cargo',
+        'Lihue, HI (LIH) - Aloha Air, Hawaiian Air, Hawaii Air Cargo',
+        'Molokai, HI (MKK) - Aloha Air, Hawaii Air Cargo',
+        'Lanai, HI (LNY) - Aloha Air, Hawaii Air Cargo'
       ]
     }
   }
