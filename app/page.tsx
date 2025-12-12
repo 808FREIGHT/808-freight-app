@@ -83,9 +83,12 @@ const LOCATIONS = {
         'Oakland, CA (OAK)',
         'San Jose, CA (SJC)',
         'Seattle, WA (SEA)',
+        'Bellingham, WA (BLI)',
         'Portland, OR (PDX)',
         'San Diego, CA (SAN)',
-        'Sacramento, CA (SMF)'
+        'Sacramento, CA (SMF)',
+        'Phoenix, AZ (PHX)',
+        'Las Vegas, NV (LAS)'
       ],
       destinations: [
         'Honolulu, HI (HNL)',
@@ -113,9 +116,12 @@ const LOCATIONS = {
         'Oakland, CA (OAK)',
         'San Jose, CA (SJC)',
         'Seattle, WA (SEA)',
+        'Bellingham, WA (BLI)',
         'Portland, OR (PDX)',
         'San Diego, CA (SAN)',
-        'Sacramento, CA (SMF)'
+        'Sacramento, CA (SMF)',
+        'Phoenix, AZ (PHX)',
+        'Las Vegas, NV (LAS)'
       ]
     },
     'inter-island': {
